@@ -1,0 +1,1043 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1338" height="1766.996" viewBox="0 0 1338 1766.996">
+  <defs>
+    <filter id="Rectangle" x="46.5" y="148.496" width="545" height="389" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-2" x="0" y="99.996" width="638" height="482" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-2"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-3" x="12" y="126.996" width="614" height="458" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-3"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_10034" data-name="Rectangle 10034" width="7.388" height="7.388" fill="#fff" stroke="#95989a" stroke-width="1"/>
+    </clipPath>
+    <filter id="Rectangle-4" x="746.5" y="148.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-4"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-5" x="700" y="99.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-5"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-6" x="712" y="126.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-6"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-6"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-7" x="746.5" y="408.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-7"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-7"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-8" x="700" y="359.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-8"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-8"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-9" x="712" y="386.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-9"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-9"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-10" x="46.5" y="542.496" width="545" height="389" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-10"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-10"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-11" x="0" y="493.996" width="638" height="482" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-11"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-11"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-12" x="12" y="520.996" width="614" height="458" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-12"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-12"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-13" x="46.5" y="936.496" width="545" height="389" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-13"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-13"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-14" x="0" y="887.996" width="638" height="482" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-14"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-14"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-15" x="12" y="914.996" width="614" height="458" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-15"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-15"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-16" x="46.5" y="1330.496" width="545" height="389" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-16"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-16"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-17" x="0" y="1281.996" width="638" height="482" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-17"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-17"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-18" x="12" y="1308.996" width="614" height="458" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-18"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-18"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-19" x="746.5" y="658.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-19"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-19"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-20" x="700" y="609.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-20"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-20"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-21" x="712" y="636.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-21"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-21"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-22" x="746.5" y="918.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-22"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-22"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-23" x="700" y="869.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-23"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-23"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-24" x="712" y="896.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-24"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-24"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-25" x="746.5" y="1168.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-25"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-25"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-26" x="700" y="1119.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-26"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-26"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-27" x="712" y="1146.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-27"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-27"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-28" x="746.5" y="1428.496" width="545" height="245" filterUnits="userSpaceOnUse">
+      <feOffset dy="11" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur-28"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur-28"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-29" x="700" y="1379.996" width="638" height="338" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="23" result="blur-29"/>
+      <feFlood flood-opacity="0.122"/>
+      <feComposite operator="in" in2="blur-29"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle-30" x="712" y="1406.996" width="614" height="314" filterUnits="userSpaceOnUse">
+      <feOffset dy="24" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19" result="blur-30"/>
+      <feFlood flood-opacity="0.141"/>
+      <feComposite operator="in" in2="blur-30"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_8919" data-name="Group 8919" transform="translate(19 109.996)">
+    <g id="Container" transform="translate(50 50)">
+      <g id="Light_Elevation" data-name="Light 🌕/Elevation">
+        <g id="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -69, -160)" filter="url(#Rectangle)">
+            <rect id="Rectangle-31" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 160)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -160)" filter="url(#Rectangle-2)">
+            <rect id="Rectangle-32" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 160)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -160)" filter="url(#Rectangle-3)">
+            <rect id="Rectangle-33" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 160)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-2" data-name="Container" width="500" height="344" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Agent_static_system_prompt" data-name="Agent static system prompt" transform="translate(74 92.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Agent static system prompt</tspan></text>
+    <text id="Agent_1" data-name="Agent 1" transform="translate(74 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agent 1</tspan></text>
+    <text id="Agents" transform="translate(364 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agents</tspan></text>
+    <text id="Tools" transform="translate(464 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tools</tspan></text>
+    <g id="_3._Choice_chip" data-name="3. Choice chip" transform="translate(360 94)">
+      <g id="Container-3" data-name="Container">
+        <rect id="_Elevation" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-2" data-name="3. Choice chip" transform="translate(460 94)">
+      <g id="Container-4" data-name="Container">
+        <rect id="_Elevation-2" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-2" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-2" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-2" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-3" data-name="3. Choice chip" transform="translate(460 141)">
+      <g id="Container-5" data-name="Container">
+        <rect id="_Elevation-3" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-3" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-3" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-3" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 3</tspan></text>
+    </g>
+    <rect id="Rectangle_10032" data-name="Rectangle 10032" width="452.11" height="147" transform="translate(75 205.607)" fill="#fff"/>
+    <text id="Agent_full_context_window" data-name="Agent full context window" transform="translate(74 195.609)" fill="#333" font-size="14" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Agent full context window</tspan></text>
+    <text id="Full_context_window_of_agent._This_is_the_full_set_of_text_this_agent_sent_to_the_LLM_when_last_called." data-name="Full context window of agent. This is the full set of text this agent sent 
+to the LLM when last called." transform="translate(86 226.609)" fill="#333" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Full context window of agent. This is the full set of text this agent sent </tspan><tspan x="0" y="20">to the LLM when last called.</tspan></text>
+    <rect id="Rectangle_10033" data-name="Rectangle 10033" width="452.11" height="1" transform="translate(75 360.609)" fill="#0078d7"/>
+    <g id="Group_8918" data-name="Group 8918" transform="translate(74.432 367.609)">
+      <g id="Group_8917" data-name="Group 8917" transform="translate(21.568 0)">
+        <text id="Updating" transform="translate(0 13)" fill="rgba(0,0,0,0.12)" font-size="12" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Updating</tspan></text>
+      </g>
+      <g id="Icon_Caret_Down" transform="translate(0 1.719)">
+        <g id="Symbol_79" data-name="Symbol 79">
+          <rect id="Bounds" width="14.775" height="14.775" fill="none"/>
+          <g id="Ellipse_1711" data-name="Ellipse 1711" transform="translate(1.231 1.231)" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="1">
+            <circle cx="6.156" cy="6.156" r="6.156" stroke="none"/>
+            <circle cx="6.156" cy="6.156" r="5.656" fill="none"/>
+          </g>
+          <g id="Mask_Group_163" data-name="Mask Group 163" transform="translate(7.388)" clip-path="url(#clip-path)">
+            <path id="Path_1678" data-name="Path 1678" d="M6.156,0A6.156,6.156,0,1,1,0,6.156,6.156,6.156,0,0,1,6.156,0Z" transform="translate(-6.156 1.231)" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="_3._Choice_chip-4" data-name="3. Choice chip" transform="translate(360 141)">
+      <g id="Container-6" data-name="Container">
+        <rect id="_Elevation-4" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-4" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-4" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-4" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 3</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9379" data-name="Group 9379" transform="translate(-576 111.996)">
+    <g id="Container-7" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-2" data-name="Light 🌕/Elevation">
+        <g id="Shadow-2" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -160)" filter="url(#Rectangle-4)">
+            <rect id="Rectangle-34" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 160)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -160)" filter="url(#Rectangle-5)">
+            <rect id="Rectangle-35" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 160)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -160)" filter="url(#Rectangle-6)">
+            <rect id="Rectangle-36" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 160)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-8" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_1" data-name="Tool 1" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 1</tspan></text>
+    <text id="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-5" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-9" data-name="Container">
+        <rect id="_Elevation-5" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-5" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-5" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-5" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-6" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-10" data-name="Container">
+        <rect id="_Elevation-6" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-6" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-6" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-6" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-7" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-11" data-name="Container">
+        <rect id="_Elevation-7" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-7" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-7" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-7" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 2</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9380" data-name="Group 9380" transform="translate(-576 371.996)">
+    <g id="Container-12" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-3" data-name="Light 🌕/Elevation">
+        <g id="Shadow-3" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -420)" filter="url(#Rectangle-7)">
+            <rect id="Rectangle-37" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 420)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -420)" filter="url(#Rectangle-8)">
+            <rect id="Rectangle-38" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 420)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -420)" filter="url(#Rectangle-9)">
+            <rect id="Rectangle-39" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 420)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-13" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use-2" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_2" data-name="Tool 2" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 2</tspan></text>
+    <text id="Inputs-2" data-name="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs-2" data-name="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-8" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-14" data-name="Container">
+        <rect id="_Elevation-8" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-8" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-8" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-8" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-9" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-15" data-name="Container">
+        <rect id="_Elevation-9" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-9" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-9" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-9" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-10" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-16" data-name="Container">
+        <rect id="_Elevation-10" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-10" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-10" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-10" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 2</tspan></text>
+    </g>
+  </g>
+  <g id="Header_Label" data-name="Header Label" transform="translate(79)">
+    <text id="Label_Left" data-name="Label Left" transform="translate(0 79.996)" fill="rgba(0,0,0,0.87)" font-size="48" font-family="RobotoMono-Regular, Roboto Mono" letter-spacing="-0.008em"><tspan x="0" y="0">Agents</tspan></text>
+    <text id="Label_Left-2" data-name="Label Left" transform="translate(0 17)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="RobotoMono-Regular, Roboto Mono" letter-spacing="-0.008em"><tspan x="0" y="0">PACIFIC SCIENCE &amp; ENGINEERING (PSE)</tspan></text>
+    <rect id="Divider" width="549" height="1" transform="translate(0 102.996)" fill="rgba(0,0,0,0.87)" opacity="0.6"/>
+  </g>
+  <g id="Header_Label-2" data-name="Header Label" transform="translate(769 29.996)">
+    <text id="Label_Left-3" data-name="Label Left" transform="translate(0 50)" fill="rgba(0,0,0,0.87)" font-size="48" font-family="RobotoMono-Regular, Roboto Mono" letter-spacing="-0.008em"><tspan x="0" y="0">Tools</tspan></text>
+    <rect id="Divider-2" data-name="Divider" width="549" height="1" transform="translate(0 73)" fill="rgba(0,0,0,0.87)" opacity="0.6"/>
+  </g>
+  <g id="Group_9382" data-name="Group 9382" transform="translate(19 503.996)">
+    <g id="Container-17" data-name="Container" transform="translate(50 50)">
+      <g id="Light_Elevation-4" data-name="Light 🌕/Elevation">
+        <g id="Shadow-4" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -69, -554)" filter="url(#Rectangle-10)">
+            <rect id="Rectangle-40" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 554)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -554)" filter="url(#Rectangle-11)">
+            <rect id="Rectangle-41" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 554)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -554)" filter="url(#Rectangle-12)">
+            <rect id="Rectangle-42" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 554)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-18" data-name="Container" width="500" height="344" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Agent_static_system_prompt-2" data-name="Agent static system prompt" transform="translate(74 92.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Agent static system prompt</tspan></text>
+    <text id="Agent_2" data-name="Agent 2" transform="translate(74 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agent 2</tspan></text>
+    <text id="Agents-2" data-name="Agents" transform="translate(364 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agents</tspan></text>
+    <text id="Tools-2" data-name="Tools" transform="translate(464 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tools</tspan></text>
+    <g id="_3._Choice_chip-11" data-name="3. Choice chip" transform="translate(360 94)">
+      <g id="Container-19" data-name="Container">
+        <rect id="_Elevation-11" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-11" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-11" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-11" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-12" data-name="3. Choice chip" transform="translate(460 94)">
+      <g id="Container-20" data-name="Container">
+        <rect id="_Elevation-12" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-12" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="#2289da" stroke-miterlimit="10" stroke-width="2">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="1" y="1" width="62" height="30" rx="15" fill="none"/>
+        </g>
+        <rect id="_States-12" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-12" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 4</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-13" data-name="3. Choice chip" transform="translate(460 141)">
+      <g id="Container-21" data-name="Container">
+        <rect id="_Elevation-13" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-13" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-13" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-13" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 5</tspan></text>
+    </g>
+    <rect id="Rectangle_10032-2" data-name="Rectangle 10032" width="452.11" height="147" transform="translate(75 205.607)" fill="#fff"/>
+    <text id="Agent_full_context_window-2" data-name="Agent full context window" transform="translate(74 195.609)" fill="#333" font-size="14" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Agent full context window</tspan></text>
+    <text id="Full_context_window_of_agent._This_is_the_full_set_of_text_this_agent_sent_to_the_LLM_when_last_called.-2" data-name="Full context window of agent. This is the full set of text this agent sent 
+to the LLM when last called." transform="translate(86 226.609)" fill="#333" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Full context window of agent. This is the full set of text this agent sent </tspan><tspan x="0" y="20">to the LLM when last called.</tspan></text>
+    <rect id="Rectangle_10033-2" data-name="Rectangle 10033" width="452.11" height="1" transform="translate(75 360.609)" fill="#0078d7"/>
+    <g id="Group_8918-2" data-name="Group 8918" transform="translate(74.432 367.609)">
+      <g id="Group_8917-2" data-name="Group 8917" transform="translate(21.568 0)">
+        <text id="Updating-2" data-name="Updating" transform="translate(0 13)" fill="#106ebe" font-size="12" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Updating</tspan></text>
+      </g>
+      <g id="Icon_Caret_Down-2" data-name="Icon_Caret_Down" transform="translate(0 1.719)">
+        <g id="Symbol_79-2" data-name="Symbol 79">
+          <rect id="Bounds-2" data-name="Bounds" width="14.775" height="14.775" fill="none"/>
+          <g id="Ellipse_1711-2" data-name="Ellipse 1711" transform="translate(1.231 1.231)" fill="none" stroke="#cde6f7" stroke-width="1">
+            <circle cx="6.156" cy="6.156" r="6.156" stroke="none"/>
+            <circle cx="6.156" cy="6.156" r="5.656" fill="none"/>
+          </g>
+          <g id="Mask_Group_163-2" data-name="Mask Group 163" transform="translate(7.388)" clip-path="url(#clip-path)">
+            <g id="Ellipse_1712" data-name="Ellipse 1712" transform="translate(-6.156 1.231)" fill="none" stroke="#106ebe" stroke-width="1">
+              <circle cx="6.156" cy="6.156" r="6.156" stroke="none"/>
+              <circle cx="6.156" cy="6.156" r="5.656" fill="none"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="_3._Choice_chip-14" data-name="3. Choice chip" transform="translate(360 141)">
+      <g id="Container-22" data-name="Container">
+        <rect id="_Elevation-14" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-14" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-14" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-14" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 4</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9383" data-name="Group 9383" transform="translate(19 897.996)">
+    <g id="Container-23" data-name="Container" transform="translate(50 50)">
+      <g id="Light_Elevation-5" data-name="Light 🌕/Elevation">
+        <g id="Shadow-5" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -69, -948)" filter="url(#Rectangle-13)">
+            <rect id="Rectangle-43" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 948)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -948)" filter="url(#Rectangle-14)">
+            <rect id="Rectangle-44" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 948)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -948)" filter="url(#Rectangle-15)">
+            <rect id="Rectangle-45" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 948)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-24" data-name="Container" width="500" height="344" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Agent_static_system_prompt-3" data-name="Agent static system prompt" transform="translate(74 92.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Agent static system prompt</tspan></text>
+    <text id="Agent_3" data-name="Agent 3" transform="translate(74 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agent 3</tspan></text>
+    <text id="Agents-3" data-name="Agents" transform="translate(364 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agents</tspan></text>
+    <text id="Tools-3" data-name="Tools" transform="translate(464 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tools</tspan></text>
+    <g id="_3._Choice_chip-15" data-name="3. Choice chip" transform="translate(360 94)">
+      <g id="Container-25" data-name="Container">
+        <rect id="_Elevation-15" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-15" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-15" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-15" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-16" data-name="3. Choice chip" transform="translate(460 94)">
+      <g id="Container-26" data-name="Container">
+        <rect id="_Elevation-16" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-16" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-16" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-16" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-17" data-name="3. Choice chip" transform="translate(460 141)">
+      <g id="Container-27" data-name="Container">
+        <rect id="_Elevation-17" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-17" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-17" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-17" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 6</tspan></text>
+    </g>
+    <rect id="Rectangle_10032-3" data-name="Rectangle 10032" width="452.11" height="147" transform="translate(75 205.607)" fill="#fff"/>
+    <text id="Agent_full_context_window-3" data-name="Agent full context window" transform="translate(74 195.609)" fill="#333" font-size="14" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Agent full context window</tspan></text>
+    <text id="Full_context_window_of_agent._This_is_the_full_set_of_text_this_agent_sent_to_the_LLM_when_last_called.-3" data-name="Full context window of agent. This is the full set of text this agent sent 
+to the LLM when last called." transform="translate(86 226.609)" fill="#333" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Full context window of agent. This is the full set of text this agent sent </tspan><tspan x="0" y="20">to the LLM when last called.</tspan></text>
+    <rect id="Rectangle_10033-3" data-name="Rectangle 10033" width="452.11" height="1" transform="translate(75 360.609)" fill="#0078d7"/>
+    <g id="Group_8918-3" data-name="Group 8918" transform="translate(74.432 367.609)">
+      <g id="Group_8917-3" data-name="Group 8917" transform="translate(21.568 0)">
+        <text id="Updating-3" data-name="Updating" transform="translate(0 13)" fill="rgba(0,0,0,0.12)" font-size="12" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Updating</tspan></text>
+      </g>
+      <g id="Icon_Caret_Down-3" data-name="Icon_Caret_Down" transform="translate(0 1.719)">
+        <g id="Symbol_79-3" data-name="Symbol 79">
+          <rect id="Bounds-3" data-name="Bounds" width="14.775" height="14.775" fill="none"/>
+          <g id="Ellipse_1711-3" data-name="Ellipse 1711" transform="translate(1.231 1.231)" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="1">
+            <circle cx="6.156" cy="6.156" r="6.156" stroke="none"/>
+            <circle cx="6.156" cy="6.156" r="5.656" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="Group_9384" data-name="Group 9384" transform="translate(19 1291.996)">
+    <g id="Container-28" data-name="Container" transform="translate(50 50)">
+      <g id="Light_Elevation-6" data-name="Light 🌕/Elevation">
+        <g id="Shadow-6" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -69, -1342)" filter="url(#Rectangle-16)">
+            <rect id="Rectangle-46" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 1342)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -1342)" filter="url(#Rectangle-17)">
+            <rect id="Rectangle-47" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 1342)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -69, -1342)" filter="url(#Rectangle-18)">
+            <rect id="Rectangle-48" data-name="Rectangle" width="500" height="344" rx="4" transform="translate(69 1342)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-29" data-name="Container" width="500" height="344" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Agent_static_system_prompt-4" data-name="Agent static system prompt" transform="translate(74 92.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Agent static system prompt</tspan></text>
+    <text id="Agent_4" data-name="Agent 4" transform="translate(74 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agent 4</tspan></text>
+    <text id="Agents-4" data-name="Agents" transform="translate(364 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Agents</tspan></text>
+    <text id="Tools-4" data-name="Tools" transform="translate(464 65)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tools</tspan></text>
+    <g id="_3._Choice_chip-18" data-name="3. Choice chip" transform="translate(360 94)">
+      <g id="Container-30" data-name="Container">
+        <rect id="_Elevation-18" data-name="☁️ Elevation" width="74" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-18" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="74" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="73" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-18" data-name="💡States" width="74" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-18" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Agent 2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-19" data-name="3. Choice chip" transform="translate(460 94)">
+      <g id="Container-31" data-name="Container">
+        <rect id="_Elevation-19" data-name="☁️ Elevation" width="64" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-19" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="64" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="63" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-19" data-name="💡States" width="64" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-19" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Tool 1</tspan></text>
+    </g>
+    <rect id="Rectangle_10032-4" data-name="Rectangle 10032" width="452.11" height="147" transform="translate(75 205.607)" fill="#fff"/>
+    <text id="Agent_full_context_window-4" data-name="Agent full context window" transform="translate(74 195.609)" fill="#333" font-size="14" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Agent full context window</tspan></text>
+    <text id="Full_context_window_of_agent._This_is_the_full_set_of_text_this_agent_sent_to_the_LLM_when_last_called.-4" data-name="Full context window of agent. This is the full set of text this agent sent 
+to the LLM when last called." transform="translate(86 226.609)" fill="#333" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Full context window of agent. This is the full set of text this agent sent </tspan><tspan x="0" y="20">to the LLM when last called.</tspan></text>
+    <rect id="Rectangle_10033-4" data-name="Rectangle 10033" width="452.11" height="1" transform="translate(75 360.609)" fill="#0078d7"/>
+    <g id="Group_8918-4" data-name="Group 8918" transform="translate(74.432 367.609)">
+      <g id="Group_8917-4" data-name="Group 8917" transform="translate(21.568 0)">
+        <text id="Updating-4" data-name="Updating" transform="translate(0 13)" fill="rgba(0,0,0,0.12)" font-size="12" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Updating</tspan></text>
+      </g>
+      <g id="Icon_Caret_Down-4" data-name="Icon_Caret_Down" transform="translate(0 1.719)">
+        <g id="Symbol_79-4" data-name="Symbol 79">
+          <rect id="Bounds-4" data-name="Bounds" width="14.775" height="14.775" fill="none"/>
+          <g id="Ellipse_1711-4" data-name="Ellipse 1711" transform="translate(1.231 1.231)" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="1">
+            <circle cx="6.156" cy="6.156" r="6.156" stroke="none"/>
+            <circle cx="6.156" cy="6.156" r="5.656" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="Group_9385" data-name="Group 9385" transform="translate(-576 621.996)">
+    <g id="Container-32" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-7" data-name="Light 🌕/Elevation">
+        <g id="Shadow-7" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -670)" filter="url(#Rectangle-19)">
+            <rect id="Rectangle-49" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 670)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -670)" filter="url(#Rectangle-20)">
+            <rect id="Rectangle-50" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 670)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -670)" filter="url(#Rectangle-21)">
+            <rect id="Rectangle-51" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 670)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-33" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use-3" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_3" data-name="Tool 3" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 3</tspan></text>
+    <text id="Inputs-3" data-name="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs-3" data-name="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-20" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-34" data-name="Container">
+        <rect id="_Elevation-20" data-name="☁️ Elevation" width="54" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-20" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="54" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="53" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-20" data-name="💡States" width="54" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-20" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Var1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-21" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-35" data-name="Container">
+        <rect id="_Elevation-21" data-name="☁️ Elevation" width="55" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-21" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="55" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="54" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-21" data-name="💡States" width="55" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-21" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Out1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-22" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-36" data-name="Container">
+        <rect id="_Elevation-22" data-name="☁️ Elevation" width="55" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-22" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="55" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="54" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-22" data-name="💡States" width="55" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-22" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Out2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-23" data-name="3. Choice chip" transform="translate(1625 139)">
+      <g id="Container-37" data-name="Container">
+        <rect id="_Elevation-23" data-name="☁️ Elevation" width="54" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-23" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="54" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="53" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-23" data-name="💡States" width="54" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-23" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Var2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-24" data-name="3. Choice chip" transform="translate(1625 186)">
+      <g id="Container-38" data-name="Container">
+        <rect id="_Elevation-24" data-name="☁️ Elevation" width="54" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-24" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="54" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="53" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-24" data-name="💡States" width="54" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-24" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Var3</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9386" data-name="Group 9386" transform="translate(-576 881.996)">
+    <g id="Container-39" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-8" data-name="Light 🌕/Elevation">
+        <g id="Shadow-8" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -930)" filter="url(#Rectangle-22)">
+            <rect id="Rectangle-52" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 930)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -930)" filter="url(#Rectangle-23)">
+            <rect id="Rectangle-53" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 930)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -930)" filter="url(#Rectangle-24)">
+            <rect id="Rectangle-54" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 930)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-40" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use-4" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_4" data-name="Tool 4" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 4</tspan></text>
+    <text id="Inputs-4" data-name="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs-4" data-name="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-25" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-41" data-name="Container">
+        <rect id="_Elevation-25" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-25" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-25" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-25" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-26" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-42" data-name="Container">
+        <rect id="_Elevation-26" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-26" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-26" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-26" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-27" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-43" data-name="Container">
+        <rect id="_Elevation-27" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-27" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-27" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-27" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 2</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-28" data-name="3. Choice chip" transform="translate(1625 139)">
+      <g id="Container-44" data-name="Container">
+        <rect id="_Elevation-28" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-28" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-28" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-28" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9387" data-name="Group 9387" transform="translate(-576 1131.996)">
+    <g id="Container-45" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-9" data-name="Light 🌕/Elevation">
+        <g id="Shadow-9" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -1180)" filter="url(#Rectangle-25)">
+            <rect id="Rectangle-55" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1180)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -1180)" filter="url(#Rectangle-26)">
+            <rect id="Rectangle-56" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1180)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -1180)" filter="url(#Rectangle-27)">
+            <rect id="Rectangle-57" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1180)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-46" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use-5" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_5" data-name="Tool 5" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 5</tspan></text>
+    <text id="Inputs-5" data-name="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs-5" data-name="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-29" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-47" data-name="Container">
+        <rect id="_Elevation-29" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-29" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-29" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-29" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-30" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-48" data-name="Container">
+        <rect id="_Elevation-30" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-30" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-30" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-30" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-31" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-49" data-name="Container">
+        <rect id="_Elevation-31" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-31" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-31" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-31" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 2</tspan></text>
+    </g>
+  </g>
+  <g id="Group_9388" data-name="Group 9388" transform="translate(-576 1391.996)">
+    <g id="Container-50" data-name="Container" transform="translate(1345 48)">
+      <g id="Light_Elevation-10" data-name="Light 🌕/Elevation">
+        <g id="Shadow-10" data-name="Shadow" style="mix-blend-mode: multiply;isolation: isolate">
+          <g transform="matrix(1, 0, 0, 1, -769, -1440)" filter="url(#Rectangle-28)">
+            <rect id="Rectangle-58" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1440)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -1440)" filter="url(#Rectangle-29)">
+            <rect id="Rectangle-59" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1440)" fill="#f2f2f2"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -769, -1440)" filter="url(#Rectangle-30)">
+            <rect id="Rectangle-60" data-name="Rectangle" width="500" height="200" rx="4" transform="translate(769 1440)" fill="#f2f2f2"/>
+          </g>
+        </g>
+      </g>
+      <rect id="Container-51" data-name="Container" width="500" height="200" rx="4" fill="#f2f2f2"/>
+    </g>
+    <text id="Tool_description_and_example_of_how_inputs_populate_variables_or_functions_and_how_output_is_formatted_for_return_to_the_agent_requesting_the_tool_s_use-6" data-name="Tool description, and example of how inputs populate variables or functions and how output is formatted for return to the agent requesting the tool&apos;s use" transform="translate(1369 90.609)" fill="rgba(0,0,0,0.6)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="15">Tool description, and example of </tspan><tspan x="0" y="35">how inputs populate variables or </tspan><tspan x="0" y="55">functions and how output is </tspan><tspan x="0" y="75">formatted for return to the agent </tspan><tspan x="0" y="95">requesting the tool&apos;s use</tspan></text>
+    <text id="Tool_6" data-name="Tool 6" transform="translate(1369 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Tool 6</tspan></text>
+    <text id="Inputs-6" data-name="Inputs" transform="translate(1629 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Inputs</tspan></text>
+    <text id="Outputs-6" data-name="Outputs" transform="translate(1729 63)" fill="rgba(0,0,0,0.87)" font-size="16" font-family="Roboto-Regular, Roboto" letter-spacing="0.009em"><tspan x="0" y="17">Outputs</tspan></text>
+    <g id="_3._Choice_chip-32" data-name="3. Choice chip" transform="translate(1625 92)">
+      <g id="Container-52" data-name="Container">
+        <rect id="_Elevation-32" data-name="☁️ Elevation" width="88" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-32" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="88" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="87" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-32" data-name="💡States" width="88" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-32" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Variable 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-33" data-name="3. Choice chip" transform="translate(1725 92)">
+      <g id="Container-53" data-name="Container">
+        <rect id="_Elevation-33" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-33" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-33" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-33" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 1</tspan></text>
+    </g>
+    <g id="_3._Choice_chip-34" data-name="3. Choice chip" transform="translate(1725 139)">
+      <g id="Container-54" data-name="Container">
+        <rect id="_Elevation-34" data-name="☁️ Elevation" width="66" height="32" rx="16" fill="#fff"/>
+        <g id="_Color_l_Container-34" data-name="🎨 Color l Container" fill="rgba(0,0,0,0)" stroke="rgba(0,0,0,0.12)" stroke-miterlimit="10" stroke-width="1">
+          <rect width="66" height="32" rx="16" stroke="none"/>
+          <rect x="0.5" y="0.5" width="65" height="31" rx="15.5" fill="none"/>
+        </g>
+        <rect id="_States-34" data-name="💡States" width="66" height="32" rx="16" fill="none"/>
+      </g>
+      <text id="_Label-34" data-name="✏️ Label" transform="translate(12 21)" fill="rgba(0,0,0,0.87)" font-size="14" font-family="Roboto-Regular, Roboto" letter-spacing="0.018em"><tspan x="0" y="0">Data 2</tspan></text>
+    </g>
+  </g>
+  <g id="Layer_2" data-name="Layer 2" transform="translate(1211 306.996)">
+    <g id="invisible_box" data-name="invisible box">
+      <rect id="Rectangle_10672" data-name="Rectangle 10672" width="48" height="48" fill="rgba(0,0,0,0)"/>
+    </g>
+    <g id="icons_Q2" data-name="icons Q2">
+      <circle id="Ellipse_1901" data-name="Ellipse 1901" cx="2" cy="2" r="2" transform="translate(8 12)"/>
+      <circle id="Ellipse_1902" data-name="Ellipse 1902" cx="2" cy="2" r="2" transform="translate(14 12)"/>
+      <circle id="Ellipse_1903" data-name="Ellipse 1903" cx="2" cy="2" r="2" transform="translate(20 12)"/>
+      <path id="Path_1658" data-name="Path 1658" d="M13,35a2,2,0,0,1-1.3-3.5L17,27l-5.3-4.5a2,2,0,0,1,2.6-3l7,6a2,2,0,0,1,0,3l-7,6A1.9,1.9,0,0,1,13,35Z"/>
+      <path id="Path_1659" data-name="Path 1659" d="M36,33H26a2,2,0,0,1,0-4H36a2,2,0,0,1,0,4Z"/>
+      <path id="Path_1660" data-name="Path 1660" d="M44,6H4A2,2,0,0,0,2,8V40a2,2,0,0,0,2,2H4a2.1,2.1,0,0,0,2-2.3V10H42V38H16a2,2,0,0,0-2,2.3A2.1,2.1,0,0,0,16.1,42H44a2,2,0,0,0,2-2V8A2,2,0,0,0,44,6Z"/>
+    </g>
+  </g>
+  <g id="Layer_2-2" data-name="Layer 2" transform="translate(1211 566.996)">
+    <g id="invisible_box-2" data-name="invisible box">
+      <rect id="Rectangle_10673" data-name="Rectangle 10673" width="48" height="48" fill="none"/>
+    </g>
+    <g id="icons_Q2-2" data-name="icons Q2">
+      <path id="Path_1661" data-name="Path 1661" d="M24,2A21.9,21.9,0,1,0,39.586,8.414,22,22,0,0,0,24,2ZM40.1,16H35.2a27.8,27.8,0,0,0-3-8,18.5,18.5,0,0,1,7.9,8ZM42,24a17.5,17.5,0,0,1-.5,4H35.8c.1-1.3.2-2.6.2-4s-.1-2.7-.2-4h5.7a17.5,17.5,0,0,1,.5,4ZM6,24a17.5,17.5,0,0,1,.5-4h5.7c-.1,1.3-.2,2.6-.2,4s.1,2.7.2,4H6.5A17.5,17.5,0,0,1,6,24Zm10,0c0-1.4.1-2.7.2-4H22v8H16.2C16.1,26.7,16,25.4,16,24ZM26,6.7a11.7,11.7,0,0,1,3,3.7A21.7,21.7,0,0,1,31.1,16H26Zm-4,0V16H16.9A21.7,21.7,0,0,1,19,10.4a11.7,11.7,0,0,1,3-3.7ZM22,32v9.3a11.7,11.7,0,0,1-3-3.7A21.7,21.7,0,0,1,16.9,32Zm4,9.3V32h5.1A21.7,21.7,0,0,1,29,37.6a11.7,11.7,0,0,1-3,3.7ZM26,28V20h5.8c.1,1.3.2,2.6.2,4s-.1,2.7-.2,4ZM15.8,8a27.8,27.8,0,0,0-3,8H7.9a18.5,18.5,0,0,1,7.9-8ZM7.9,32h4.9a27.8,27.8,0,0,0,3,8,18.5,18.5,0,0,1-7.9-8Zm24.3,8a27.8,27.8,0,0,0,3-8h4.9A18.5,18.5,0,0,1,32.2,40Z"/>
+    </g>
+  </g>
+  <g id="Layer_2-3" data-name="Layer 2" transform="translate(1211 816.996)">
+    <g id="invisible_box-3" data-name="invisible box">
+      <rect id="Rectangle_10675" data-name="Rectangle 10675" width="48" height="48" fill="none"/>
+    </g>
+    <g id="icons_Q2-3" data-name="icons Q2">
+      <g id="Group_9392" data-name="Group 9392">
+        <path id="Path_1663" data-name="Path 1663" d="M42,4H6A2,2,0,0,0,4,6V42a2,2,0,0,0,2,2H42a2,2,0,0,0,2-2V6A2,2,0,0,0,42,4ZM40,22.5H25.5V8H40ZM22.5,8V22.5H8V8ZM8,25.5H22.5V40H8ZM25.5,40V25.5H40V40Z"/>
+        <path id="Path_1664" data-name="Path 1664" d="M13.5,20h3V16.5H20v-3H16.5V10h-3v3.5H10v3h3.5Z"/>
+        <path id="Path_1665" data-name="Path 1665" d="M19.6,30.5l-2.1-2.1L15,30.9l-2.5-2.5-2.1,2.1L12.9,33l-2.5,2.5,2.1,2.1L15,35.1l2.5,2.5,2.1-2.1L17.1,33Z"/>
+        <rect id="Rectangle_10676" data-name="Rectangle 10676" width="10" height="3" transform="translate(28 13.5)"/>
+        <rect id="Rectangle_10677" data-name="Rectangle 10677" width="10" height="3" transform="translate(28 34)"/>
+        <rect id="Rectangle_10678" data-name="Rectangle 10678" width="10" height="3" transform="translate(28 29)"/>
+      </g>
+    </g>
+  </g>
+  <g id="Layer_2-4" data-name="Layer 2" transform="translate(1211 1326.996)">
+    <g id="invisible_box-4" data-name="invisible box">
+      <rect id="Rectangle_10683" data-name="Rectangle 10683" width="48" height="48" fill="none"/>
+    </g>
+    <g id="Q3_icons" data-name="Q3 icons">
+      <g id="Group_9394" data-name="Group 9394">
+        <path id="Path_1669" data-name="Path 1669" d="M24,25.9a14.7,14.7,0,0,1,3.5-9.6,2,2,0,0,0-3-2.6A18.2,18.2,0,0,0,20,25.9a18.4,18.4,0,0,0,4.5,12.5A2.2,2.2,0,0,0,26,39a2.4,2.4,0,0,0,1.4-.5,2.2,2.2,0,0,0,.1-2.9A14.2,14.2,0,0,1,24,25.9Z"/>
+        <path id="Path_1670" data-name="Path 1670" d="M41.5,13.7a2,2,0,0,0-3,2.6A14.7,14.7,0,0,1,42,25.9a14.2,14.2,0,0,1-3.5,9.7,2.2,2.2,0,0,0,.1,2.9A2.4,2.4,0,0,0,40,39a2.2,2.2,0,0,0,1.5-.6A18.4,18.4,0,0,0,46,25.9,18.2,18.2,0,0,0,41.5,13.7Z"/>
+        <path id="Path_1671" data-name="Path 1671" d="M38.7,30.9,35.4,26l3.3-4.9a2.025,2.025,0,1,0-3.4-2.2L33,22.4l-2.3-3.5a2.025,2.025,0,1,0-3.4,2.2L30.6,26l-3.3,4.9a2.1,2.1,0,0,0,.6,2.8A2,2,0,0,0,29,34a2.1,2.1,0,0,0,1.7-.9L33,29.6l2.3,3.5A2.1,2.1,0,0,0,37,34a2,2,0,0,0,1.1-.3,2.1,2.1,0,0,0,.6-2.8Z"/>
+        <path id="Path_1672" data-name="Path 1672" d="M18,15H15.8l.5-3.5A3.9,3.9,0,0,1,20.2,8H22a2,2,0,0,0,0-4H20.2a8.1,8.1,0,0,0-7.9,6.9L11.7,15H9a2,2,0,0,0,0,4h2.2L8.7,36.5A3.9,3.9,0,0,1,4.8,40H4a2,2,0,0,0,0,4h.8a8.1,8.1,0,0,0,7.9-6.9L15.2,19H18a2,2,0,0,0,0-4Z"/>
+      </g>
+    </g>
+  </g>
+  <g id="Layer_2-5" data-name="Layer 2" transform="translate(1211 1586.996)">
+    <g id="invisible_box-5" data-name="invisible box">
+      <rect id="Rectangle_10684" data-name="Rectangle 10684" width="48" height="48" fill="none"/>
+    </g>
+    <g id="icons_Q2-4" data-name="icons Q2">
+      <path id="Path_1673" data-name="Path 1673" d="M19.3,10l4.9,4.8L25.3,16H42V38H6V10H19.3M21,6H4A2,2,0,0,0,2,8V40a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V14a2,2,0,0,0-2-2H27Z"/>
+      <path id="Path_1674" data-name="Path 1674" d="M20,34H16V26a2,2,0,0,1,2-2h0a2,2,0,0,1,2,2Z"/>
+      <path id="Path_1675" data-name="Path 1675" d="M26,34H22V22a2,2,0,0,1,2-2h0a2,2,0,0,1,2,2Z"/>
+      <path id="Path_1676" data-name="Path 1676" d="M32,34H28V27a2,2,0,0,1,2-2h0a2,2,0,0,1,2,2Z"/>
+    </g>
+  </g>
+  <g id="Layer_2-6" data-name="Layer 2" transform="translate(1211 1076.996)">
+    <g id="invisible_box-6" data-name="invisible box">
+      <rect id="Rectangle_10685" data-name="Rectangle 10685" width="48" height="48" fill="none"/>
+    </g>
+    <g id="icons_Q2-5" data-name="icons Q2">
+      <path id="Path_1677" data-name="Path 1677" d="M44,4.6h-.5l-12,3.2h-1l-13-3.6h-1L3.5,7.6A1.9,1.9,0,0,0,2,9.5V41.4a2,2,0,0,0,2,2h.5l12-3.2h1l13,3.6h1l13-3.5A1.9,1.9,0,0,0,46,38.5V6.6A2,2,0,0,0,44,4.6ZM19,8.7l10,2.9V39.3L19,36.4ZM6,11.1l9-2.4V36.4L6,38.8ZM42,36.9l-9,2.4V11.6l9-2.4Z"/>
+    </g>
+  </g>
+  <g id="flowKitConnector" transform="translate(-105.383 -246.775)">
+    <path id="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-2" data-name="flowKitConnector" transform="translate(-105.383 13.225)">
+    <path id="line-2" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-2" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-2" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-3" data-name="flowKitConnector" transform="translate(-105.383 263.225)">
+    <path id="line-3" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-3" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-3" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-4" data-name="flowKitConnector" transform="translate(-105.383 523.225)">
+    <path id="line-4" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-4" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-4" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-5" data-name="flowKitConnector" transform="translate(-105.383 773.225)">
+    <path id="line-5" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-5" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-5" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-6" data-name="flowKitConnector" transform="translate(-105.383 1033.225)">
+    <path id="line-6" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-6" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-6" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-7" data-name="flowKitConnector" transform="translate(-205.383 1007.225)">
+    <path id="line-7" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-7" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-7" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-8" data-name="flowKitConnector" transform="translate(-205.383 613.225)">
+    <path id="line-8" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-8" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-8" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-9" data-name="flowKitConnector" transform="translate(-205.383 219.225)">
+    <path id="line-9" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-9" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-9" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-10" data-name="flowKitConnector" transform="translate(-205.383 -174.775)">
+    <path id="line-10" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-10" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-10" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-11" data-name="flowKitConnector" transform="translate(1215.908 -496.92) rotate(90)">
+    <path id="line-11" data-name="line" d="M756.916,546.364h1280" transform="translate(0 0)" fill="none" stroke="#666" stroke-width="1"/>
+    <path id="leftEdge-11" data-name="leftEdge" transform="translate(756.915 546.363)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-11" data-name="rightEdge" transform="translate(2036.915 546.363)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-12" data-name="flowKitConnector" transform="translate(1215.908 -30.92) rotate(90)">
+    <path id="line-12" data-name="line" d="M756.916,546.364h304" transform="translate(0 0)" fill="none" stroke="#2289da" stroke-width="7" stroke-dasharray="5"/>
+    <path id="leftEdge-12" data-name="leftEdge" transform="translate(756.915 546.363)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-12" data-name="rightEdge" transform="translate(1060.916 546.363)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-13" data-name="flowKitConnector" transform="translate(-205.383 219.225)">
+    <path id="line-13" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#2289da" stroke-width="7" stroke-dasharray="5"/>
+    <path id="leftEdge-13" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-13" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+  <g id="flowKitConnector-14" data-name="flowKitConnector" transform="translate(-105.383 523.225)">
+    <path id="line-14" data-name="line" d="M774.383,506.771h100" fill="none" stroke="#2289da" stroke-width="7" stroke-dasharray="5"/>
+    <path id="leftEdge-14" data-name="leftEdge" transform="translate(774.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+    <path id="rightEdge-14" data-name="rightEdge" transform="translate(874.383 506.771)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+</svg>

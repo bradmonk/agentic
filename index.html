@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Tutorial - LangGraph Agent Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button id="menu-toggle" class="hamburger-menu" aria-label="Open menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <h1>Agentic AI Tutorial</h1>
+            </div>
+            <div class="controls">
+                <div class="model-selector">
+                    <label for="llm-provider">LLM Provider:</label>
+                    <select id="llm-provider">
+                        <option value="openai">OpenAI</option>
+                        <option value="ollama">Ollama (Local)</option>
+                    </select>
+                </div>
+                <div class="model-selector">
+                    <label for="model-name">Model:</label>
+                    <select id="model-name">
+                        <option value="gpt-4">GPT-4</option>
+                    </select>
+                </div>
+                <button id="start-workflow" class="btn-primary">Start Workflow</button>
+                <button id="stop-workflow" class="btn-secondary" disabled>Stop Workflow</button>
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-disconnected">Disconnected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-out Menu -->
+    <div id="slide-menu" class="slide-menu">
+        <div class="slide-menu-content">
+            <div class="slide-menu-header">
+                <h2>Task Configuration</h2>
+                <button id="menu-close" class="close-btn" aria-label="Close menu">&times;</button>
+            </div>
+            
+            <!-- Task Input Section -->
+            <div class="task-input-section">
+                <label for="task-description">Task Description:</label>
+                <textarea id="task-description" 
+                         placeholder="Enter your task here... (e.g., 'Plan a wedding for 150 people with a $25,000 budget in San Francisco')"
+                         rows="4"></textarea>
+                <div class="task-controls">
+                    <button id="run-task" class="btn-primary" disabled>
+                        <span class="btn-text">Run Task</span>
+                        <span class="btn-loading" style="display: none;">Running...</span>
+                    </button>
+                    <button id="clear-task" class="btn-secondary">Clear</button>
+                    <div class="task-status">
+                        <span id="task-status-text">Enter a task description</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div id="menu-overlay" class="menu-overlay"></div>
+    
+    <!-- Execution Progress Panel -->
+    <div class="execution-progress" id="execution-progress" style="display: none;">
+                <div class="progress-header">
+                    <span class="current-agent">Current: <span id="current-agent-name">Initializing...</span></span>
+                    <button id="pause-execution" class="btn-secondary btn-small">Pause</button>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="execution-log" id="execution-log">
+                    <!-- Execution steps will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <div class="container">
+        <!-- Main Workflow Area -->
+        <div class="workflow-panel">
+            <div class="panel-title">
+                <h1>Agent Workflow</h1>
+            </div>
+            <div class="workflow-canvas">
+                <svg id="connections-container" class="connections-container"></svg>
+                <div id="agents-container" class="agents-grid"></div>
+                <div id="tools-container" class="tools-grid"></div>
+            </div>
+        </div>
+        
+        <!-- Blackboard Panel -->
+        <div class="blackboard-panel">
+            <div class="panel-title">
+                <h1>Blackboard</h1>
+            </div>
+            <div id="blackboard" class="blackboard">
+                <!-- Shared context and communication will appear here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Panel -->
+    <div class="results-panel" id="results-panel" style="display: none;">
+        <div class="results-header">
+            <h2>Task Results</h2>
+            <div class="results-controls">
+                <button id="export-results" class="btn-secondary">Export</button>
+                <button id="clear-results" class="btn-secondary">Clear</button>
+                <button id="close-results" class="btn-secondary">X</button>
+            </div>
+        </div>
+        <div class="results-content">
+            <div class="final-output">
+                <h3>Final Output</h3>
+                <div id="final-output-content" class="output-content">
+                    <!-- Final results will appear here -->
+                </div>
+            </div>
+            <div class="intermediate-results">
+                <h3>Agent Outputs</h3>
+                <div id="intermediate-results-content" class="output-content">
+                    <!-- Intermediate results from each agent will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Load modular JavaScript files -->
+    <script>console.log('Starting script loading...');</script>
+    <script src="websocket-step1.js"></script>
+    <script>console.log('websocket-step1.js loaded');</script>
+    <script src="ui-rendering-step2.js"></script>
+    <script>console.log('ui-rendering-step2.js loaded');</script>
+    <script src="task-execution-step3.js"></script>
+    <script>console.log('task-execution-step3.js loaded');</script>
+    <script src="hamburger-menu-step4.js"></script>
+    <script>console.log('hamburger-menu-step4.js loaded');</script>
+    <script src="ui-interactions-step5.js"></script>
+    <script>console.log('ui-interactions-step5.js loaded');</script>
+    <script src="app-step6.js"></script>
+    <script>console.log('app-step6.js loaded');</script>
+    <script src="fullscript.js"></script>
+    <script>console.log('fullscript.js loaded - all scripts should be working now');</script>
+
+    <!-- <script src="jsscript.js"></script> -->
+
+    
+</body>
+</html>

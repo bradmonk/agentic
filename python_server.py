@@ -1,0 +1,439 @@
+#!/usr/bin/env python3
+"""
+LangGraph Agent Interface - Python WebSocket Server
+Real-time monitoring server for LangGraph agent workflows
+"""
+
+import asyncio
+import websockets
+import json
+import logging
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+
+# Import LLM integration
+from llm_integration import llm_manager
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class AgentMonitor:
+    """Monitors and tracks agent state and execution"""
+    
+    def __init__(self):
+        self.agents: Dict[str, Dict] = {}
+        self.tools: Dict[str, Dict] = {}
+        self.clients: set = set()
+        self.activity_log: List[Dict] = []
+        self.workflow_running = False
+        self.current_workflow_task = None
+    
+    def add_agent(self, name: str, prompt: str, tools: List[str] = None, agents: List[str] = None, 
+                  agent_id: str = None, border_color: str = None, role: str = None):
+        """Register a new agent for monitoring"""
+        # Generate ID if not provided
+        if not agent_id:
+            agent_id = f"agent-{name.lower().replace(' ', '-')}"
+        
+        # Default colors for different agents
+        color_map = {
+            'Vision Agent': '#3b82f6',
+            'Vendor Agent': '#10b981', 
+            'Budget Agent': '#f59e0b',
+            'Schedule Agent': '#ef4444'
+        }
+        
+        self.agents[name] = {
+            'id': agent_id,
+            'name': name,
+            'role': role or name,
+            'status': 'idle',
+            'prompt': prompt,
+            'context': '2048 tokens',
+            'borderColor': border_color or color_map.get(name, '#6b7280'),
+            'interactions': tools or [],  # Frontend expects 'interactions' not 'interactsWith'
+            'interactsWith': {
+                'tools': tools or [],
+                'agents': agents or []
+            },
+            'last_active': None,
+            'execution_count': 0
+        }
+        logger.info(f"Registered agent: {name} ({agent_id})")
+    
+    def add_tool(self, name: str, description: str, inputs: List[str] = None, outputs: List[str] = None,
+                 tool_id: str = None, status: str = 'available'):
+        """Register a new tool for monitoring"""
+        # Generate ID if not provided
+        if not tool_id:
+            tool_id = f"tool-{name.lower().replace(' ', '-')}"
+            
+        self.tools[name] = {
+            'id': tool_id,
+            'name': name,
+            'description': description,
+            'status': status,
+            'inputs': inputs or [],
+            'outputs': outputs or [],
+            'execution_count': 0,
+            'last_active': None
+        }
+    async def start_workflow(self, llm_config: Dict[str, Any]):
+        """Start a workflow with specified LLM configuration"""
+        if self.workflow_running:
+            raise Exception("Workflow is already running")
+        
+        self.workflow_running = True
+        
+        try:
+            from langgraph_workflow import run_monitored_workflow
+            self.current_workflow_task = asyncio.create_task(
+                run_monitored_workflow(llm_config)
+            )
+            await self.current_workflow_task
+            
+        except Exception as e:
+            logger.error(f"Workflow error: {e}")
+            raise e
+        finally:
+            self.workflow_running = False
+            self.current_workflow_task = None
+    
+    async def stop_workflow(self):
+        """Stop the currently running workflow"""
+        if self.current_workflow_task and not self.current_workflow_task.done():
+            self.current_workflow_task.cancel()
+            try:
+                await self.current_workflow_task
+            except asyncio.CancelledError:
+                pass
+        
+        self.workflow_running = False
+        self.current_workflow_task = None
+        await self.log_activity("System", "INFO", "Workflow stopped by user")
+
+    async def get_available_models(self, provider: str) -> List[str]:
+        """Get available models for a provider"""
+        try:
+            return await llm_manager.get_available_models(provider)
+        except Exception as e:
+            logger.error(f"Error getting models for {provider}: {e}")
+            return []
+    
+    async def log_activity(self, source: str, activity_type: str, content: str):
+        """Log activity to the blackboard"""
+        log_entry = {
+            'source': source,
+            'type': activity_type,
+            'content': content,
+            'timestamp': datetime.now().isoformat()
+        }
+        self.activity_log.append(log_entry)
+        
+        # Broadcast to all connected clients
+        if self.clients:
+            message = {
+                'type': 'log',
+                'payload': log_entry
+            }
+            await self.broadcast(message)
+    
+    async def set_active(self, name: str):
+        """Set the currently active agent or tool"""
+        if self.clients:
+            message = {
+                'type': 'active',
+                'payload': {'name': name}
+            }
+            await self.broadcast(message)
+    
+    async def update_agent_context(self, agent_name: str, context: str):
+        """Update an agent's context window"""
+        if agent_name in self.agents:
+            self.agents[agent_name]['context'] = context
+            self.agents[agent_name]['last_active'] = datetime.now().isoformat()
+            self.agents[agent_name]['execution_count'] += 1
+            
+            if self.clients:
+                message = {
+                    'type': 'update',
+                    'payload': {
+                        'agentName': agent_name,
+                        'context': context
+                    }
+                }
+                await self.broadcast(message)
+    
+    async def broadcast(self, message: Dict):
+        """Broadcast message to all connected clients"""
+        if self.clients:
+            disconnected = set()
+            for client in self.clients:
+                try:
+                    await client.send(json.dumps(message))
+                except websockets.exceptions.ConnectionClosed:
+                    disconnected.add(client)
+            
+            # Remove disconnected clients
+            self.clients -= disconnected
+    
+    async def send_initial_state(self, websocket):
+        """Send initial configuration to newly connected client"""
+        message = {
+            'type': 'init',
+            'payload': {
+                'agents': list(self.agents.values()),
+                'tools': list(self.tools.values())
+            }
+        }
+        await websocket.send(json.dumps(message))
+        
+        # Send recent activity log
+        for log_entry in self.activity_log[-10:]:  # Last 10 entries
+            log_message = {
+                'type': 'log',
+                'payload': log_entry
+            }
+            await websocket.send(json.dumps(log_message))
+
+# Global monitor instance
+monitor = AgentMonitor()
+
+async def handle_client(websocket):
+    """Handle new WebSocket client connections"""
+    logger.info(f"Client connected from {websocket.remote_address}")
+    monitor.clients.add(websocket)
+    
+    try:
+        # Send initial state to new client
+        await monitor.send_initial_state(websocket)
+        
+        # Send available models for each provider
+        try:
+            ollama_models = await monitor.get_available_models("ollama")
+            if ollama_models:
+                await websocket.send(json.dumps({
+                    "type": "models_available",
+                    "payload": {"provider": "ollama", "models": ollama_models}
+                }))
+        except Exception as e:
+            logger.warning(f"Could not get Ollama models: {e}")
+        
+        # Keep connection alive and handle incoming messages
+        async for message in websocket:
+            try:
+                data = json.loads(message)
+                await handle_client_message(websocket, data)
+            except json.JSONDecodeError:
+                logger.error(f"Invalid JSON received: {message}")
+    
+    except websockets.exceptions.ConnectionClosed:
+        logger.info("Client disconnected")
+    finally:
+        monitor.clients.discard(websocket)
+
+async def handle_client_message(websocket, data):
+    """Handle messages from clients"""
+    message_type = data.get("type")
+    payload = data.get("payload", {})
+    
+    try:
+        if message_type == "start_workflow":
+            if monitor.workflow_running:
+                await websocket.send(json.dumps({
+                    "type": "workflow_error",
+                    "payload": {"error": "Workflow is already running"}
+                }))
+                return
+            
+            # Start workflow in background
+            asyncio.create_task(run_workflow_with_error_handling(payload))
+            
+        elif message_type == "stop_workflow":
+            await monitor.stop_workflow()
+            await monitor.broadcast({
+                "type": "workflow_complete",
+                "payload": {}
+            })
+            
+        elif message_type == "get_models":
+            provider = payload.get("provider")
+            if provider:
+                models = await monitor.get_available_models(provider)
+                await websocket.send(json.dumps({
+                    "type": "models_available",
+                    "payload": {"provider": provider, "models": models}
+                }))
+        
+        logger.info(f"Handled client message: {message_type}")
+        
+    except Exception as e:
+        logger.error(f"Error handling client message: {e}")
+        await websocket.send(json.dumps({
+            "type": "error",
+            "payload": {"error": str(e)}
+        }))
+
+async def run_workflow_with_error_handling(llm_config):
+    """Run workflow with proper error handling and client notification"""
+    try:
+        await monitor.start_workflow(llm_config)
+        await monitor.broadcast({
+            "type": "workflow_complete",
+            "payload": {}
+        })
+    except Exception as e:
+        await monitor.broadcast({
+            "type": "workflow_error",
+            "payload": {"error": str(e)}
+        })
+
+async def setup_demo_agents():
+    """Set up demo agents and tools for testing"""
+    # Register demo agents - matching frontend data structure
+    monitor.add_agent(
+        "Vision Agent",
+        "You are a vision agent responsible for understanding project requirements and coordinating with other agents.",
+        tools=["tool-search", "tool-calendar", "tool-budget"],
+        agents=["Vendor Agent", "Budget Agent"],
+        agent_id="agent-vision",
+        role="Project Coordinator"
+    )
+    
+    monitor.add_agent(
+        "Vendor Agent", 
+        "You are a vendor research agent specialized in finding and evaluating service providers.",
+        tools=["tool-search", "tool-email"],
+        agents=["Vision Agent", "Budget Agent"],
+        agent_id="agent-vendor",
+        role="Vendor Research"
+    )
+    
+    monitor.add_agent(
+        "Budget Agent",
+        "You are a financial analysis agent focused on budget planning and cost optimization.",
+        tools=["tool-budget", "tool-calendar"],
+        agents=["Vision Agent", "Schedule Agent"],
+        agent_id="agent-budget",
+        role="Financial Analysis"
+    )
+    
+    monitor.add_agent(
+        "Schedule Agent",
+        "You are a scheduling agent responsible for timeline coordination and resource allocation.",
+        tools=["tool-calendar", "tool-email"],
+        agents=["Vision Agent", "Budget Agent"],
+        agent_id="agent-schedule",
+        role="Timeline Management"
+    )
+    
+    # Register demo tools - matching frontend data structure
+    monitor.add_tool(
+        "Web Search",
+        "Search the web for information, vendors, and services",
+        inputs=["query", "filters"],
+        outputs=["results", "links"],
+        tool_id="tool-search"
+    )
+    
+    monitor.add_tool(
+        "Email System",
+        "Send and manage email communications",
+        inputs=["recipient", "subject", "message"],
+        outputs=["confirmation", "response"],
+        tool_id="tool-email"
+    )
+    
+    monitor.add_tool(
+        "Calendar Manager",
+        "Schedule events and manage timelines",
+        inputs=["date", "time", "duration"],
+        outputs=["event_id", "availability"],
+        tool_id="tool-calendar"
+    )
+    
+    monitor.add_tool(
+        "Budget Calculator",
+        "Calculate costs and manage budgets",
+        inputs=["items", "quantities", "prices"],
+        outputs=["total_cost", "breakdown"],
+        tool_id="tool-budget"
+    )
+    
+    logger.info("Demo agents and tools configured")
+
+async def run_langgraph_workflow():
+    """Run the actual LangGraph workflow"""
+    try:
+        from langgraph_workflow import run_monitored_workflow
+        await run_monitored_workflow()
+    except ImportError:
+        logger.warning("LangGraph workflow not available, running simulation instead")
+        await simulate_workflow()
+
+async def simulate_workflow():
+    """Simulate a basic workflow for demonstration"""
+    await asyncio.sleep(5)  # Wait for potential client connections
+    
+    workflow_steps = [
+        ("Vision Agent", "Analyzing project requirements and scope..."),
+        ("Web Search", "Searching for wedding venues in San Francisco"),
+        ("Vision Agent", "Processing venue search results and evaluating options"),
+        ("Vendor Agent", "Starting vendor research for catering services"),
+        ("Web Search", "Finding catering vendors within budget range"),
+        ("Vendor Agent", "Evaluating catering vendor proposals and ratings"),
+        ("Budget Agent", "Calculating budget allocation for venue and catering"),
+        ("Budget Calculator", "Processing cost breakdown for major expenses"),
+        ("Budget Agent", "Optimizing budget distribution across categories"),
+        ("Schedule Agent", "Creating timeline for wedding planning milestones"),
+        ("Calendar Manager", "Scheduling vendor meetings and venue visits"),
+        ("Schedule Agent", "Coordinating availability across all stakeholders"),
+        ("Email System", "Sending confirmation emails to selected vendors"),
+        ("Vision Agent", "Finalizing project plan and resource allocation")
+    ]
+    
+    for step_name, activity in workflow_steps:
+        if not monitor.clients:
+            await asyncio.sleep(2)
+            continue
+            
+        await monitor.set_active(step_name)
+        await asyncio.sleep(1)
+        
+        if step_name in monitor.agents:
+            # Agent activity
+            context_message = f"Current context: {activity}\n\nExecuting workflow step with full agent context..."
+            await monitor.update_agent_context(step_name, context_message)
+            await monitor.log_activity(step_name, "MESSAGE", context_message)
+            await asyncio.sleep(2)
+            
+            response = f"Agent {step_name} completed task: {activity}"
+            await monitor.log_activity(step_name, "RESPONSE", response)
+        else:
+            # Tool activity
+            await monitor.log_activity(step_name, "EXECUTION", f"Tool executed: {activity}")
+        
+        await asyncio.sleep(3)
+    
+    await monitor.set_active("")
+    await monitor.log_activity("System", "INFO", "Workflow simulation completed successfully")
+
+async def main():
+    """Main server function"""
+    # Set up demo configuration
+    await setup_demo_agents()
+    
+    # Start WebSocket server
+    logger.info("Starting WebSocket server on localhost:8080")
+    server = await websockets.serve(handle_client, "localhost", 8080)
+    
+    logger.info("Server ready - connect your browser to see the interface")
+    logger.info("LLM Integration ready - OpenAI and Ollama support available")
+    await server.wait_closed()
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Server stopped by user")
