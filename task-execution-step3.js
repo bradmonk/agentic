@@ -4,7 +4,6 @@ function runTask() {
     const taskDescription = document.getElementById('task-description');
     const runTaskBtn = document.getElementById('run-task');
     const taskStatusText = document.getElementById('task-status-text');
-    const executionProgress = document.getElementById('execution-progress');
     
     const task = taskDescription.value.trim();
     if (!task || window.isTaskRunning) return;
@@ -22,8 +21,7 @@ function runTask() {
     runTaskBtn.disabled = true;
     taskStatusText.textContent = 'Running...';
     
-    // Show execution progress
-    executionProgress.style.display = 'block';
+    // Initialize progress
     updateProgress(0, 'Initializing workflow...');
     
     // Clear previous results
@@ -54,11 +52,63 @@ function runTask() {
 
 function simulateTaskExecution() {
     const steps = [
-        { agent: 'Vision Agent', action: 'Analyzing task requirements and gathering initial preferences' },
-        { agent: 'Vendor Agent', action: 'Searching for suitable vendors and venues' },
-        { agent: 'Budget Agent', action: 'Calculating costs and analyzing budget constraints' },
-        { agent: 'Schedule Agent', action: 'Creating timeline and coordinating schedules' },
-        { agent: 'Vision Agent', action: 'Compiling final recommendations and summary' }
+        { 
+            agent: 'Vision Agent', 
+            action: 'Analyzing task requirements and gathering initial preferences',
+            details: {
+                'Input Analysis': 'Parsed task description and identified key objectives',
+                'Stakeholder Requirements': 'Business goals, user needs, technical constraints',
+                'Initial Assessment': 'Project scope and complexity evaluation',
+                'Success Criteria': 'Clear deliverables and acceptance criteria defined',
+                'Risk Factors': 'Timeline, budget, and technical risk assessment'
+            }
+        },
+        { 
+            agent: 'Vendor Agent', 
+            action: 'Searching for suitable vendors and venues',
+            details: {
+                'Market Research': 'Identified 15 potential vendors in target categories',
+                'Vendor Evaluation': 'Assessed capabilities, pricing, and reliability scores',
+                'Qualification Criteria': 'Quality standards, delivery timeline, cost efficiency',
+                'Shortlist Created': 'Top 5 vendors selected for detailed proposal requests',
+                'Compliance Check': 'Verified certifications and regulatory requirements'
+            }
+        },
+        { 
+            agent: 'Budget Agent', 
+            action: 'Calculating costs and analyzing budget constraints',
+            details: {
+                'Cost Breakdown': 'Materials: $25,000, Labor: $45,000, Overhead: $12,000',
+                'Budget Analysis': 'Total project cost: $82,000 (within $90,000 limit)',
+                'Contingency Fund': '10% buffer allocated for unexpected expenses',
+                'Payment Schedule': 'Milestone-based payments to optimize cash flow',
+                'ROI Projection': 'Expected 23% return on investment within 18 months'
+            }
+        },
+        { 
+            agent: 'Schedule Agent', 
+            action: 'Creating timeline and coordinating schedules',
+            details: {
+                'Project Timeline': '12-week execution plan with defined milestones',
+                'Phase 1 (Weeks 1-3)': 'Planning, vendor selection, contract finalization',
+                'Phase 2 (Weeks 4-8)': 'Implementation, development, and initial testing',
+                'Phase 3 (Weeks 9-12)': 'Final testing, deployment, and handover',
+                'Critical Path': 'Vendor approval → Resource allocation → Implementation',
+                'Resource Coordination': 'Team schedules aligned with project milestones'
+            }
+        },
+        { 
+            agent: 'Vision Agent', 
+            action: 'Compiling final recommendations and summary',
+            details: {
+                'Project Feasibility': 'HIGH - All requirements achievable within constraints',
+                'Recommended Vendor': 'TechSolutions Inc. - Best value and reliability score',
+                'Implementation Strategy': 'Phased approach with weekly progress reviews',
+                'Success Probability': '87% based on historical data and current resources',
+                'Key Deliverables': 'Full system deployment, documentation, training materials',
+                'Final Recommendation': 'Proceed with project - strong business case confirmed'
+            }
+        }
     ];
     
     let stepIndex = 0;
@@ -72,26 +122,56 @@ function simulateTaskExecution() {
         }
         
         const step = steps[stepIndex];
-        addExecutionStep(step.agent, step.action);
+        addExecutionStep(step.agent, step.action, step.details);
         updateProgress(((stepIndex + 1) / steps.length) * 100, `${step.agent}: ${step.action}`);
         
         stepIndex++;
-    }, 2000); // 2 seconds per step
+    }, 3000); // 3 seconds per step to allow reading the details
 }
 
-function addExecutionStep(agentName, action) {
+function addExecutionStep(agentName, action, details = null) {
     const executionLog = document.getElementById('execution-log');
     const timestamp = new Date().toLocaleTimeString();
     const stepElement = document.createElement('div');
     stepElement.className = 'execution-step';
+    
+    // Create more verbose output
+    let detailsHtml = '';
+    if (details) {
+        detailsHtml = `
+            <div class="step-details">
+                ${typeof details === 'object' ? 
+                    Object.entries(details).map(([key, value]) => 
+                        `<div class="detail-item"><strong>${key}:</strong> ${value}</div>`
+                    ).join('') : 
+                    `<div class="detail-content">${details}</div>`
+                }
+            </div>
+        `;
+    }
+    
     stepElement.innerHTML = `
-        <span class="step-timestamp">${timestamp}</span>
-        <span class="step-agent">${agentName}</span>
-        <span class="step-action">${action}</span>
+        <div class="step-header">
+            <span class="step-timestamp">${timestamp}</span>
+            <span class="step-agent">${agentName}</span>
+        </div>
+        <div class="step-action">${action}</div>
+        ${detailsHtml}
     `;
     
     executionLog.appendChild(stepElement);
     executionLog.scrollTop = executionLog.scrollHeight;
+    
+    // Store detailed step info
+    if (window.executionSteps) {
+        window.executionSteps.push({
+            timestamp,
+            agent: agentName,
+            action,
+            details,
+            id: window.executionSteps.length
+        });
+    }
     
     // Highlight current agent
     highlightActiveAgent(agentName);
@@ -192,7 +272,7 @@ function clearTask() {
     taskDescription.value = '';
     taskStatusText.textContent = 'Enter a task description';
     runTaskBtn.disabled = true;
-    hideExecutionProgress();
+    resetExecutionProgress();
     hideResults();
 }
 
@@ -267,13 +347,23 @@ function hideResults() {
     resultsPanel.style.display = 'none';
 }
 
-function hideExecutionProgress() {
-    const executionProgress = document.getElementById('execution-progress');
-    executionProgress.style.display = 'none';
+function resetExecutionProgress() {
     const progressFill = document.getElementById('progress-fill');
     const currentAgentName = document.getElementById('current-agent-name');
     progressFill.style.width = '0%';
-    currentAgentName.textContent = '';
+    currentAgentName.textContent = 'Ready';
+    
+    // Clear execution log
+    const executionLog = document.getElementById('execution-log');
+    if (executionLog) {
+        executionLog.innerHTML = `
+            <div class="welcome-message">
+                💬 <strong>Progress Blackboard</strong><br>
+                Real-time agent interactions and progress will appear here...<br>
+                <em>Start a task to see detailed execution steps</em>
+            </div>
+        `;
+    }
 }
 
 // Make functions globally available
@@ -283,6 +373,7 @@ window.addExecutionStep = addExecutionStep;
 window.highlightActiveAgent = highlightActiveAgent;
 window.updateProgress = updateProgress;
 window.completeTaskExecution = completeTaskExecution;
+window.resetExecutionProgress = resetExecutionProgress;
 window.generateMockResults = generateMockResults;
 window.displayResults = displayResults;
 window.clearTask = clearTask;
@@ -291,4 +382,3 @@ window.pauseExecution = pauseExecution;
 window.exportResults = exportResults;
 window.clearResults = clearResults;
 window.hideResults = hideResults;
-window.hideExecutionProgress = hideExecutionProgress;

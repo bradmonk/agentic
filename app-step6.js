@@ -99,6 +99,7 @@
             window.toolsData = toolsData;
             
             console.log('📋 Final data lengths:', { agents: agentsData.length, tools: toolsData.length });
+            console.log('🎨 Sample agent interactions:', agentsData[0]?.interactions);
             console.log('🔍 Checking rendering functions:', { 
                 renderAgents: !!window.renderAgents, 
                 renderTools: !!window.renderTools 
@@ -285,7 +286,7 @@
             initializeApp();
         }
 
-        // Expose global state and functions for other modules
+                // Expose data
         window.agentsData = agentsData;
         window.toolsData = toolsData;
         window.agents = agents;
