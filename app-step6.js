@@ -84,6 +84,9 @@
                 case 'execution_step':
                     handleExecutionStep(data.payload);
                     break;
+                case 'tool_execution':
+                    handleToolExecution(data.payload);
+                    break;
                 case 'llm_models':
                     updateAvailableModels(data.payload);
                     break;
@@ -142,6 +145,58 @@
             const progress = Math.min(90, 20 + (window.executionSteps.length * 70 / stepCount));
             if (window.updateProgress) {
                 window.updateProgress(progress, `${agent} completed analysis...`);
+            }
+        }
+
+        function handleToolExecution(payload) {
+            console.log('🔧 Tool execution:', payload);
+            
+            const { tool_name, tool_id, inputs, outputs, timestamp } = payload;
+            
+            // Add tool execution step to blackboard
+            if (window.addExecutionStep) {
+                // Format inputs and outputs for display
+                const inputsFormatted = Object.entries(inputs).map(([key, value]) => 
+                    `${key}: ${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}`
+                ).join('\n');
+                
+                const outputsFormatted = typeof outputs === 'object' ? 
+                    JSON.stringify(outputs, null, 2) : outputs.toString();
+                
+                window.addExecutionStep(
+                    `${tool_name} Tool`, 
+                    'Tool Execution', 
+                    `**Inputs:**\n\`\`\`\n${inputsFormatted}\n\`\`\`\n\n**Outputs:**\n\`\`\`json\n${outputsFormatted}\n\`\`\``,
+                    { 
+                        Tool: tool_name,
+                        'Execution Time': new Date(timestamp).toLocaleTimeString(),
+                        'Input Count': Object.keys(inputs).length,
+                        'Status': 'Completed'
+                    }
+                );
+            }
+            
+            // Highlight active tool card
+            if (tool_id) {
+                highlightActiveTool(tool_id);
+            }
+        }
+
+        function highlightActiveTool(toolId) {
+            // Remove previous active tool highlighting
+            document.querySelectorAll('.tool-card.tool-active').forEach(card => {
+                card.classList.remove('tool-active');
+            });
+            
+            // Add active highlighting to current tool
+            const toolCard = document.querySelector(`[data-tool-id="${toolId}"]`);
+            if (toolCard) {
+                toolCard.classList.add('tool-active');
+                
+                // Remove highlighting after a short delay
+                setTimeout(() => {
+                    toolCard.classList.remove('tool-active');
+                }, 3000);
             }
         }
 

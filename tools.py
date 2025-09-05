@@ -85,6 +85,9 @@ class WebSearchTool(MonitoredTool):
                 max_results
             )
             
+            # Add a pause to make the active tool highlighting visible
+            await asyncio.sleep(2)
+            
             return {
                 "search_results": results,
                 "query_used": query,
@@ -143,10 +146,11 @@ class BudgetCalculatorTool(MonitoredTool):
             "Calculate costs, totals, and budget breakdowns"
         )
     
-    async def _execute_impl(self, items: List[Dict], operation: str = "total") -> Dict[str, Any]:
+    async def _execute_impl(self, items: List[Dict], operation: str = "total", tax_rate: float = 0.08) -> Dict[str, Any]:
         """
         Calculate budget based on items list
         items format: [{"name": "item", "quantity": 1, "price": 100.0}, ...]
+        or [{"name": "item", "cost": 100.0}, ...]
         """
         try:
             if not items or not isinstance(items, list):
@@ -160,41 +164,46 @@ class BudgetCalculatorTool(MonitoredTool):
             
             for item in items:
                 name = item.get("name", "Unknown Item")
-                quantity = float(item.get("quantity", 0))
-                price = float(item.get("price", 0))
-                subtotal = quantity * price
                 
-                calculations.append({
-                    "name": name,
-                    "quantity": quantity,
-                    "unit_price": price,
-                    "subtotal": subtotal
-                })
-                
-                total_cost += subtotal
+                # Handle both "cost" and "quantity/price" formats
+                if "cost" in item:
+                    # Direct cost format
+                    cost = float(item.get("cost", 0))
+                    calculations.append({
+                        "name": name,
+                        "cost": cost
+                    })
+                    total_cost += cost
+                else:
+                    # Quantity/price format
+                    quantity = float(item.get("quantity", 0))
+                    price = float(item.get("price", 0))
+                    subtotal = quantity * price
+                    
+                    calculations.append({
+                        "name": name,
+                        "quantity": quantity,
+                        "unit_price": price,
+                        "subtotal": subtotal
+                    })
+                    total_cost += subtotal
             
-            # Additional calculations based on operation
-            if operation == "with_tax":
-                tax_rate = 0.08  # 8% tax
-                tax_amount = total_cost * tax_rate
-                final_total = total_cost + tax_amount
-                
-                return {
-                    "breakdown": calculations,
-                    "subtotal": total_cost,
-                    "tax_rate": tax_rate,
-                    "tax_amount": tax_amount,
-                    "total_cost": final_total,
-                    "operation": operation,
-                    "success": True
-                }
-            else:
-                return {
-                    "breakdown": calculations,
-                    "total_cost": total_cost,
-                    "operation": operation,
-                    "success": True
-                }
+            # Calculate tax and final total
+            tax_amount = total_cost * tax_rate
+            final_total = total_cost + tax_amount
+            
+            # Add a pause to make the active tool highlighting visible
+            await asyncio.sleep(2)
+            
+            return {
+                "breakdown": calculations,
+                "subtotal": total_cost,
+                "tax_rate": tax_rate,
+                "tax_amount": tax_amount,
+                "total_with_tax": final_total,
+                "operation": operation,
+                "success": True
+            }
                 
         except Exception as e:
             logger.error(f"Budget calculation failed: {str(e)}")
@@ -218,9 +227,13 @@ class EmailSystemTool(MonitoredTool):
         """Placeholder email functionality"""
         try:
             # Simulate email processing
-            await asyncio.sleep(0.1)  # Simulate processing time
+            # Simulate processing time
+            await asyncio.sleep(0.1)
             
             if action == "send":
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(2)
+                
                 return {
                     "action": "send",
                     "recipient": recipient,
@@ -233,6 +246,9 @@ class EmailSystemTool(MonitoredTool):
                     "note": "Email sent successfully (placeholder implementation)"
                 }
             elif action == "draft":
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(2)
+                
                 return {
                     "action": "draft",
                     "recipient": recipient,
@@ -283,6 +299,9 @@ class CalendarManagerTool(MonitoredTool):
                         "success": False
                     }
                 
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(2)
+                
                 return {
                     "action": "schedule",
                     "title": title,
@@ -296,6 +315,9 @@ class CalendarManagerTool(MonitoredTool):
                     "note": "Event scheduled successfully (placeholder implementation)"
                 }
             elif action == "check_availability":
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(2)
+                
                 return {
                     "action": "check_availability",
                     "date": date,

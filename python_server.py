@@ -8,6 +8,7 @@ import asyncio
 import websockets
 import json
 import logging
+from datetime import datetime
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 
@@ -408,14 +409,70 @@ async def run_real_task_execution(task_data):
                 
                 # Execute any tools mentioned in the response (simple keyword matching for now)
                 tool_results = []
+                tool_executions = []
                 if "search" in response.lower() and any("search" in tool['function']['name'] for tool in available_tools):
                     # Example: extract search query from response and execute
+                    search_query = f"{task_description} {agent_name}"
                     search_result = await monitor.tool_executor.execute_tool(
                         "Web Search", 
-                        query=f"{task_description} {agent_name}",
+                        query=search_query,
                         max_results=3
                     )
+                    
+                    # Send tool execution details to frontend
+                    await monitor.broadcast({
+                        "type": "tool_execution",
+                        "payload": {
+                            "executionId": execution_id,
+                            "tool_name": "Web Search",
+                            "tool_id": "tool-search",
+                            "inputs": {"query": search_query, "max_results": 3},
+                            "outputs": search_result,
+                            "timestamp": datetime.now().isoformat()
+                        }
+                    })
+                    
                     tool_results.append(f"Search results: {search_result.get('results_count', 0)} items found")
+                    tool_executions.append({
+                        "tool": "Web Search",
+                        "query": search_query,
+                        "results": search_result.get('results_count', 0)
+                    })
+                
+                # Check for budget calculation tools
+                if any(word in response.lower() for word in ["budget", "cost", "calculate", "price"]) and any("budget" in tool['function']['name'].lower() for tool in available_tools):
+                    # Example budget calculation
+                    budget_params = {
+                        "items": [
+                            {"name": "Planning Phase", "cost": 5000},
+                            {"name": "Development Phase", "cost": 15000},
+                            {"name": "Testing Phase", "cost": 3000}
+                        ],
+                        "tax_rate": 0.08
+                    }
+                    budget_result = await monitor.tool_executor.execute_tool(
+                        "Budget Calculator",
+                        **budget_params
+                    )
+                    
+                    # Send tool execution details to frontend
+                    await monitor.broadcast({
+                        "type": "tool_execution",
+                        "payload": {
+                            "executionId": execution_id,
+                            "tool_name": "Budget Calculator",
+                            "tool_id": "tool-budget",
+                            "inputs": budget_params,
+                            "outputs": budget_result,
+                            "timestamp": datetime.now().isoformat()
+                        }
+                    })
+                    
+                    tool_results.append(f"Budget calculated: ${budget_result.get('total_with_tax', 0):.2f} total")
+                    tool_executions.append({
+                        "tool": "Budget Calculator",
+                        "total": budget_result.get('total_with_tax', 0)
+                    })
                 
                 # Combine LLM response with tool results
                 if tool_results:

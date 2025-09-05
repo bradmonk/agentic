@@ -120,6 +120,7 @@ function createToolCard(toolData) {
     const card = document.createElement('div');
     card.className = 'card tool-card';
     card.id = toolData.id;
+    card.setAttribute('data-tool-id', toolData.id);
     card.innerHTML = `
         <h3>${toolData.name}</h3>
         <div class="tool-description">${toolData.description}</div>

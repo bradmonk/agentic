@@ -196,13 +196,14 @@ body {
     padding: 12px 20px;
     font-size: 14px;
     font-weight: 600;
+    min-width: 90px;
 }
 
 .slide-menu .task-status {
     padding: 10px;
     background-color: #f8f9fa;
     border-radius: 6px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #5c6062;
 }
 
 .slide-menu .task-status span {
@@ -334,6 +335,8 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-width: 0; /* Allow flex item to shrink below content size */
+    overflow: hidden; /* Prevent panel from expanding beyond available space */
 }
 
 .panel-title {
@@ -374,7 +377,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background-color: #3498db;
+    background-color: #595c5e;
     transition: width 0.3s ease;
     width: 0%;
 }
@@ -382,6 +385,7 @@ body {
 .execution-log {
     flex: 1; /* Take up all remaining space */
     overflow-y: auto;
+    overflow-x: auto; /* Add horizontal scrolling for wide content */
     font-family: "SF Mono", "Consolas", "Menlo", monospace;
     font-size: 12px;
     line-height: 1.4;
@@ -490,14 +494,15 @@ svg#connections-container {
 }
 
 .agent-card.agent-active {
-    border-color: #e74c3c !important;
-    box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+    border-width: 6px !important;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     transform: scale(1.02);
     z-index: 10;
 }
 
 .agent-card.agent-active h3 {
-    color: #e74c3c;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .agent-name-container {
@@ -533,6 +538,18 @@ svg#connections-container {
     background-color: #fafafa;
     border: 2px solid #000000;
     min-height: 140px;
+}
+
+.tool-card.tool-active {
+    border-width: 8px !important;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.tool-card.tool-active h3 {
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .tool-card h3 {
@@ -790,6 +807,7 @@ svg#connections-container {
     line-height: 1.6;
     white-space: pre-wrap;
     overflow-y: auto;
+    overflow-x: auto; /* Add horizontal scrolling for wide content */
     max-height: 70vh;
     border: 2px solid #444;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
@@ -891,7 +909,7 @@ svg#connections-container {
 }
 
 .btn-primary, .btn-secondary {
-    padding: 10px 20px;
+    padding: 8px 18px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -943,6 +961,7 @@ svg#connections-container {
     color: #7f8c8d;
     font-size: 14px;
     font-style: italic;
+    border-left-color: #7f8c8d;
 }
 
 /* Agent Communication History Execution Steps */
@@ -1053,6 +1072,8 @@ svg#connections-container {
     color: #2c3e50;
     line-height: 1.4;
     font-size: 12px;
+    overflow-x: auto; /* Enable horizontal scrolling for wide content like tables */
+    max-width: 100%; /* Ensure content doesn't exceed container */
 }
 
 /* Markdown styling within response content */
@@ -1154,6 +1175,7 @@ svg#connections-container {
     width: 100%;
     margin: 8px 0;
     font-size: 11px;
+    min-width: 300px; /* Ensure minimum readable width */
 }
 
 .response-content th,

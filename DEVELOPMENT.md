@@ -1,24 +1,37 @@
     `# Development Notes
 
-## Current Working State (v1.2.0) 
-- **Date**: September 4, 2025
-- **Status**: ✅ Real tool execution framework implemented
-- **Git Tag**: `enhanced-communication-history`
+## Current Working State (v1.3.2) 
+- **Date**: September 5, 2025
+- **Status**: ✅ Tool execution timing enhancement for better visibility
+- **Git Tag**: `tool-execution-timing`
 
-## Latest Implementation: Tool Execution Framework ✅
+## Latest Implementation: Tool Framework + Markdown Rendering ✅
 
-### Real Tools Implemented:
-- **Web Search Tool**: DuckDuckGo integration (no API key required)
-- **Budget Calculator Tool**: Full Python calculator with tax calculations  
+### Markdown Rendering:
+- **Rich Text Display**: LLM responses now render with full markdown support
+- **Marked.js Integration**: Client-side markdown parsing with sanitization
+- **Comprehensive Styling**: Headings, lists, code blocks, tables, blockquotes
+- **Safe Rendering**: HTML sanitization prevents XSS attacks
+- **Fallback Support**: Graceful degradation to plain text if parsing fails
+
+### Tool Execution Framework:
+- **Web Search Tool**: Mock implementation with realistic response structure
+- **Budget Calculator Tool**: Full Python calculator with tax calculations and flexible input formats 
 - **Email System Tool**: Placeholder with realistic response structure
 - **Calendar Manager Tool**: Placeholder with date/time validation
-
-### Framework Features:
-- **Async Tool Execution**: Complete framework with monitoring integration
-- **Error Handling**: Comprehensive error reporting and logging
-- **Tool Testing**: WebSocket endpoints for testing tools independently
-- **LLM Integration**: Enhanced to support function calling and tool schemas
+- **Async Framework**: Complete tool execution with monitoring integration
 - **API Endpoints**: `test_tool` and `get_tools` for development/testing
+- **Bug Fix**: Budget Calculator now accepts `tax_rate` parameter (was causing execution errors)
+
+### UI/UX Improvements:
+- **Horizontal Scrolling**: Wide markdown tables now scroll horizontally instead of expanding panels
+- **Container Constraints**: Progress Blackboard panel maintains fixed width with overflow handling
+- **Responsive Tables**: Table content scrolls independently of main layout
+- **Layout Stability**: Prevents UI layout breaking from wide content
+- **Active Agent Styling**: Active agents now highlighted with thicker border (8px) instead of red color to avoid conflicts with agent's default red border
+- **Tool Execution Logging**: Tool inputs and outputs now displayed in Progress Blackboard with formatted markdown
+- **Active Tool Highlighting**: Tool cards highlighted with 8px border during execution, auto-removes after 3 seconds
+- **Tool Execution Timing**: Added 2-second delays to all tool functions for better visibility of active highlighting
 
 ## Quick Start Commands
 ```bash
