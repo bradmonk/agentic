@@ -28,6 +28,8 @@ class AgentMonitor:
         self.activity_log: List[Dict] = []
         self.workflow_running = False
         self.current_workflow_task = None
+        # Add LLM manager
+        self.llm_manager = llm_manager
     
     def add_agent(self, name: str, prompt: str, tools: List[str] = None, agents: List[str] = None, 
                   agent_id: str = None, border_color: str = None, role: str = None):
@@ -250,6 +252,17 @@ async def handle_client_message(websocket, data):
             # Start workflow in background
             asyncio.create_task(run_workflow_with_error_handling(payload))
             
+        elif message_type == "run_task":
+            if monitor.workflow_running:
+                await websocket.send(json.dumps({
+                    "type": "task_error", 
+                    "payload": {"error": "Workflow is already running"}
+                }))
+                return
+            
+            # Start real LLM task execution
+            asyncio.create_task(run_real_task_execution(payload))
+            
         elif message_type == "stop_workflow":
             await monitor.stop_workflow()
             await monitor.broadcast({
@@ -274,6 +287,106 @@ async def handle_client_message(websocket, data):
             "type": "error",
             "payload": {"error": str(e)}
         }))
+
+async def run_real_task_execution(task_data):
+    """Execute task using real LLM integration"""
+    try:
+        task_description = task_data.get('task', '')
+        execution_id = task_data.get('executionId', '')
+        agents = task_data.get('agents', [])
+        
+        # Notify start
+        await monitor.broadcast({
+            "type": "task_started",
+            "payload": {"executionId": execution_id, "task": task_description}
+        })
+        
+        # Get LLM configuration from first connected client or use defaults
+        provider = "ollama"  # Default to Ollama
+        model = "llama3.1:latest"  # Default model
+        
+        # Set up LLM provider
+        await monitor.llm_manager.set_provider(provider, model)
+        
+        # Process each agent with real LLM calls
+        for i, agent in enumerate(agents):
+            agent_name = agent.get('name', 'Unknown Agent')
+            agent_prompt = agent.get('prompt', '')
+            agent_tools = agent.get('tools', [])
+            
+            # Create specific prompt for this agent
+            messages = [
+                {
+                    "role": "system",
+                    "content": f"You are {agent_name}. {agent_prompt} Available tools: {', '.join(agent_tools)}. Provide a clear, actionable response in 2-3 sentences about your findings and recommendations."
+                },
+                {
+                    "role": "user", 
+                    "content": f"Task: {task_description}\n\nWhat are your specific findings and recommendations as {agent_name}?"
+                }
+            ]
+            
+            # Send step start notification
+            await monitor.broadcast({
+                "type": "execution_step",
+                "payload": {
+                    "executionId": execution_id,
+                    "agent": agent_name,
+                    "status": "running",
+                    "action": f"Analyzing task as {agent_name}..."
+                }
+            })
+            
+            try:
+                # Get real LLM response
+                response = await monitor.llm_manager.generate(messages)
+                
+                # Send step completion with real response
+                await monitor.broadcast({
+                    "type": "execution_step",
+                    "payload": {
+                        "executionId": execution_id,
+                        "agent": agent_name,
+                        "status": "completed",
+                        "action": f"Completed analysis as {agent_name}",
+                        "response": response.strip(),
+                        "details": {
+                            "Provider": provider,
+                            "Model": model,
+                            "Tools Available": agent_tools
+                        }
+                    }
+                })
+                
+            except Exception as e:
+                # Send error notification
+                await monitor.broadcast({
+                    "type": "execution_step", 
+                    "payload": {
+                        "executionId": execution_id,
+                        "agent": agent_name,
+                        "status": "error",
+                        "action": f"Error in {agent_name}",
+                        "response": f"LLM Error: {str(e)}",
+                        "details": {"Error": str(e)}
+                    }
+                })
+            
+            # Add delay between agents
+            await asyncio.sleep(2)
+        
+        # Send completion notification
+        await monitor.broadcast({
+            "type": "task_completed",
+            "payload": {"executionId": execution_id}
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in real task execution: {e}")
+        await monitor.broadcast({
+            "type": "task_error",
+            "payload": {"error": str(e)}
+        })
 
 async def run_workflow_with_error_handling(llm_config):
     """Run workflow with proper error handling and client notification"""
