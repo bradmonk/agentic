@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
 LLM Integration Module
-Supports both OpenAI API and local Ollama models
+Supports both OpenAI API and local Ollama models with tool calling
 """
 
 import os
 import asyncio
 import httpx
+import json
 from typing import Dict, Any, Optional, List
 from abc import ABC, abstractmethod
 import logging
@@ -17,7 +18,7 @@ class LLMProvider(ABC):
     """Abstract base class for LLM providers"""
     
     @abstractmethod
-    async def generate(self, messages: List[Dict[str, str]], **kwargs) -> str:
+    async def generate(self, messages: List[Dict[str, str]], tools: Optional[List[Dict]] = None, **kwargs) -> str:
         """Generate a response from the LLM"""
         pass
     
@@ -37,7 +38,7 @@ class OpenAIProvider(LLMProvider):
         if not self.api_key:
             logger.warning("OPENAI_API_KEY not found in environment variables")
     
-    async def generate(self, messages: List[Dict[str, str]], **kwargs) -> str:
+    async def generate(self, messages: List[Dict[str, str]], tools: Optional[List[Dict]] = None, **kwargs) -> str:
         """Generate response using OpenAI API"""
         if not self.api_key:
             raise ValueError("OpenAI API key not configured")
@@ -51,8 +52,13 @@ class OpenAIProvider(LLMProvider):
             "model": self.model,
             "messages": messages,
             "temperature": kwargs.get("temperature", 0.7),
-            "max_tokens": kwargs.get("max_tokens", 1000)
+            "max_tokens": kwargs.get("max_tokens", 1500)
         }
+        
+        # Add tools/functions if provided
+        if tools:
+            payload["tools"] = tools
+            payload["tool_choice"] = "auto"
         
         async with httpx.AsyncClient() as client:
             try:
@@ -65,7 +71,12 @@ class OpenAIProvider(LLMProvider):
                 response.raise_for_status()
                 
                 data = response.json()
-                return data["choices"][0]["message"]["content"]
+                
+                if "choices" in data and len(data["choices"]) > 0:
+                    content = data["choices"][0]["message"]["content"]
+                    return content.strip() if content else "No response generated"
+                else:
+                    raise Exception("No valid response from OpenAI API")
                 
             except httpx.HTTPError as e:
                 logger.error(f"OpenAI API error: {e}")
@@ -95,11 +106,11 @@ class OllamaProvider(LLMProvider):
         self.model = model
         self.base_url = base_url
     
-    async def generate(self, messages: List[Dict[str, str]], **kwargs) -> str:
+    async def generate(self, messages: List[Dict[str, str]], tools: Optional[List[Dict]] = None, **kwargs) -> str:
         """Generate response using Ollama"""
         
         # Convert messages to Ollama format
-        prompt = self._format_messages(messages)
+        prompt = self._format_messages(messages, tools)
         
         payload = {
             "model": self.model,
@@ -107,7 +118,7 @@ class OllamaProvider(LLMProvider):
             "stream": False,
             "options": {
                 "temperature": kwargs.get("temperature", 0.7),
-                "num_predict": kwargs.get("max_tokens", 1000)
+                "num_predict": kwargs.get("max_tokens", 1500)
             }
         }
         
@@ -121,18 +132,29 @@ class OllamaProvider(LLMProvider):
                 response.raise_for_status()
                 
                 data = response.json()
-                return data.get("response", "")
+                return data.get("response", "No response generated").strip()
                 
             except httpx.HTTPError as e:
                 logger.error(f"Ollama API error: {e}")
                 raise Exception(f"Ollama API error: {e}")
     
-    def _format_messages(self, messages: List[Dict[str, str]]) -> str:
-        """Convert OpenAI-style messages to a single prompt"""
+    def _format_messages(self, messages: List[Dict[str, str]], tools: Optional[List[Dict]] = None) -> str:
+        """Convert messages to Ollama prompt format"""
         formatted_parts = []
         
+        # Add tool information if available
+        if tools:
+            tool_descriptions = []
+            for tool in tools:
+                tool_name = tool.get("function", {}).get("name", "Unknown")
+                tool_desc = tool.get("function", {}).get("description", "")
+                tool_descriptions.append(f"- {tool_name}: {tool_desc}")
+            
+            tools_text = "Available tools:\n" + "\n".join(tool_descriptions)
+            formatted_parts.append(f"System: {tools_text}")
+        
         for message in messages:
-            role = message.get("role", "user")
+            role = message.get("role", "")
             content = message.get("content", "")
             
             if role == "system":
@@ -206,22 +228,22 @@ class LLMManager:
         
         logger.info(f"Set LLM provider to {provider_name} with model {model}")
     
-    async def generate(self, messages: List[Dict[str, str]], **kwargs) -> str:
+    async def generate(self, messages: List[Dict[str, str]], tools: Optional[List[Dict]] = None, **kwargs) -> str:
         """Generate response using current provider"""
         if not self.current_provider:
             raise Exception("No LLM provider configured")
         
-        return await self.current_provider.generate(messages, **kwargs)
+        return await self.current_provider.generate(messages, tools=tools, **kwargs)
     
-    async def get_available_models(self, provider_name: str) -> List[str]:
+    async def get_available_models(self, provider: str) -> List[str]:
         """Get available models for a provider"""
-        if provider_name == "ollama":
-            provider = OllamaProvider()
-            if await provider.is_available():
-                return await provider.list_models()
-        elif provider_name == "openai":
-            # Return standard OpenAI models
-            return ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"]
+        if provider == "ollama":
+            temp_provider = OllamaProvider()
+            if await temp_provider.is_available():
+                return await temp_provider.list_models()
+        elif provider == "openai":
+            # Return common OpenAI models
+            return ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo", "gpt-4o"]
         
         return []
     
@@ -231,3 +253,6 @@ class LLMManager:
 
 # Global LLM manager instance
 llm_manager = LLMManager()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)

@@ -130,6 +130,38 @@ function simulateTaskExecution() {
     }, 3000); // 3 seconds per step to allow reading the details
 }
 
+// Utility function to safely render markdown
+function renderMarkdown(text) {
+    if (!text || typeof text !== 'string') return '';
+    
+    try {
+        // Configure marked for safe rendering
+        marked.setOptions({
+            breaks: true,        // Convert line breaks to <br>
+            gfm: true,          // GitHub Flavored Markdown
+            sanitize: false,    // We'll handle sanitization manually
+            smartLists: true,
+            smartypants: true
+        });
+        
+        // Convert markdown to HTML
+        const html = marked.parse(text);
+        
+        // Basic sanitization - remove potentially dangerous tags
+        const sanitizedHtml = html
+            .replace(/<script[^>]*>.*?<\/script>/gi, '')
+            .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
+            .replace(/on\w+="[^"]*"/gi, '')  // Remove event handlers
+            .replace(/javascript:/gi, '');
+        
+        return sanitizedHtml;
+    } catch (error) {
+        console.warn('Markdown rendering failed, falling back to plain text:', error);
+        // Fallback to escaped plain text
+        return text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+    }
+}
+
 function addExecutionStep(agentName, action, response = '', details = null) {
     const executionLog = document.getElementById('execution-log');
     const timestamp = new Date().toLocaleTimeString();
@@ -149,10 +181,11 @@ function addExecutionStep(agentName, action, response = '', details = null) {
     // Create verbose output with real LLM response
     let responseHtml = '';
     if (response && response.trim()) {
+        const renderedResponse = renderMarkdown(response);
         responseHtml = `
             <div class="step-response ${agentClass}">
                 <strong>LLM Response:</strong>
-                <div class="response-content">${response}</div>
+                <div class="response-content">${renderedResponse}</div>
             </div>
         `;
     }

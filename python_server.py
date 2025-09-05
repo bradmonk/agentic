@@ -13,6 +13,7 @@ from datetime import datetime
 
 # Import LLM integration
 from llm_integration import llm_manager
+from tools import ToolExecutor
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -30,6 +31,8 @@ class AgentMonitor:
         self.current_workflow_task = None
         # Add LLM manager
         self.llm_manager = llm_manager
+        # Add tool executor
+        self.tool_executor = ToolExecutor(monitor=self)
     
     def add_agent(self, name: str, prompt: str, tools: List[str] = None, agents: List[str] = None, 
                   agent_id: str = None, border_color: str = None, role: str = None):
@@ -279,6 +282,40 @@ async def handle_client_message(websocket, data):
                     "payload": {"provider": provider, "models": models}
                 }))
         
+        elif message_type == "test_tool":
+            tool_name = payload.get("tool_name")
+            tool_params = payload.get("parameters", {})
+            
+            if tool_name:
+                result = await monitor.tool_executor.execute_tool(tool_name, **tool_params)
+                await websocket.send(json.dumps({
+                    "type": "tool_result",
+                    "payload": {
+                        "tool_name": tool_name,
+                        "result": result,
+                        "parameters": tool_params
+                    }
+                }))
+            else:
+                await websocket.send(json.dumps({
+                    "type": "error",
+                    "payload": {"error": "Tool name required for testing"}
+                }))
+        
+        elif message_type == "get_tools":
+            available_tools = monitor.tool_executor.get_available_tools()
+            tool_schemas = {}
+            for tool_name in available_tools:
+                tool_schemas[tool_name] = monitor.tool_executor.get_tool_schema(tool_name)
+            
+            await websocket.send(json.dumps({
+                "type": "tools_available", 
+                "payload": {
+                    "tools": available_tools,
+                    "schemas": tool_schemas
+                }
+            }))
+        
         logger.info(f"Handled client message: {message_type}")
         
     except Exception as e:
@@ -308,21 +345,46 @@ async def run_real_task_execution(task_data):
         # Set up LLM provider
         await monitor.llm_manager.set_provider(provider, model)
         
-        # Process each agent with real LLM calls
+        # Process each agent with real LLM calls and tool execution
         for i, agent in enumerate(agents):
             agent_name = agent.get('name', 'Unknown Agent')
             agent_prompt = agent.get('prompt', '')
             agent_tools = agent.get('tools', [])
             
+            # Create tool functions schema for LLM
+            available_tools = []
+            tool_schemas = monitor.tool_executor.get_available_tools()
+            
+            for tool_name in agent_tools:
+                # Map agent tool IDs to actual tool names
+                tool_map = {
+                    "tool-search": "Web Search",
+                    "tool-budget": "Budget Calculator", 
+                    "tool-email": "Email System",
+                    "tool-calendar": "Calendar Manager"
+                }
+                
+                actual_tool_name = tool_map.get(tool_name, tool_name)
+                if actual_tool_name in tool_schemas:
+                    schema = monitor.tool_executor.get_tool_schema(actual_tool_name)
+                    available_tools.append({
+                        "type": "function",
+                        "function": {
+                            "name": actual_tool_name.replace(" ", "_").lower(),
+                            "description": tool_schemas[actual_tool_name],
+                            "parameters": schema.get("parameters", {})
+                        }
+                    })
+            
             # Create specific prompt for this agent
             messages = [
                 {
                     "role": "system",
-                    "content": f"You are {agent_name}. {agent_prompt} Available tools: {', '.join(agent_tools)}. Provide a clear, actionable response in 2-3 sentences about your findings and recommendations."
+                    "content": f"You are {agent_name}. {agent_prompt}\n\nYou have access to the following tools: {', '.join([t['function']['name'] for t in available_tools])}.\n\nProvide a clear, actionable response about your findings and recommendations. Format your response using markdown for better readability:\n- Use **bold** for key points\n- Use bullet points for lists\n- Use headings (##) for sections\n- Use code blocks for technical details\n\nUse tools when needed to gather information or perform calculations."
                 },
                 {
                     "role": "user", 
-                    "content": f"Task: {task_description}\n\nWhat are your specific findings and recommendations as {agent_name}?"
+                    "content": f"Task: {task_description}\n\nAnalyze this task and provide your specific findings and recommendations as {agent_name}. Use available tools if they would help with your analysis. Format your response with clear markdown structure."
                 }
             ]
             
@@ -338,8 +400,26 @@ async def run_real_task_execution(task_data):
             })
             
             try:
-                # Get real LLM response
-                response = await monitor.llm_manager.generate(messages)
+                # Get real LLM response with tool support
+                response = await monitor.llm_manager.generate(messages, tools=available_tools if available_tools else None)
+                
+                # Check if response contains tool calls (for future enhancement)
+                # For now, we'll process the response as-is since Ollama doesn't support function calling yet
+                
+                # Execute any tools mentioned in the response (simple keyword matching for now)
+                tool_results = []
+                if "search" in response.lower() and any("search" in tool['function']['name'] for tool in available_tools):
+                    # Example: extract search query from response and execute
+                    search_result = await monitor.tool_executor.execute_tool(
+                        "Web Search", 
+                        query=f"{task_description} {agent_name}",
+                        max_results=3
+                    )
+                    tool_results.append(f"Search results: {search_result.get('results_count', 0)} items found")
+                
+                # Combine LLM response with tool results
+                if tool_results:
+                    response += f"\n\nTool execution results:\n" + "\n".join(tool_results)
                 
                 # Send step completion with real response
                 await monitor.broadcast({
