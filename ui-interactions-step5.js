@@ -28,20 +28,31 @@
             modelName.innerHTML = ''; // Clear existing options
             
             if (provider === 'openai') {
-                const models = ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo'];
+                const models = [
+                    { value: 'gpt-3.5-turbo', label: 'gpt-3.5-turbo' },
+                    { value: 'gpt-4o', label: 'gpt-4o' },
+                    { value: 'gpt-4.1', label: 'gpt-4.1' },
+                    { value: 'gpt-5', label: 'gpt-5' }
+                ];
                 models.forEach(model => {
                     const option = document.createElement('option');
-                    option.value = model;
-                    option.textContent = model.toUpperCase();
+                    option.value = model.value;
+                    option.textContent = model.label;
                     modelName.appendChild(option);
                 });
             } else if (provider === 'ollama') {
-                // Default Ollama models - will be updated from server
-                const models = ['llama2', 'codellama', 'mistral'];
-                models.forEach(model => {
+                const models = [
+                    { value: 'llama3.1:latest', label: 'llama3.1:latest' },
+                    { value: 'gpt-oss:20b', label: 'gpt-oss:20b' },
+                    { value: 'deepseek-r1:latest', label: 'deepseek-r1:latest' },
+                    { value: 'gemma3:latest', label: 'gemma3:latest' },
+                    { value: 'mistral:latest', label: 'mistral:latest' }
+                ];
+                models.forEach((model, index) => {
                     const option = document.createElement('option');
-                    option.value = model;
-                    option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+                    option.value = model.value;
+                    option.textContent = model.label;
+                    if (index === 0) option.selected = true; // Set llama3.1:latest as default
                     modelName.appendChild(option);
                 });
             }

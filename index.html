@@ -21,14 +21,22 @@
                 <div class="model-selector">
                     <label for="llm-provider">LLM Provider:</label>
                     <select id="llm-provider">
+                        <option value="ollama" selected>Ollama (Local)</option>
                         <option value="openai">OpenAI</option>
-                        <option value="ollama">Ollama (Local)</option>
                     </select>
                 </div>
                 <div class="model-selector">
                     <label for="model-name">Model:</label>
                     <select id="model-name">
-                        <option value="gpt-4">GPT-4</option>
+                        <option value="llama3.1:latest" selected>llama3.1:latest</option>
+                        <option value="gpt-oss:20b">gpt-oss:20b</option>
+                        <option value="deepseek-r1:latest">deepseek-r1:latest</option>
+                        <option value="gemma3:latest">gemma3:latest</option>
+                        <option value="mistral:latest">mistral:latest</option>
+                        <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                        <option value="gpt-4o">gpt-4o</option>
+                        <option value="gpt-4.1">gpt-4.1</option>
+                        <option value="gpt-5">gpt-5</option>
                     </select>
                 </div>
                 <button id="start-workflow" class="btn-primary">Start Workflow</button>
