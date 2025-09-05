@@ -2,8 +2,9 @@
 
 ## Current Working State (v1.3.2) 
 - **Date**: September 5, 2025
-- **Status**: ✅ Tool execution timing enhancement for better visibility
-- **Git Tag**: `tool-execution-timing`
+- **Status**: ✅ Major UI/UX and tool execution enhancements - COMMITTED
+- **Git Tag**: `v1.3.2`
+- **Commit**: `d852e2f`
 
 ## Latest Implementation: Tool Framework + Markdown Rendering ✅
 
