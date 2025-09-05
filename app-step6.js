@@ -72,11 +72,76 @@
                 case 'task_result':
                     handleTaskResult(data.payload);
                     break;
+                case 'task_started':
+                    handleTaskStarted(data.payload);
+                    break;
+                case 'task_completed':
+                    handleTaskCompleted(data.payload);
+                    break;
+                case 'task_error':
+                    handleTaskError(data.payload);
+                    break;
+                case 'execution_step':
+                    handleExecutionStep(data.payload);
+                    break;
                 case 'llm_models':
                     updateAvailableModels(data.payload);
                     break;
                 default:
                     console.log('Unknown message type:', data.type);
+            }
+        }
+
+        // Handle real LLM task execution responses
+        function handleTaskStarted(payload) {
+            console.log('🎯 Real LLM task started:', payload);
+            if (window.updateProgress) {
+                window.updateProgress(10, 'Task started - connecting to LLM...');
+            }
+        }
+
+        function handleTaskCompleted(payload) {
+            console.log('✅ Real LLM task completed:', payload);
+            if (window.completeTaskExecution) {
+                window.completeTaskExecution();
+            }
+        }
+
+        function handleTaskError(payload) {
+            console.log('❌ Real LLM task error:', payload);
+            if (window.addExecutionStep) {
+                window.addExecutionStep('System', 'Task Error', payload.error);
+            }
+            if (window.completeTaskExecution) {
+                window.completeTaskExecution();
+            }
+        }
+
+        function handleExecutionStep(payload) {
+            console.log('🔄 Real LLM execution step:', payload);
+            
+            const agent = payload.agent;
+            const action = payload.action;
+            const status = payload.status;
+            const response = payload.response || '';
+            const details = payload.details || {};
+            
+            if (window.addExecutionStep) {
+                // Only show LLM response for completed steps, not running steps
+                if (status === 'completed' || status === 'error') {
+                    // Add the real LLM response to execution log
+                    window.addExecutionStep(agent, action, response, details);
+                } else if (status === 'running') {
+                    // For running steps, just show the action without response
+                    window.addExecutionStep(agent, action, '', {});
+                }
+            }
+            
+            // Update progress based on step completion
+            const stepCount = window.agentsData ? window.agentsData.length : 4;
+            const progress = Math.min(90, 20 + (window.executionSteps.length * 70 / stepCount));
+            if (window.updateProgress) {
+                window.updateProgress(progress, `${agent} completed analysis...`);
             }
         }
 

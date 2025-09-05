@@ -27,7 +27,7 @@ function runTask() {
     // Clear previous results
     clearResults();
     
-    // Send task to backend if connected
+    // Send task to backend for real LLM processing
     if (window.sendMessage) {
         window.sendMessage('run_task', {
             task: task,
@@ -44,10 +44,11 @@ function runTask() {
                 description: tool.description
             }))
         });
+    } else {
+        // Fallback if no backend connection
+        addExecutionStep('System', 'No backend connection available', 'Please check WebSocket connection');
+        completeTaskExecution();
     }
-    
-    // Simulate execution steps for demo
-    simulateTaskExecution();
 }
 
 function simulateTaskExecution() {
@@ -129,17 +130,37 @@ function simulateTaskExecution() {
     }, 3000); // 3 seconds per step to allow reading the details
 }
 
-function addExecutionStep(agentName, action, details = null) {
+function addExecutionStep(agentName, action, response = '', details = null) {
     const executionLog = document.getElementById('execution-log');
     const timestamp = new Date().toLocaleTimeString();
     const stepElement = document.createElement('div');
     stepElement.className = 'execution-step';
     
-    // Create more verbose output
+    // Map agent names to agent IDs for CSS classes
+    const agentClassMap = {
+        'Vision Agent': 'agent-vision',
+        'Vendor Agent': 'agent-vendor', 
+        'Budget Agent': 'agent-budget',
+        'Schedule Agent': 'agent-schedule'
+    };
+    
+    const agentClass = agentClassMap[agentName] || '';
+    
+    // Create verbose output with real LLM response
+    let responseHtml = '';
+    if (response && response.trim()) {
+        responseHtml = `
+            <div class="step-response ${agentClass}">
+                <strong>LLM Response:</strong>
+                <div class="response-content">${response}</div>
+            </div>
+        `;
+    }
+    
     let detailsHtml = '';
     if (details) {
         detailsHtml = `
-            <div class="step-details">
+            <div class="step-details ${agentClass}">
                 ${typeof details === 'object' ? 
                     Object.entries(details).map(([key, value]) => 
                         `<div class="detail-item"><strong>${key}:</strong> ${value}</div>`
@@ -153,9 +174,10 @@ function addExecutionStep(agentName, action, details = null) {
     stepElement.innerHTML = `
         <div class="step-header">
             <span class="step-timestamp">${timestamp}</span>
-            <span class="step-agent">${agentName}</span>
+            <span class="step-agent ${agentClass}">${agentName}</span>
         </div>
         <div class="step-action">${action}</div>
+        ${responseHtml}
         ${detailsHtml}
     `;
     
@@ -168,6 +190,7 @@ function addExecutionStep(agentName, action, details = null) {
             timestamp,
             agent: agentName,
             action,
+            response,
             details,
             id: window.executionSteps.length
         });
@@ -224,38 +247,38 @@ function completeTaskExecution() {
         card.classList.remove('agent-active');
     });
     
-    // Show results
-    displayResults();
+    // Results panel removed - task completion shows only in progress blackboard
 }
 
 function generateMockResults() {
     return `Task execution completed successfully!\n\nThe multi-agent system has processed your request through the following workflow:\n\n1. Initial analysis and requirement gathering\n2. Research and data collection\n3. Budget analysis and constraint evaluation\n4. Timeline creation and schedule coordination\n5. Final compilation and recommendations\n\nEach agent contributed specialized expertise to deliver comprehensive results. The execution involved ${window.executionSteps.length} distinct processing steps with seamless coordination between agents.\n\nFor detailed breakdown, see the intermediate results below.`;
 }
 
-function displayResults() {
-    const resultsPanel = document.getElementById('results-panel');
-    const finalOutputContent = document.getElementById('final-output-content');
-    const intermediateResultsContent = document.getElementById('intermediate-results-content');
-    
-    // Show final output
-    finalOutputContent.textContent = window.taskResults.finalOutput;
-    
-    // Show intermediate results
-    intermediateResultsContent.innerHTML = '';
-    window.taskResults.agentOutputs.forEach(step => {
-        const stepDiv = document.createElement('div');
-        stepDiv.className = 'result-step';
-        stepDiv.innerHTML = `
-            <h4>${step.agent}</h4>
-            <p>${step.action}</p>
-            <small>Completed at ${step.timestamp}</small>
-        `;
-        intermediateResultsContent.appendChild(stepDiv);
-    });
-    
-    // Show results panel
-    resultsPanel.style.display = 'block';
-}
+// Results panel functionality removed - task completion now shows only in progress blackboard
+// function displayResults() {
+//     const resultsPanel = document.getElementById('results-panel');
+//     const finalOutputContent = document.getElementById('final-output-content');
+//     const intermediateResultsContent = document.getElementById('intermediate-results-content');
+//     
+//     // Show final output
+//     finalOutputContent.textContent = window.taskResults.finalOutput;
+//     
+//     // Show intermediate results
+//     intermediateResultsContent.innerHTML = '';
+//     window.taskResults.agentOutputs.forEach(step => {
+//         const stepDiv = document.createElement('div');
+//         stepDiv.className = 'result-step';
+//         stepDiv.innerHTML = `
+//             <h4>${step.agent}</h4>
+//             <p>${step.action}</p>
+//             <small>Completed at ${step.timestamp}</small>
+//         `;
+//         intermediateResultsContent.appendChild(stepDiv);
+//     });
+//     
+//     // Show results panel
+//     resultsPanel.style.display = 'block';
+// }
 
 function clearTask() {
     const taskDescription = document.getElementById('task-description');
@@ -329,6 +352,7 @@ function exportResults() {
 }
 
 function clearResults() {
+    // Results panel elements may not exist since panel was removed
     const finalOutputContent = document.getElementById('final-output-content');
     const intermediateResultsContent = document.getElementById('intermediate-results-content');
     
@@ -338,13 +362,22 @@ function clearResults() {
         executionTime: 0,
         tokensUsed: 0
     };
-    finalOutputContent.textContent = '';
-    intermediateResultsContent.innerHTML = '';
+    
+    // Only update elements if they exist
+    if (finalOutputContent) {
+        finalOutputContent.textContent = '';
+    }
+    if (intermediateResultsContent) {
+        intermediateResultsContent.innerHTML = '';
+    }
 }
 
 function hideResults() {
+    // Results panel may not exist since it was removed
     const resultsPanel = document.getElementById('results-panel');
-    resultsPanel.style.display = 'none';
+    if (resultsPanel) {
+        resultsPanel.style.display = 'none';
+    }
 }
 
 function resetExecutionProgress() {

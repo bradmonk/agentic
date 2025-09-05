@@ -971,13 +971,36 @@ svg#connections-container {
 }
 
 .step-agent {
-    color: #3498db;
     font-weight: 600;
     margin-right: 10px;
-    background-color: #ecf0f1;
     padding: 2px 6px;
     border-radius: 3px;
     font-size: 11px;
+}
+
+/* Agent-specific colors matching workflow */
+.step-agent.agent-vision {
+    color: #3b82f6;
+    background-color: #3b82f620;
+    border: 1px solid #3b82f6;
+}
+
+.step-agent.agent-vendor {
+    color: #10b981;
+    background-color: #10b98120;
+    border: 1px solid #10b981;
+}
+
+.step-agent.agent-budget {
+    color: #f59e0b;
+    background-color: #f59e0b20;
+    border: 1px solid #f59e0b;
+}
+
+.step-agent.agent-schedule {
+    color: #ef4444;
+    background-color: #ef444420;
+    border: 1px solid #ef4444;
 }
 
 .step-action {
@@ -987,6 +1010,51 @@ svg#connections-container {
     line-height: 1.3;
 }
 
+.step-response {
+    margin: 8px 0;
+    padding: 10px;
+    background: #e8f4f8;
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Agent-specific step-response colors */
+.step-response.agent-vision {
+    background: #3b82f610;
+    border-left: 4px solid #3b82f6;
+}
+
+.step-response.agent-vendor {
+    background: #10b98110;
+    border-left: 4px solid #10b981;
+}
+
+.step-response.agent-budget {
+    background: #f59e0b10;
+    border-left: 4px solid #f59e0b;
+}
+
+.step-response.agent-schedule {
+    background: #ef444410;
+    border-left: 4px solid #ef4444;
+}
+
+.step-response strong {
+    color: #0056b3;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.response-content {
+    color: #2c3e50;
+    line-height: 1.4;
+    font-size: 12px;
+}
+
 .step-details {
     background-color: #f8f9fa;
     border-left: 3px solid #3498db;
@@ -994,6 +1062,27 @@ svg#connections-container {
     margin-top: 5px;
     border-radius: 0 4px 4px 0;
     font-size: 11px;
+}
+
+/* Agent-specific step-details colors */
+.step-details.agent-vision {
+    background-color: #3b82f608;
+    border-left: 3px solid #3b82f6;
+}
+
+.step-details.agent-vendor {
+    background-color: #10b98108;
+    border-left: 3px solid #10b981;
+}
+
+.step-details.agent-budget {
+    background-color: #f59e0b08;
+    border-left: 3px solid #f59e0b;
+}
+
+.step-details.agent-schedule {
+    background-color: #ef444408;
+    border-left: 3px solid #ef4444;
 }
 
 .detail-item {

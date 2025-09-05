@@ -32,7 +32,7 @@ A real-time web interface for monitoring and interacting with LangGraph agent wo
 ### Frontend Assets
 - `index.html` - Main application entry point
 - `style.css` - Complete styling with responsive design
-- `sh_restart.sh` - Development server restart script
+- `restart.sh` - Development server restart script
    - Connection management and status monitoring
    - Message sending and receiving
    - Reconnection handling and error recovery
@@ -376,7 +376,7 @@ The interface is now a fully functional demo that showcases:
 
 # Or use the Development Restart Script
 # This script kills existing backend/frontend processes and restarts them
-./sh_restart.sh
+./restart.sh
 
 # Or manual setup:
 # Set up Python virtual environment
