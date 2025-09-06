@@ -1,12 +1,69 @@
-    `# Development Notes
+# Development Notes
 
-## Current Working State (v1.3.2) 
-- **Date**: September 5, 2025
-- **Status**: ✅ Major UI/UX and tool execution enhancements - COMMITTED
-- **Git Tag**: `v1.3.2`
-- **Commit**: `d852e2f`
+## Current Working State (v1.3.4-WIP) 
+- **Date**: September 5, 2025  
+- **Status**: ✅ Tool Border Activation Fix COMPLETED 
+- **Previous Tag**: `v1.3.2`
+- **Ready for Commit**: Tool execution framework with immediate visual feedback
 
-## Latest Implementation: Tool Framework + Markdown Rendering ✅
+## COMPLETED: Tool Border Activation Fix ✅
+
+### Problem Fixed:
+- **Issue**: Tool card borders weren't showing 8px thick borders during tool execution  
+- **Root Cause**: JavaScript selector targeting wrong DOM elements (toggle buttons instead of tool cards)
+- **User Experience**: No visual feedback when tools were activated
+
+### Solution Implemented:
+- **Fixed Selector**: Changed from `[data-tool-id="${toolId}"]` to `.tool-card[data-tool-id="${toolId}"]`
+- **Proper Targeting**: Now specifically targets tool cards rather than first matching element
+- **Visual Feedback**: Tool cards now show 8px thick borders immediately when tools activate
+- **Cleanup Completed**: Removed all debug logging, production-ready code
+
+### Technical Changes:
+- **app-step6.js**: Fixed tool card targeting in highlightActiveTool function
+- **python_server.py**: Cleaned up debug logging while preserving dual-phase messaging
+- **User Confirmed**: "Everything works now" - tool borders activate properly
+- **Code Status**: Clean, production-ready with no debug artifacts
+
+## Previous Fix: Immediate Tool Border Activation ✅
+
+### Problem Fixed:
+- **Issue**: Tool border highlighting wasn't visible during tool execution
+- **Root Cause**: Tool activation messages sent only after completion with chronological delay
+- **User Experience**: Missing immediate visual feedback when tools are activated
+
+### Solution Implemented:
+- **Dual-Phase Messaging**: 
+  1. **Immediate activation**: `status: "starting"` message sent right when tool execution begins
+  2. **Completion logging**: `status: "completed"` message sent after 0.5s delay for chronological ordering
+- **Instant Visual Feedback**: Tool borders now highlight immediately when tools are triggered
+- **Preserved Chronological Order**: Progress Blackboard still shows proper sequence
+
+### Technical Changes:
+- **python_server.py**: Added immediate tool_execution broadcasts with `status: "starting"`
+- **app-step6.js**: Modified handleToolExecution to handle different status types
+- **Visual Flow**: Tool highlighting happens immediately, blackboard logging happens in order
+- **Better UX**: Users now see immediate 8px border activation when tools are triggered
+
+## Previous Fix: Chronological Ordering ✅ (v1.3.3-WIP)
+
+### Problem Fixed:
+- **Issue**: Tool execution messages appeared before agent reasoning in Progress Blackboard
+- **Root Cause**: `tool_execution` broadcasts sent immediately during LLM processing
+- **User Experience**: Confusing timeline showing tools executing before agent decides to use them
+
+### Solution Implemented:
+- **Delayed Broadcasting**: Tool executions collected in `pending_tool_broadcasts` array
+- **Proper Sequencing**: Agent `execution_step` sent first, then tool broadcasts after 0.5s delay
+- **Chronological Flow**: Now shows: Agent reasoning → Tool execution → Agent continued analysis
+- **Multiple Tools**: 0.1s gaps between tools for better readability in Progress Blackboard
+
+### Technical Changes:
+- **python_server.py**: Modified tool execution to store broadcasts instead of immediate sending
+- **Timing Control**: Added `asyncio.sleep(0.5)` after agent response before tool broadcasts
+- **Improved UX**: Progress Blackboard now displays logical chronological sequence
+
+## Previous Milestone: Tool Framework + Markdown Rendering ✅ (v1.3.2)
 
 ### Markdown Rendering:
 - **Rich Text Display**: LLM responses now render with full markdown support

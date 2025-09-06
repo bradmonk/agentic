@@ -586,9 +586,9 @@ svg#connections-container {
 }
 
 .tool-card .io-item {
-    background-color: #e8f5e8;
-    border: 1px solid #4caf50;
-    color: #2e7d32;
+    background-color: #f9fbff;
+    border: 1px solid #efcef9;
+    color: #b222bd;
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.75em;
@@ -596,9 +596,9 @@ svg#connections-container {
 }
 
 .tool-card .io-item.output {
-    background-color: #fff3e0;
-    border-color: #ff9800;
-    color: #ef6c00;
+    background-color: #f9fbff;
+    border-color: #efcef9;
+    color: #b222bd;
 }
 
 .card h3 {
@@ -1033,7 +1033,7 @@ svg#connections-container {
     margin: 8px 0;
     padding: 10px;
     background: #e8f4f8;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid #555555;
     border-radius: 4px;
     font-size: 12px;
 }

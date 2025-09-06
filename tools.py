@@ -74,6 +74,9 @@ class WebSearchTool(MonitoredTool):
         )
     
     async def _execute_impl(self, query: str, max_results: int = 5) -> Dict[str, Any]:
+
+        await asyncio.sleep(2)
+
         """Perform web search using simple HTTP requests"""
         try:
             # Run search in a thread pool to avoid blocking

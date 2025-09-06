@@ -151,34 +151,41 @@
         function handleToolExecution(payload) {
             console.log('🔧 Tool execution:', payload);
             
-            const { tool_name, tool_id, inputs, outputs, timestamp } = payload;
+            const { tool_name, tool_id, inputs, outputs, timestamp, status } = payload;
             
-            // Add tool execution step to blackboard
-            if (window.addExecutionStep) {
-                // Format inputs and outputs for display
-                const inputsFormatted = Object.entries(inputs).map(([key, value]) => 
-                    `${key}: ${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}`
-                ).join('\n');
-                
-                const outputsFormatted = typeof outputs === 'object' ? 
-                    JSON.stringify(outputs, null, 2) : outputs.toString();
-                
-                window.addExecutionStep(
-                    `${tool_name} Tool`, 
-                    'Tool Execution', 
-                    `**Inputs:**\n\`\`\`\n${inputsFormatted}\n\`\`\`\n\n**Outputs:**\n\`\`\`json\n${outputsFormatted}\n\`\`\``,
-                    { 
-                        Tool: tool_name,
-                        'Execution Time': new Date(timestamp).toLocaleTimeString(),
-                        'Input Count': Object.keys(inputs).length,
-                        'Status': 'Completed'
-                    }
-                );
+            // Handle tool activation for immediate visual feedback
+            if (status === 'starting') {
+                // Immediate tool highlighting when tool starts
+                if (tool_id) {
+                    highlightActiveTool(tool_id);
+                }
+                return; // Don't add to blackboard yet, just activate visual highlighting
             }
             
-            // Highlight active tool card
-            if (tool_id) {
-                highlightActiveTool(tool_id);
+            // Handle tool completion for Progress Blackboard logging
+            if (status === 'completed' || !status) { // !status for backward compatibility
+                // Add tool execution step to blackboard
+                if (window.addExecutionStep) {
+                    // Format inputs and outputs for display
+                    const inputsFormatted = Object.entries(inputs || {}).map(([key, value]) => 
+                        `${key}: ${typeof value === 'object' ? JSON.stringify(value, null, 2) : value}`
+                    ).join('\n');
+                    
+                    const outputsFormatted = typeof outputs === 'object' ? 
+                        JSON.stringify(outputs, null, 2) : outputs.toString();
+                    
+                    window.addExecutionStep(
+                        `${tool_name} Tool`, 
+                        'Tool Execution', 
+                        `**Inputs:**\n\`\`\`\n${inputsFormatted}\n\`\`\`\n\n**Outputs:**\n\`\`\`json\n${outputsFormatted}\n\`\`\``,
+                        { 
+                            Tool: tool_name,
+                            'Execution Time': new Date(timestamp).toLocaleTimeString(),
+                            'Input Count': Object.keys(inputs || {}).length,
+                            'Status': 'Completed'
+                        }
+                    );
+                }
             }
         }
 
@@ -188,8 +195,9 @@
                 card.classList.remove('tool-active');
             });
             
-            // Add active highlighting to current tool
-            const toolCard = document.querySelector(`[data-tool-id="${toolId}"]`);
+            // Add active highlighting to current tool - specifically target tool cards, not toggle buttons
+            const toolCard = document.querySelector(`.tool-card[data-tool-id="${toolId}"]`);
+            
             if (toolCard) {
                 toolCard.classList.add('tool-active');
                 

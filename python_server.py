@@ -410,7 +410,21 @@ async def run_real_task_execution(task_data):
                 # Execute any tools mentioned in the response (simple keyword matching for now)
                 tool_results = []
                 tool_executions = []
+                pending_tool_broadcasts = []  # Store tool broadcasts to send after agent response
+                
                 if "search" in response.lower() and any("search" in tool['function']['name'] for tool in available_tools):
+                    # Send immediate tool activation message for UI highlighting
+                    await monitor.broadcast({
+                        "type": "tool_execution",
+                        "payload": {
+                            "executionId": execution_id,
+                            "tool_name": "Web Search",
+                            "tool_id": "tool-search",
+                            "status": "starting",
+                            "timestamp": datetime.now().isoformat()
+                        }
+                    })
+                    
                     # Example: extract search query from response and execute
                     search_query = f"{task_description} {agent_name}"
                     search_result = await monitor.tool_executor.execute_tool(
@@ -419,8 +433,8 @@ async def run_real_task_execution(task_data):
                         max_results=3
                     )
                     
-                    # Send tool execution details to frontend
-                    await monitor.broadcast({
+                    # Store tool completion broadcast for later sending (chronological ordering)
+                    pending_tool_broadcasts.append({
                         "type": "tool_execution",
                         "payload": {
                             "executionId": execution_id,
@@ -428,6 +442,7 @@ async def run_real_task_execution(task_data):
                             "tool_id": "tool-search",
                             "inputs": {"query": search_query, "max_results": 3},
                             "outputs": search_result,
+                            "status": "completed",
                             "timestamp": datetime.now().isoformat()
                         }
                     })
@@ -441,6 +456,18 @@ async def run_real_task_execution(task_data):
                 
                 # Check for budget calculation tools
                 if any(word in response.lower() for word in ["budget", "cost", "calculate", "price"]) and any("budget" in tool['function']['name'].lower() for tool in available_tools):
+                    # Send immediate tool activation message for UI highlighting
+                    await monitor.broadcast({
+                        "type": "tool_execution",
+                        "payload": {
+                            "executionId": execution_id,
+                            "tool_name": "Budget Calculator",
+                            "tool_id": "tool-budget",
+                            "status": "starting",
+                            "timestamp": datetime.now().isoformat()
+                        }
+                    })
+                    
                     # Example budget calculation
                     budget_params = {
                         "items": [
@@ -455,8 +482,8 @@ async def run_real_task_execution(task_data):
                         **budget_params
                     )
                     
-                    # Send tool execution details to frontend
-                    await monitor.broadcast({
+                    # Store tool completion broadcast for later sending (chronological ordering)
+                    pending_tool_broadcasts.append({
                         "type": "tool_execution",
                         "payload": {
                             "executionId": execution_id,
@@ -464,6 +491,7 @@ async def run_real_task_execution(task_data):
                             "tool_id": "tool-budget",
                             "inputs": budget_params,
                             "outputs": budget_result,
+                            "status": "completed",
                             "timestamp": datetime.now().isoformat()
                         }
                     })
@@ -494,6 +522,13 @@ async def run_real_task_execution(task_data):
                         }
                     }
                 })
+                
+                # Send tool execution broadcasts after agent response, with slight delay for proper chronological ordering
+                if pending_tool_broadcasts:
+                    await asyncio.sleep(0.5)  # Small delay to ensure agent response appears first in UI
+                    for tool_broadcast in pending_tool_broadcasts:
+                        await monitor.broadcast(tool_broadcast)
+                        await asyncio.sleep(0.1)  # Small gap between multiple tools for readability
                 
             except Exception as e:
                 # Send error notification
