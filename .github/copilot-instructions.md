@@ -91,7 +91,7 @@ messages = [{
 ```javascript
 // Frontend expects this exact structure (python_server.py:57-59)
 agentData = {
-    id: "agent-vision", name: "Vision Agent", prompt: "...", 
+    id: "agent1", name: "Vision Agent", prompt: "...", 
     tools: ["tool-search"], interactions: ["tool-search"], // both required
     borderColor: "#007bff", role: "Project Coordinator"
 }

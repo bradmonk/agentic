@@ -105,6 +105,12 @@
 
         function handleTaskCompleted(payload) {
             console.log('✅ Real LLM task completed:', payload);
+            
+            // Set progress to 100% on completion
+            if (window.updateProgress) {
+                window.updateProgress(100, 'Task completed successfully');
+            }
+            
             if (window.completeTaskExecution) {
                 window.completeTaskExecution();
             }
@@ -123,11 +129,19 @@
         function handleExecutionStep(payload) {
             console.log('🔄 Real LLM execution step:', payload);
             
-            const agent = payload.agent;
+            const agent = payload.agent;  // This is now agent ID
+            const agentName = payload.agentName;  // This is the display name
             const action = payload.action;
             const status = payload.status;
             const response = payload.response || '';
             const details = payload.details || {};
+            
+            // Get display name for progress (use agentName from payload, fallback to finding by ID)
+            let displayName = agentName;
+            if (!displayName && window.agentsData) {
+                const agentData = window.agentsData.find(a => a.id === agent);
+                displayName = agentData ? agentData.name : agent;
+            }
             
             if (window.addExecutionStep) {
                 // Only show LLM response for completed steps, not running steps
@@ -144,7 +158,7 @@
             const stepCount = window.agentsData ? window.agentsData.length : 4;
             const progress = Math.min(90, 20 + (window.executionSteps.length * 70 / stepCount));
             if (window.updateProgress) {
-                window.updateProgress(progress, `${agent} completed analysis...`);
+                window.updateProgress(progress, `${displayName || agent} completed analysis...`);
             }
         }
 
@@ -269,7 +283,7 @@
             console.log('🚀 initializeSampleData called');
             agentsData = [
                 {
-                    id: 'agent-vision',
+                    id: 'agent1',
                     name: 'Vision Agent',
                     role: 'Project Coordinator',
                     status: 'idle',
@@ -279,17 +293,17 @@
                     context: '2048 tokens'
                 },
                 {
-                    id: 'agent-vendor',
+                    id: 'agent2',
                     name: 'Vendor Agent', 
                     role: 'Vendor Research',
                     status: 'idle',
                     prompt: 'You are a vendor research agent specialized in finding and evaluating service providers.',
-                    interactions: ['tool-search', 'tool-email'],
+                    interactions: ['tool-search', 'tool-sheets'],
                     borderColor: '#10b981',
                     context: '2048 tokens'
                 },
                 {
-                    id: 'agent-budget',
+                    id: 'agent3',
                     name: 'Budget Agent',
                     role: 'Financial Analysis', 
                     status: 'idle',
@@ -299,12 +313,12 @@
                     context: '2048 tokens'
                 },
                 {
-                    id: 'agent-schedule',
+                    id: 'agent4',
                     name: 'Schedule Agent',
                     role: 'Timeline Management',
                     status: 'idle', 
                     prompt: 'You are a scheduling agent responsible for timeline coordination and resource allocation.',
-                    interactions: ['tool-calendar', 'tool-email'],
+                    interactions: ['tool-calendar', 'tool-sheets'],
                     borderColor: '#ef4444',
                     context: '2048 tokens'
                 }

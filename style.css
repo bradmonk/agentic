@@ -998,25 +998,25 @@ svg#connections-container {
 }
 
 /* Agent-specific colors matching workflow */
-.step-agent.agent-vision {
+.step-agent.agent1 {
     color: #3b82f6;
     background-color: #3b82f620;
     border: 1px solid #3b82f6;
 }
 
-.step-agent.agent-vendor {
+.step-agent.agent2 {
     color: #10b981;
     background-color: #10b98120;
     border: 1px solid #10b981;
 }
 
-.step-agent.agent-budget {
+.step-agent.agent3 {
     color: #f59e0b;
     background-color: #f59e0b20;
     border: 1px solid #f59e0b;
 }
 
-.step-agent.agent-schedule {
+.step-agent.agent4 {
     color: #ef4444;
     background-color: #ef444420;
     border: 1px solid #ef4444;
@@ -1039,22 +1039,22 @@ svg#connections-container {
 }
 
 /* Agent-specific step-response colors */
-.step-response.agent-vision {
+.step-response.agent1 {
     background: #3b82f610;
     border-left: 4px solid #3b82f6;
 }
 
-.step-response.agent-vendor {
+.step-response.agent2 {
     background: #10b98110;
     border-left: 4px solid #10b981;
 }
 
-.step-response.agent-budget {
+.step-response.agent3 {
     background: #f59e0b10;
     border-left: 4px solid #f59e0b;
 }
 
-.step-response.agent-schedule {
+.step-response.agent4 {
     background: #ef444410;
     border-left: 4px solid #ef4444;
 }
@@ -1206,22 +1206,22 @@ svg#connections-container {
 }
 
 /* Agent-specific step-details colors */
-.step-details.agent-vision {
+.step-details.agent1 {
     background-color: #3b82f608;
     border-left: 3px solid #3b82f6;
 }
 
-.step-details.agent-vendor {
+.step-details.agent2 {
     background-color: #10b98108;
     border-left: 3px solid #10b981;
 }
 
-.step-details.agent-budget {
+.step-details.agent3 {
     background-color: #f59e0b08;
     border-left: 3px solid #f59e0b;
 }
 
-.step-details.agent-schedule {
+.step-details.agent4 {
     background-color: #ef444408;
     border-left: 3px solid #ef4444;
 }

@@ -52,7 +52,7 @@ function runTask() {
 function simulateTaskExecution() {
     const steps = [
         { 
-            agent: 'Vision Agent', 
+            agent: 'agent1', 
             action: 'Analyzing task requirements and gathering initial preferences',
             details: {
                 'Input Analysis': 'Parsed task description and identified key objectives',
@@ -63,7 +63,7 @@ function simulateTaskExecution() {
             }
         },
         { 
-            agent: 'Vendor Agent', 
+            agent: 'agent2', 
             action: 'Searching for suitable vendors and venues',
             details: {
                 'Market Research': 'Identified 15 potential vendors in target categories',
@@ -74,7 +74,7 @@ function simulateTaskExecution() {
             }
         },
         { 
-            agent: 'Budget Agent', 
+            agent: 'agent3', 
             action: 'Calculating costs and analyzing budget constraints',
             details: {
                 'Cost Breakdown': 'Materials: $25,000, Labor: $45,000, Overhead: $12,000',
@@ -85,7 +85,7 @@ function simulateTaskExecution() {
             }
         },
         { 
-            agent: 'Schedule Agent', 
+            agent: 'agent4', 
             action: 'Creating timeline and coordinating schedules',
             details: {
                 'Project Timeline': '12-week execution plan with defined milestones',
@@ -97,7 +97,7 @@ function simulateTaskExecution() {
             }
         },
         { 
-            agent: 'Vision Agent', 
+            agent: 'agent1', 
             action: 'Compiling final recommendations and summary',
             details: {
                 'Project Feasibility': 'HIGH - All requirements achievable within constraints',
@@ -160,21 +160,25 @@ function renderMarkdown(text) {
     }
 }
 
-function addExecutionStep(agentName, action, response = '', details = null) {
+function addExecutionStep(agentId, action, response = '', details = null) {
     const executionLog = document.getElementById('execution-log');
     const timestamp = new Date().toLocaleTimeString();
     const stepElement = document.createElement('div');
     stepElement.className = 'execution-step';
     
-    // Map agent names to agent IDs for CSS classes
+    // Get display name from agent ID
+    const agent = window.agentsData?.find(a => a.id === agentId);
+    const agentDisplayName = agent ? agent.name : agentId;
+    
+    // Map agent IDs to agent classes for CSS
     const agentClassMap = {
-        'Vision Agent': 'agent-vision',
-        'Vendor Agent': 'agent-vendor', 
-        'Budget Agent': 'agent-budget',
-        'Schedule Agent': 'agent-schedule'
+        'agent1': 'agent1',
+        'agent2': 'agent2', 
+        'agent3': 'agent3',
+        'agent4': 'agent4'
     };
     
-    const agentClass = agentClassMap[agentName] || '';
+    const agentClass = agentClassMap[agentId] || agentId;
     
     // Create verbose output with real LLM response
     let responseHtml = '';
@@ -205,7 +209,7 @@ function addExecutionStep(agentName, action, response = '', details = null) {
     stepElement.innerHTML = `
         <div class="step-header">
             <span class="step-timestamp">${timestamp}</span>
-            <span class="step-agent ${agentClass}">${agentName}</span>
+            <span class="step-agent ${agentClass}">${agentDisplayName}</span>
         </div>
         <div class="step-action">${action}</div>
         ${responseHtml}
@@ -219,7 +223,7 @@ function addExecutionStep(agentName, action, response = '', details = null) {
     if (window.executionSteps) {
         window.executionSteps.push({
             timestamp,
-            agent: agentName,
+            agent: agentDisplayName,
             action,
             response,
             details,
@@ -228,22 +232,19 @@ function addExecutionStep(agentName, action, response = '', details = null) {
     }
     
     // Highlight current agent
-    highlightActiveAgent(agentName);
+    highlightActiveAgent(agentId);
 }
 
-function highlightActiveAgent(agentName) {
+function highlightActiveAgent(agentId) {
     // Remove previous highlights
     document.querySelectorAll('.agent-card').forEach(card => {
         card.classList.remove('agent-active');
     });
     
-    // Highlight current agent
-    const activeAgent = window.agentsData.find(agent => agent.name === agentName);
-    if (activeAgent) {
-        const agentCard = document.getElementById(activeAgent.id);
-        if (agentCard) {
-            agentCard.classList.add('agent-active');
-        }
+    // Highlight current agent by ID
+    const agentCard = document.getElementById(agentId);
+    if (agentCard) {
+        agentCard.classList.add('agent-active');
     }
 }
 
@@ -262,6 +263,9 @@ function completeTaskExecution() {
         executionTime: Date.now() - parseInt(window.taskExecutionId),
         tokensUsed: Math.floor(Math.random() * 5000) + 1000
     };
+    
+    // Update progress bar to 100%
+    updateProgress(100, 'Task completed successfully');
     
     // Update UI
     const runTaskBtn = document.getElementById('run-task');
@@ -333,6 +337,9 @@ function stopTaskExecution() {
     runTaskBtn.querySelector('.btn-text').style.display = 'inline';
     runTaskBtn.querySelector('.btn-loading').style.display = 'none';
     runTaskBtn.disabled = false;
+    
+    // Reset progress bar when stopping
+    updateProgress(0, 'Task stopped');
     
     // Remove agent highlights
     document.querySelectorAll('.agent-card').forEach(card => {
