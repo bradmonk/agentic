@@ -361,7 +361,7 @@ async def run_real_task_execution(task_data):
                 tool_map = {
                     "tool-search": "Web Search",
                     "tool-budget": "Budget Calculator", 
-                    "tool-email": "Email System",
+                    "tool-sheets": "Google Sheets",
                     "tool-calendar": "Calendar Manager"
                 }
                 
@@ -589,7 +589,7 @@ async def setup_demo_agents():
     monitor.add_agent(
         "Vendor Agent", 
         "You are a vendor research agent specialized in finding and evaluating service providers.",
-        tools=["tool-search", "tool-email"],
+        tools=["tool-search", "tool-sheets"],
         agents=["Vision Agent", "Budget Agent"],
         agent_id="agent-vendor",
         role="Vendor Research"
@@ -607,7 +607,7 @@ async def setup_demo_agents():
     monitor.add_agent(
         "Schedule Agent",
         "You are a scheduling agent responsible for timeline coordination and resource allocation.",
-        tools=["tool-calendar", "tool-email"],
+        tools=["tool-calendar", "tool-sheets"],
         agents=["Vision Agent", "Budget Agent"],
         agent_id="agent-schedule",
         role="Timeline Management"
@@ -623,11 +623,11 @@ async def setup_demo_agents():
     )
     
     monitor.add_tool(
-        "Email System",
-        "Send and manage email communications",
-        inputs=["recipient", "subject", "message"],
-        outputs=["confirmation", "response"],
-        tool_id="tool-email"
+        "Google Sheets",
+        "Create, read, and update Google Sheets spreadsheets",
+        inputs=["action", "spreadsheet_id", "data"],
+        outputs=["result", "url", "data"],
+        tool_id="tool-sheets"
     )
     
     monitor.add_tool(
@@ -674,7 +674,7 @@ async def simulate_workflow():
         ("Schedule Agent", "Creating timeline for wedding planning milestones"),
         ("Calendar Manager", "Scheduling vendor meetings and venue visits"),
         ("Schedule Agent", "Coordinating availability across all stakeholders"),
-        ("Email System", "Sending confirmation emails to selected vendors"),
+        ("Google Sheets", "Creating spreadsheet to track vendor communications and responses"),
         ("Vision Agent", "Finalizing project plan and resource allocation")
     ]
     

@@ -1060,7 +1060,7 @@ svg#connections-container {
 }
 
 .step-response strong {
-    color: #0056b3;
+    color: #555555;
     display: block;
     margin-bottom: 6px;
     font-size: 11px;
@@ -1198,7 +1198,7 @@ svg#connections-container {
 
 .step-details {
     background-color: #f8f9fa;
-    border-left: 3px solid #3498db;
+    border-left: 3px solid #555555;
     padding: 8px 12px;
     margin-top: 5px;
     border-radius: 0 4px 4px 0;
