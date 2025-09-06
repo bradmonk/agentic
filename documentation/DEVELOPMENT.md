@@ -1,5 +1,52 @@
 # Development Notes
 
+## Code Organization & Cleanup (September 6, 2025)
+- **Status**: ✅ Code Directory Cleanup COMPLETED
+- **Action**: Organized repository structure for better maintainability
+
+### Organization Changes:
+1. **Documentation Folder**:
+   - Created `/documentation/` folder
+   - Moved all .md files except README.md to `/documentation/`
+   - Files moved: AGENT_SETUP.md, BLACKBOARD_ENHANCED.md, COORDINATOR_WORKFLOW.md, DEVELOPMENT.md, GOOGLE_SHEETS_SETUP.md
+
+2. **Archive Cleanup**:
+   - Moved unused/duplicate files to `/archive/`
+   - Files archived: llm_integration_fixed.py, jsscript.js, test_websearch.py, com.chrome.devtools.json, start.sh, fullscript.js
+   - Moved old modular JS structure: `/js/` → `/archive/js-old-modules/`
+
+3. **Media Consolidation**:
+   - Merged `/design/` folder into `/media/`
+   - Consolidated duplicate design files (Agents Template.pptx, Agents Template.xd, Agents.png)
+   - Centralized all visual assets in single location
+
+4. **JavaScript Cleanup**:
+   - Removed `fullscript.js` reference from index.html (module verification script)
+   - Current active JS files: websocket-step1.js through app-step6.js
+   - Cleaned up commented-out script references
+
+### Current Directory Structure:
+```
+/
+├── README.md
+├── documentation/           # All documentation files
+├── archive/                # Unused/old files
+├── media/                  # Design files and images
+├── python_server.py        # Main backend
+├── llm_integration.py      # LLM management
+├── tools.py               # Tool framework
+├── requirements.txt       # Dependencies
+├── restart.sh            # Development script
+├── index.html            # Frontend entry
+├── style.css             # Styling
+├── websocket-step1.js    # Module 1
+├── ui-rendering-step2.js # Module 2
+├── task-execution-step3.js # Module 3
+├── hamburger-menu-step4.js # Module 4
+├── ui-interactions-step5.js # Module 5
+└── app-step6.js          # Module 6
+```
+
 ## Current Working State (v1.3.6-WIP) 
 - **Date**: September 6, 2025  
 - **Status**: ✅ Google Sheets Tool Implementation COMPLETED 
