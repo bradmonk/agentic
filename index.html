@@ -41,8 +41,6 @@
                         <option value="gpt-5">gpt-5</option>
                     </select>
                 </div>
-                <button id="start-workflow" class="btn-primary">Start Workflow</button>
-                <button id="stop-workflow" class="btn-secondary" disabled>Stop Workflow</button>
                 <div class="status-indicator">
                     <span id="connection-status" class="status-disconnected">Disconnected</span>
                 </div>
@@ -69,10 +67,8 @@
                         <span class="btn-text">Run Task</span>
                         <span class="btn-loading" style="display: none;">Running...</span>
                     </button>
+                    <button id="pause-task" class="btn-secondary" disabled>Pause Task</button>
                     <button id="clear-task" class="btn-secondary">Clear</button>
-                    <div class="task-status">
-                        <span id="task-status-text">Enter a task description</span>
-                    </div>
                 </div>
             </div>
         </div>

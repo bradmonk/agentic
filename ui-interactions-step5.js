@@ -11,10 +11,9 @@
         // Get UI elements
         const llmProvider = document.getElementById('llm-provider');
         const modelName = document.getElementById('model-name');
-        const startWorkflowBtn = document.getElementById('start-workflow');
-        const stopWorkflowBtn = document.getElementById('stop-workflow');
         const taskDescription = document.getElementById('task-description');
         const runTaskBtn = document.getElementById('run-task');
+        const pauseTaskBtn = document.getElementById('pause-task');
         const clearTaskBtn = document.getElementById('clear-task');
         const pauseExecutionBtn = document.getElementById('pause-execution');
         const exportResultsBtn = document.getElementById('export-results');
@@ -65,38 +64,12 @@
                 llmProvider.addEventListener('change', updateModelOptions);
             }
 
-            // Workflow controls
-            if (startWorkflowBtn) {
-                startWorkflowBtn.addEventListener('click', function() {
-                    const config = {
-                        provider: llmProvider.value,
-                        model: modelName.value
-                    };
-                    if (window.sendMessage) {
-                        window.sendMessage('start_workflow', config);
-                    }
-                });
-            }
-
-            if (stopWorkflowBtn) {
-                stopWorkflowBtn.addEventListener('click', function() {
-                    if (window.sendMessage) {
-                        window.sendMessage('stop_workflow', {});
-                    }
-                });
-            }
-
             // Task controls
             if (taskDescription) {
                 taskDescription.addEventListener('input', function() {
                     const hasText = taskDescription.value.trim().length > 0;
                     if (runTaskBtn) {
                         runTaskBtn.disabled = !hasText;
-                    }
-                    
-                    const statusText = document.getElementById('task-status-text');
-                    if (statusText) {
-                        statusText.textContent = hasText ? 'Ready to run' : 'Enter a task description';
                     }
                 });
             }
@@ -105,6 +78,14 @@
                 runTaskBtn.addEventListener('click', function() {
                     if (window.runTask) {
                         window.runTask();
+                    }
+                });
+            }
+
+            if (pauseTaskBtn) {
+                pauseTaskBtn.addEventListener('click', function() {
+                    if (window.pauseTask) {
+                        window.pauseTask();
                     }
                 });
             }

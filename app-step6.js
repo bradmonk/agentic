@@ -349,13 +349,7 @@
         // Update workflow status
         function updateWorkflowStatus(data) {
             isWorkflowRunning = data.running;
-            const startBtn = document.getElementById('start-workflow');
-            const stopBtn = document.getElementById('stop-workflow');
-            
-            if (startBtn && stopBtn) {
-                startBtn.disabled = isWorkflowRunning;
-                stopBtn.disabled = !isWorkflowRunning;
-            }
+            // Workflow status updated but no longer controlling workflow buttons
         }
 
         // Handle task execution results

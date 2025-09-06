@@ -3,7 +3,6 @@
 function runTask() {
     const taskDescription = document.getElementById('task-description');
     const runTaskBtn = document.getElementById('run-task');
-    const taskStatusText = document.getElementById('task-status-text');
     
     const task = taskDescription.value.trim();
     if (!task || window.isTaskRunning) return;
@@ -19,7 +18,6 @@ function runTask() {
     runTaskBtn.querySelector('.btn-text').style.display = 'none';
     runTaskBtn.querySelector('.btn-loading').style.display = 'inline';
     runTaskBtn.disabled = true;
-    taskStatusText.textContent = 'Running...';
     
     // Initialize progress
     updateProgress(0, 'Initializing workflow...');
@@ -267,13 +265,11 @@ function completeTaskExecution() {
     
     // Update UI
     const runTaskBtn = document.getElementById('run-task');
-    const taskStatusText = document.getElementById('task-status-text');
     
     window.isTaskRunning = false;
     runTaskBtn.querySelector('.btn-text').style.display = 'inline';
     runTaskBtn.querySelector('.btn-loading').style.display = 'none';
     runTaskBtn.disabled = false;
-    taskStatusText.textContent = 'Task completed successfully';
     
     // Remove agent highlights
     document.querySelectorAll('.agent-card').forEach(card => {
@@ -315,7 +311,6 @@ function generateMockResults() {
 
 function clearTask() {
     const taskDescription = document.getElementById('task-description');
-    const taskStatusText = document.getElementById('task-status-text');
     const runTaskBtn = document.getElementById('run-task');
     
     if (window.isTaskRunning) {
@@ -326,7 +321,6 @@ function clearTask() {
     }
     
     taskDescription.value = '';
-    taskStatusText.textContent = 'Enter a task description';
     runTaskBtn.disabled = true;
     resetExecutionProgress();
     hideResults();
@@ -334,18 +328,26 @@ function clearTask() {
 
 function stopTaskExecution() {
     const runTaskBtn = document.getElementById('run-task');
-    const taskStatusText = document.getElementById('task-status-text');
     
     window.isTaskRunning = false;
     runTaskBtn.querySelector('.btn-text').style.display = 'inline';
     runTaskBtn.querySelector('.btn-loading').style.display = 'none';
     runTaskBtn.disabled = false;
-    taskStatusText.textContent = 'Task stopped';
     
     // Remove agent highlights
     document.querySelectorAll('.agent-card').forEach(card => {
         card.classList.remove('agent-active');
     });
+}
+
+function pauseTask() {
+    if (!window.isTaskRunning) return;
+    
+    // For now, this will stop the task execution
+    // Future versions can implement true pause/resume functionality
+    if (confirm('Pause will stop the current task. Continue?')) {
+        stopTaskExecution();
+    }
 }
 
 function pauseExecution() {
@@ -443,6 +445,7 @@ window.resetExecutionProgress = resetExecutionProgress;
 window.generateMockResults = generateMockResults;
 // window.displayResults = displayResults;
 window.clearTask = clearTask;
+window.pauseTask = pauseTask;
 window.stopTaskExecution = stopTaskExecution;
 window.pauseExecution = pauseExecution;
 window.exportResults = exportResults;
