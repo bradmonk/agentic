@@ -5,7 +5,7 @@ Example workflow that demonstrates agent interactions with live monitoring and r
 """
 
 import asyncio
-from typing import Dict, Any, List
+from typing import Dict, Any, List, TypedDict
 from langgraph.graph import StateGraph, START, END
 from pydantic import BaseModel
 import json
@@ -14,9 +14,16 @@ import json
 from python_server import monitor
 from llm_integration import llm_manager
 
+class WorkflowMessage(TypedDict):
+    """Structured message format for workflow communication"""
+    agent: str
+    action: str
+    content: str
+    timestamp: float
+
 class WorkflowState(BaseModel):
     """State shared between agents in the workflow"""
-    messages: List[Any] = []
+    messages: List[WorkflowMessage] = []
     research_data: str = ""
     analysis_results: str = ""
     final_report: str = ""
@@ -109,7 +116,12 @@ class ResearchAgent(MonitoredAgent):
         # Update state
         state.research_data = research_results
         state.current_step = "research_complete"
-        state.messages.append(f"Research completed by {self.name}")
+        state.messages.append({
+            "agent": self.name,
+            "action": "research_completed",
+            "content": "Research analysis completed successfully",
+            "timestamp": asyncio.get_event_loop().time()
+        })
         
         return state
 
@@ -139,7 +151,12 @@ class AnalysisAgent(MonitoredAgent):
         # Update state
         state.analysis_results = analysis_results
         state.current_step = "analysis_complete"
-        state.messages.append(f"Analysis completed by {self.name}")
+        state.messages.append({
+            "agent": self.name,
+            "action": "analysis_completed",
+            "content": "Data analysis completed successfully",
+            "timestamp": asyncio.get_event_loop().time()
+        })
         
         return state
 
@@ -177,7 +194,12 @@ Please create a well-structured report with executive summary, key findings, det
         # Update state
         state.final_report = final_report
         state.current_step = "report_complete"
-        state.messages.append(f"Report completed by {self.name}")
+        state.messages.append({
+            "agent": self.name,
+            "action": "report_completed",
+            "content": "Final report generated successfully",
+            "timestamp": asyncio.get_event_loop().time()
+        })
         
         return state
 
@@ -279,7 +301,12 @@ async def run_monitored_workflow(llm_config: Dict[str, Any]):
         
         # Initial state
         initial_state = WorkflowState(
-            messages=["Workflow started with real LLM integration"],
+            messages=[{
+                "agent": "System",
+                "action": "workflow_started",
+                "content": "Workflow started with real LLM integration",
+                "timestamp": asyncio.get_event_loop().time()
+            }],
             current_step="initialized"
         )
         

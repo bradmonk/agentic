@@ -8,6 +8,7 @@ import asyncio
 import websockets
 import json
 import logging
+import re
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 from datetime import datetime
@@ -19,6 +20,59 @@ from tools import ToolExecutor
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+def parse_tool_requirements(response_text):
+    """Parse tool calls from agent response using [@tool: instruction] pattern"""
+    # Pattern: [@web_search: wedding venues in San Diego]
+    pattern = r'\[@(\w+):\s*([^\]]+)\]'
+    matches = re.findall(pattern, response_text)
+    
+    tool_calls = []
+    for tool_name, instruction in matches:
+        if tool_name == "web_search":
+            tool_calls.append({
+                "tool": "Web Search",
+                "params": {"query": instruction.strip(), "max_results": 5}
+            })
+        elif tool_name == "budget":
+            # Parse budget instructions - simple format for now
+            tool_calls.append({
+                "tool": "Budget Calculator", 
+                "params": {"items": [{"name": instruction.strip(), "cost": 100}], "operation": "total"}
+            })
+        elif tool_name == "sheets":
+            tool_calls.append({
+                "tool": "Google Sheets",
+                "params": {"action": "read", "sheet_name": "Sheet1"}
+            })
+        elif tool_name == "calendar":
+            tool_calls.append({
+                "tool": "Calendar Manager",
+                "params": {"action": "schedule", "title": instruction.strip(), "date": "2025-09-15", "time": "10:00", "duration": 60}
+            })
+    
+    return tool_calls
+
+def extract_pre_tool_content(response_text):
+    """Extract content including ALL tool calls for complete transparency"""
+    pattern = r'\[@\w+:[^\]]+\]'
+    matches = list(re.finditer(pattern, response_text))
+    if matches:
+        # Include everything up to the end of the LAST tool call
+        last_tool_end = matches[-1].end()
+        return response_text[:last_tool_end].strip()
+    return response_text
+
+def extract_post_tool_content(response_text):
+    """Extract content after all tool calls"""
+    pattern = r'\[@\w+:[^\]]+\]'
+    matches = list(re.finditer(pattern, response_text))
+    if matches:
+        # Get content after the last tool call
+        last_tool_end = matches[-1].end()
+        remaining_content = response_text[last_tool_end:].strip()
+        return remaining_content if remaining_content else ""
+    return ""
 
 class AgentMonitor:
     """Monitors and tracks agent state and execution"""
@@ -431,20 +485,25 @@ async def execute_coordinator_workflow(coordinator, other_agents, agent_capabili
         {
             "role": "system",
             "content": f"You are {coordinator_name}. {coordinator_prompt}\n\n" +
-            f"You are the primary coordinator agent. You have access to these tools: {', '.join([t['function']['name'] for t in available_tools])}.\n\n" +
+            f"You are the primary coordinator agent.\n\n" +
+            "Available tools (use the specified format):\n" +
+            f"- For web search: [@web_search: your search query]\n" +
+            f"- For budget calculations: [@budget: calculation description]\n" +
+            f"- For Google Sheets: [@sheets: action description]\n" +
+            f"- For calendar/scheduling: [@calendar: event description]\n\n" +
             "You can also delegate tasks to these specialized agents:\n" +
             capabilities_summary + "\n\n" +
             "AGENT CALLING SYNTAX:\n" +
-            "To call another agent, use: [[@agent_id: specific task instructions]]\n" +
+            "To call another agent, use: [@agent_id: specific task instructions]\n" +
             "Examples:\n" +
-            "- [[@agent2: Research wedding venues in San Diego for 50 people under $5000]]\n" +
-            "- [[@agent3: Calculate total budget breakdown for $20000 wedding]]\n" +
-            "- [[@agent4: Schedule wedding timeline with 3pm ceremony start]]\n\n" +
+            "- [@agent2: Research wedding venues in San Diego for 50 people under $5000]\n" +
+            "- [@agent3: Calculate total budget breakdown for $20000 wedding]\n" +
+            "- [@agent4: Schedule wedding timeline with 3pm ceremony start]\n\n" +
             "COMPLETION SYNTAX:\n" +
             "When the entire task is complete, end with: [[TASK_COMPLETE]]\n\n" +
             "WORKFLOW:\n" +
             "1. Analyze the task and break it down\n" +
-            "2. Call specific agents using the [[@agent_id: instructions]] syntax\n" +
+            "2. Call specific agents using the [@agent_id: instructions] syntax\n" +
             "3. Wait for their responses, then continue thinking\n" +
             "4. Call additional agents or iterate as needed\n" +
             "5. When everything is complete, use [[TASK_COMPLETE]]\n\n" +
@@ -540,7 +599,7 @@ async def execute_coordinator_workflow(coordinator, other_agents, agent_capabili
             print("No agent calls found, prompting coordinator to continue or complete")
             coordinator_messages.append({
                 "role": "user",
-                "content": "No agent calls detected. Please either:\n1. Call specific agents using [[@agent_id: instructions]] syntax, or\n2. Mark the task complete with [[TASK_COMPLETE]] if finished."
+                "content": "No agent calls detected. Please either:\n1. Call specific agents using [@agent_id: instructions] syntax, or\n2. Mark the task complete with [[TASK_COMPLETE]] if finished."
             })
     
     if iteration >= max_iterations:
@@ -563,14 +622,14 @@ async def execute_coordinator_workflow(coordinator, other_agents, agent_capabili
 
 def parse_agent_calls_new_syntax(response):
     """
-    Parse agent calls using new [[@agent_id: instructions]] syntax.
+    Parse agent calls using new [@agent_id: instructions] syntax.
     Returns list of tuples: [(agent_id, task), ...]
     """
     import re
     calls = []
     
-    # Look for [[@agent_id: instructions]] pattern
-    pattern = r'\[\[@(agent\d+):\s*([^\]]+)\]\]'
+    # Look for [@agent_id: instructions] pattern
+    pattern = r'\[@(agent\d+):\s*([^\]]+)\]'
     matches = re.findall(pattern, response, re.DOTALL)
     
     for agent_id, task in matches:
@@ -635,15 +694,20 @@ async def execute_delegated_agent(agent_data, delegated_task, original_task, exe
             "role": "system", 
             "content": f"You are {agent_name}. {agent_prompt}\n\n" +
             f"You have been called by the coordinator agent to help with a specific task.\n\n" +
-            f"You have access to these tools: {', '.join([t['function']['name'] for t in available_tools])}.\n\n" +
-            "Provide a clear, detailed response about your findings. " +
-            "When you're finished, clearly state your conclusion and any recommendations."
+            f"Available tools (use the specified format):\n" +
+            f"- For web search: [@web_search: your search query]\n" +
+            f"- For budget calculations: [@budget: calculation description]\n" +
+            f"- For Google Sheets: [@sheets: action description]\n" +
+            f"- For calendar/scheduling: [@calendar: event description]\n\n" +
+            "IMPORTANT: First analyze the task and explain your reasoning. " +
+            "Then use the [@tool: instruction] format if you need tools. " +
+            "Do not hallucinate tool results - just specify what tools to call using the exact format above."
         },
         {
             "role": "user",
             "content": f"Original Task: {original_task}\n\n" +
             f"Your Specific Assignment: {delegated_task}\n\n" +
-            "Please complete your assignment and report your findings back to the coordinator."
+            "Please analyze the task and complete your assignment."
         }
     ]
     
@@ -659,30 +723,100 @@ async def execute_delegated_agent(agent_data, delegated_task, original_task, exe
         }
     })
     
-    # Execute agent task
+    # Execute agent task with three-phase approach
     try:
-        response = await monitor.llm_manager.generate(messages, tools=available_tools if available_tools else None)
+        # Phase 1: Get initial reasoning and tool requirements
+        response = await monitor.llm_manager.generate(messages)
         
-        # Execute any tools mentioned in the response (simple keyword matching)
-        await execute_simple_tools(agent_tools, response, execution_id)
+        # Extract pre-tool content and tool calls
+        pre_tool_content = extract_pre_tool_content(response)
+        tool_calls = parse_tool_requirements(response)
+        post_tool_content = extract_post_tool_content(response)
         
-        await monitor.broadcast({
-            "type": "execution_step",
-            "payload": {
-                "executionId": execution_id,
-                "agent": agent_id,
-                "agentName": agent_name,
-                "status": "completed",
-                "action": f"Completed: {delegated_task}",
-                "response": response,
-                "details": {
-                    "Delegated Task": delegated_task,
-                    "Tools Available": [t['function']['name'] for t in available_tools]
+        # Display Phase 1: Initial reasoning
+        if pre_tool_content:
+            await monitor.broadcast({
+                "type": "execution_step",
+                "payload": {
+                    "executionId": execution_id,
+                    "agent": agent_id,
+                    "agentName": agent_name,
+                    "status": "completed",
+                    "action": "Analysis & Planning",
+                    "response": pre_tool_content
                 }
-            }
-        })
+            })
         
-        return response
+        # Phase 2: Execute tools if any were requested
+        tool_results = []
+        if tool_calls:
+            for tool_call in tool_calls:
+                # Execute tool and display results
+                tool_result = await monitor.tool_executor.execute_tool(
+                    tool_call["tool"], 
+                    **tool_call["params"]
+                )
+                tool_results.append(tool_result)
+                
+                # Display tool execution
+                await monitor.broadcast({
+                    "type": "execution_step",
+                    "payload": {
+                        "executionId": execution_id,
+                        "agent": f"Tool:{tool_call['tool']}",
+                        "agentName": f"{tool_call['tool']} Tool",
+                        "status": "completed",
+                        "action": f"Tool Execution",
+                        "response": f"**Query:** {tool_call['params'].get('query', 'N/A')}\n\n**Results:**\n```json\n{json.dumps(tool_result, indent=2)}\n```"
+                    }
+                })
+        
+        # Phase 3: Continue reasoning with tool results (if tools were used)
+        if tool_calls and tool_results:
+            # Create follow-up prompt with tool results
+            tool_results_text = "\n\n".join([
+                f"Tool: {tool_call['tool']}\nResult: {json.dumps(result, indent=2)}" 
+                for tool_call, result in zip(tool_calls, tool_results)
+            ])
+            
+            follow_up_messages = messages + [
+                {"role": "assistant", "content": response},
+                {"role": "user", "content": f"Tool Results:\n{tool_results_text}\n\nPlease continue your analysis using these results and provide your final recommendations."}
+            ]
+            
+            final_response = await monitor.llm_manager.generate(follow_up_messages)
+            
+            # Display final reasoning
+            await monitor.broadcast({
+                "type": "execution_step",
+                "payload": {
+                    "executionId": execution_id,
+                    "agent": agent_id,
+                    "agentName": agent_name,
+                    "status": "completed",
+                    "action": f"Final Analysis & Recommendations",
+                    "response": final_response
+                }
+            })
+            
+            # Combine responses for return
+            complete_response = f"{pre_tool_content}\n\n[Tool executions completed]\n\n{final_response}"
+        else:
+            # No tools used, display the original response
+            await monitor.broadcast({
+                "type": "execution_step",
+                "payload": {
+                    "executionId": execution_id,
+                    "agent": agent_id,
+                    "agentName": agent_name,
+                    "status": "completed",
+                    "action": f"Completed: {delegated_task}",
+                    "response": response
+                }
+            })
+            complete_response = response
+        
+        return complete_response
         
     except Exception as e:
         await monitor.broadcast({
@@ -793,47 +927,11 @@ async def build_agent_tools(agent_tools):
     return available_tools
 
 
-async def execute_simple_tools(agent_tools, response, execution_id):
-    """Execute simple tool detection and execution"""
-    tool_map = {
-        "tool-search": "Web Search",
-        "tool-budget": "Budget Calculator", 
-        "tool-sheets": "Google Sheets", 
-        "tool-calendar": "Calendar Manager"
-    }
-    
-    # Simple keyword-based tool execution
-    if "search" in response.lower() and "tool-search" in agent_tools:
-        await monitor.broadcast({
-            "type": "tool_execution",
-            "payload": {
-                "executionId": execution_id,
-                "tool_name": "Web Search",
-                "tool_id": "tool-search",
-                "status": "starting",
-                "timestamp": datetime.now().isoformat()
-            }
-        })
-        
-        # Execute search tool with extracted query
-        search_result = await monitor.tool_executor.execute_tool(
-            "Web Search", 
-            query="task requirements search",
-            max_results=3
-        )
-        
-        await monitor.broadcast({
-            "type": "tool_execution",
-            "payload": {
-                "executionId": execution_id,
-                "tool_name": "Web Search",
-                "tool_id": "tool-search",
-                "status": "completed",
-                "inputs": {"query": "task requirements search"},
-                "outputs": search_result,
-                "timestamp": datetime.now().isoformat()
-            }
-        })
+# OLD FUNCTION - Replaced with new tool parsing approach
+# async def execute_simple_tools(agent_tools, response, execution_id):
+#     """Execute simple tool detection and execution"""
+#     # This function has been replaced with the new [@tool: instruction] parsing approach
+#     pass
 
 async def run_workflow_with_error_handling(llm_config):
     """Run workflow with proper error handling and client notification"""

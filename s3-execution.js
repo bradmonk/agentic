@@ -111,22 +111,7 @@
             const renderedResponse = renderMarkdown(response);
             responseHtml = `
                 <div class="step-response ${agentClass}">
-                    <strong>LLM Response:</strong>
                     <div class="response-content">${renderedResponse}</div>
-                </div>
-            `;
-        }
-        
-        let detailsHtml = '';
-        if (details) {
-            detailsHtml = `
-                <div class="step-details ${agentClass}">
-                    ${typeof details === 'object' ? 
-                        Object.entries(details).map(([key, value]) => 
-                            `<div class="detail-item"><strong>${key}:</strong> ${value}</div>`
-                        ).join('') : 
-                        `<div class="detail-content">${details}</div>`
-                    }
                 </div>
             `;
         }
@@ -140,7 +125,6 @@
                 <div class="step-action">${action}</div>
             </div>
             ${responseHtml}
-            ${detailsHtml}
         `;
         
         // Store the execution step
@@ -153,7 +137,12 @@
         });
         
         executionLog.appendChild(stepElement);
-        executionLog.scrollTop = executionLog.scrollHeight;
+        
+        // Smart scroll detection: only auto-scroll if user is near the bottom
+        const isNearBottom = executionLog.scrollTop + executionLog.clientHeight >= executionLog.scrollHeight - 100;
+        if (isNearBottom) {
+            executionLog.scrollTop = executionLog.scrollHeight;
+        }
     }
 
     function highlightActiveAgent(agentId) {

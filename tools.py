@@ -87,12 +87,15 @@ class WebSearchTool(MonitoredTool):
 
         """Perform web search using simple HTTP requests"""
         try:
+            # Strip quotes from query to avoid exact string search issues
+            cleaned_query = query.strip().strip('"').strip("'").strip()
+            
             # Run search in a thread pool to avoid blocking
             loop = asyncio.get_event_loop()
             results = await loop.run_in_executor(
                 None, 
                 self._search_sync, 
-                query, 
+                cleaned_query, 
                 max_results
             )
             
@@ -101,17 +104,19 @@ class WebSearchTool(MonitoredTool):
             
             return {
                 "search_results": results,
-                "query_used": query,
+                "query_used": cleaned_query,
                 "results_count": len(results),
                 "success": True,
                 "source": "Web Search"
             }
         except Exception as e:
             logger.error(f"Web search failed: {str(e)}")
+            # Strip quotes from query for error case too
+            cleaned_query = query.strip().strip('"').strip("'").strip()
             return {
                 "error": f"Search failed: {str(e)}",
                 "search_results": [],
-                "query_used": query,
+                "query_used": cleaned_query,
                 "results_count": 0,
                 "success": False
             }
