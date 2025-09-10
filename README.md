@@ -1,6 +1,6 @@
 # Agentic AI Tutorial - LangGraph Agent Interface
 
-A real-time web interface for monitoring and interacting with LangGraph agent workflows. This project provides a complete modular architecture for building and managing multi-agent AI systems.
+This project provides a fun and interactive way to learn how multi-agent AI systems work together to solve problems. Using a GUI interface, users can give instructions to several AI agents, and choose what tools they can use (e.g., web search, document RAG, calculators, spreadsheets, etc.). Lastly, the user provides an overall task or goal for the agentic team, and sets them to work. LangGraph works in the background to coordinate the agent-tool interactions. Eventually this will be made into a web interface, but for now you can clone this repo and use the system in dev mode - see the Quick Start guide below.
 
 ![Agentic AI Tutorial](docs/agentic.png)
 
