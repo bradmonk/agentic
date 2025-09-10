@@ -2,32 +2,86 @@
 
 A real-time web interface for monitoring and interacting with LangGraph agent workflows. This project provides a complete modular architecture for building and managing multi-agent AI systems.
 
+![Agentic AI Tutorial](docs/agentic.png)
+
 ## 🚀 Features
 
 - **Real-time Agent Monitoring**: WebSocket-based live updates of agent status and execution
-- **Modular JavaScript Architecture**: Clean separation of concerns across 6 specialized modules
+- **Modular JavaScript Architecture**: Clean separation of concerns across 5 specialized modules
 - **Interactive UI**: Dynamic agent cards with editable prompts and tool connections
 - **Tool Management**: Visual representation of agent-tool interactions with toggle controls
-- **Connection Visualization**: SVG-based connection lines between agents and tools
+- **Document Library**: Upload and vectorize documents for RAG (Retrieval-Augmented Generation) search
 - **Task Execution**: Execute complex multi-agent workflows with live progress tracking
 - **LLM Integration**: Support for OpenAI and Ollama (local) models
-- **Responsive Design**: Modern, clean interface with hamburger menu navigation
+- **Responsive Design**: Modern, clean interface with streamlined navigation
+- **Real-time Tool Execution**: Web search, budget calculations, Google Sheets integration, and document search
+
+## � Prerequisites
+
+### Required
+- **Python 3.8+**: The backend requires Python 3.8 or higher
+- **Modern web browser**: With WebSocket support (Chrome, Firefox, Safari, Edge)
+
+### LLM Providers (Choose One or Both)
+
+#### Option 1: Ollama (Local Models - Recommended for Privacy)
+- **Install Ollama**: Download from [ollama.ai](https://ollama.ai) 
+- **Pull a model**: Run `ollama pull llama3.1:latest` or your preferred model
+- **Start Ollama**: The service should be running on `localhost:11434`
+- **Benefits**: Free, private, runs locally, no API keys needed
+
+#### Option 2: OpenAI (Cloud Models - Recommended for Performance)
+- **API Key Required**: Set the `OPENAI_API_KEY` environment variable
+  ```bash
+  export OPENAI_API_KEY="your-openai-api-key-here"
+  ```
+- **Benefits**: Fast, powerful models like GPT-4, GPT-3.5-turbo
+
+#### Both Providers (Recommended)
+You can configure both providers to switch between local and cloud models as needed.
+
+## �🚀 Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd agentic
+   ```
+
+2. **Set up Python virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On macOS/Linux
+   pip install -r requirements.txt
+   ```
+
+3. **Start the application**
+   ```bash
+   ./restart.sh
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:3000` to use the interface
+
+5. **Try the Document Library**
+   - Upload documents using the Document Library tool
+   - Click "Vectorize for RAG Search" to add them to the vector database
+   - Run tasks that can search and retrieve from your documents
 
 ## 🏗️ Architecture
 
 ### Frontend (JavaScript Modules)
-- `websocket-step1.js` - WebSocket communication and connection management
-- `ui-rendering-step2.js` - Agent/tool card rendering and SVG connections
-- `task-execution-step3.js` - Task lifecycle and execution management
-- `hamburger-menu-step4.js` - Slide-out menu functionality
-- `ui-interactions-step5.js` - Event handling and user interactions
-- `app-step6.js` - Application initialization and state management
-- `fullscript.js` - Module coordinator and verification
+- `s1-websocket.js` - WebSocket communication and connection management
+- `s2-rendering.js` - Agent/tool card rendering and SVG connections  
+- `s3-execution.js` - Task lifecycle and execution management
+- `s4-interactions.js` - Event handling, user interactions, and document upload
+- `s5-app.js` - Application initialization and state management
 
 ### Backend (Python)
 - `python_server.py` - WebSocket server for real-time communication
 - `llm_integration.py` - LLM provider integration (OpenAI/Ollama)
 - `langgraph_workflow.py` - LangGraph workflow implementation
+- `tools.py` - Tool execution framework with Web Search, Budget Calculator, Google Sheets, and Document Library
 
 ### Frontend Assets
 - `index.html` - Main application entry point
@@ -37,35 +91,33 @@ A real-time web interface for monitoring and interacting with LangGraph agent wo
    - Message sending and receiving
    - Reconnection handling and error recovery
 
-2. **`ui-rendering-step2.js`** - UI Rendering Engine
+1. **`s1-websocket.js`** - WebSocket Communication
+   - Connection management and status monitoring
+   - Message sending and receiving
+   - Reconnection handling and error recovery
+
+2. **`s2-rendering.js`** - UI Rendering Engine
    - Agent and tool card rendering
    - Connection line drawing between components
    - Dynamic UI updates and state visualization
+   - Special Document Library tool card with upload interface
 
-3. **`task-execution-step3.js`** - Task Execution System
+3. **`s3-execution.js`** - Task Execution System
    - Task workflow simulation and management
    - Progress tracking and agent highlighting
    - Results display and export functionality
 
-4. **`hamburger-menu-step4.js`** - Navigation Menu
-   - Slide-out menu for task configuration
-   - Clean interface with organized controls
-   - Keyboard shortcuts and accessibility features
-
-5. **`ui-interactions-step5.js`** - Event Handling
+4. **`s4-interactions.js`** - User Interactions & Document Management
    - All user interface interactions and event listeners
    - Model selection and workflow controls
+   - Document upload and vectorization functionality
    - Prompt editing and keyboard shortcuts
 
-6. **`app-step6.js`** - Application Initialization
+5. **`s5-app.js`** - Application Core
    - Main application state management
    - Module coordination and message routing
+   - WebSocket message handling and routing
    - Sample data initialization and global state
-
-7. **`fullscript.js`** - Module Coordinator
-   - Minimal coordinator that verifies all modules are loaded
-   - Sets up cross-module communication bridges
-   - Provides module status debugging
 
 ### Benefits of Modular Design
 
@@ -84,8 +136,9 @@ A real-time web interface for monitoring and interacting with LangGraph agent wo
 - **Responsive design**: Clean, professional interface matching the reference design
 
 ### Backend
-- **Node.js WebSocket Server** (`server.js`): Currently provides simulation data
-- **Python Environment**: Set up with LangChain, LangGraph, and WebSocket support
+- **Python WebSocket Server** (`python_server.py`): Real-time communication with LLM integration
+- **Tool Execution Framework** (`tools.py`): Web Search, Budget Calculator, Google Sheets, Document Library
+- **LLM Integration** (`llm_integration.py`): OpenAI and Ollama provider support
 
 ## Current Status
 
@@ -98,14 +151,18 @@ A real-time web interface for monitoring and interacting with LangGraph agent wo
 - [x] **Python WebSocket server with LangGraph integration**
 - [x] **Real agent and tool monitoring foundation**
 - [x] **Monitored agent base classes**
-- [x] **Example LangGraph workflow with monitoring**
+- [x] **Document Library tool with RAG vectorization workflow**
+- [x] **Complete tool execution framework (Web Search, Budget Calculator, Google Sheets, Document Library)**
+- [x] **Multi-agent coordinator workflow with iterative task execution**
+- [x] **Real-time LLM integration with OpenAI and Ollama support**
 
-🚧 **In Progress**
-- [x] Complete LangGraph workflow integration (basic framework done)
-- [x] Enhanced agent state monitoring
-- [x] Agentic AI Tutorial interface with editable components
-- [x] **PHASE 1: Core Execution Features** ✅ **COMPLETED**
-- [ ] **PHASE 2: Enhanced Customization** (Current Focus)
+🚧 **Current Features**
+- ✅ **Real-time multi-agent task execution**
+- ✅ **Document upload and vectorization for RAG search**
+- ✅ **WebSocket-based tool execution and monitoring**
+- ✅ **Coordinator-agent delegation workflow**
+- ✅ **Live progress tracking with agent highlighting**
+- ✅ **Interactive agent prompt editing**
 
 ## Development Roadmap & TODO List
 
@@ -365,29 +422,21 @@ The interface is now a fully functional demo that showcases:
 ## Installation & Setup
 
 ### Prerequisites
-- Node.js (for current simulation server)
 - Python 3.8+
 - Modern web browser with WebSocket support
+- Optional: Ollama for local LLM support
 
-### Current Setup
+### Setup Instructions
 ```bash
-# Quick start with the provided script
-./start.sh
-
-# Or use the Development Restart Script
-# This script kills existing backend/frontend processes and restarts them
-./restart.sh
-
-# Or manual setup:
-# Set up Python virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+# Clone and setup virtual environment
+git clone <repository-url>
+cd agentic
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
 pip install -r requirements.txt
 
-# Start the Python server
-python python_server.py
-
-# Open index.html in your browser or use VS Code Simple Browser
+# Start the application
+./restart.sh
 ```
 
 ### Next Steps
@@ -399,20 +448,27 @@ python python_server.py
 ```
 .
 ├── index.html              # Main UI layout
-├── style.css               # UI styling
-├── script.js               # Frontend WebSocket client
-├── python_server.py        # Python WebSocket server with monitoring
-├── langgraph_workflow.py   # LangGraph workflow with monitoring integration
-├── server.js               # Node.js simulation server (legacy)
+├── style.css               # Complete UI styling
+├── s1-websocket.js         # WebSocket communication module
+├── s2-rendering.js         # UI rendering and card generation
+├── s3-execution.js         # Task execution and progress tracking
+├── s4-interactions.js      # User interactions and document upload
+├── s5-app.js               # Application core and message routing
+├── python_server.py        # WebSocket server with LLM integration
+├── llm_integration.py      # OpenAI and Ollama provider support
+├── langgraph_workflow.py   # LangGraph workflow implementation
+├── tools.py                # Tool execution framework
 ├── requirements.txt        # Python dependencies
-├── start.sh                # Convenience startup script
+├── restart.sh              # Development restart script
 ├── .venv/                  # Python virtual environment
+├── archive/                # Legacy files and backups
+├── documentation/          # Project documentation
 └── README.md               # This file
 ```
 
 ## Contributing
 
-This project is in active development. Priority should be given to replacing the simulation backend with real LangGraph integration.
+This project demonstrates a complete multi-agent AI system with real-time monitoring, document upload/vectorization, and LLM integration. The modular architecture makes it easy to extend with new agents and tools.
 
 ## License
 
