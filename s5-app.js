@@ -90,6 +90,9 @@
                 case 'llm_models':
                     updateAvailableModels(data.payload);
                     break;
+                case 'vectorize_documents_result':
+                    handleVectorizeResult(data.payload);
+                    break;
                 default:
                     console.log('Unknown message type:', data.type);
             }
@@ -123,6 +126,40 @@
             }
             if (window.completeTaskExecution) {
                 window.completeTaskExecution();
+            }
+        }
+
+        function handleVectorizeResult(payload) {
+            console.log('📚 Vectorization result:', payload);
+            
+            const { tool_id, success, count, error } = payload;
+            
+            // Find the vectorize button and status div for this tool
+            const vectorizeButton = document.querySelector(`[data-tool-id="${tool_id}"] .vectorize-button`);
+            const statusDiv = document.querySelector(`[data-tool-id="${tool_id}"] .vectorize-status`);
+            
+            if (success) {
+                // Success state
+                if (statusDiv) {
+                    statusDiv.textContent = `✅ ${count || 0} documents vectorized and ready for RAG search`;
+                    statusDiv.className = 'vectorize-status success';
+                }
+                if (vectorizeButton) {
+                    vectorizeButton.textContent = '✅ Vectorized';
+                    vectorizeButton.style.backgroundColor = '#28a745';
+                    vectorizeButton.disabled = true;
+                }
+            } else {
+                // Error state
+                if (statusDiv) {
+                    statusDiv.textContent = `❌ Error: ${error || 'Vectorization failed'}`;
+                    statusDiv.className = 'vectorize-status error';
+                }
+                if (vectorizeButton) {
+                    vectorizeButton.disabled = false;
+                    vectorizeButton.textContent = '🔍 Vectorize for RAG Search';
+                    vectorizeButton.style.backgroundColor = '#28a745';
+                }
             }
         }
 
@@ -288,7 +325,7 @@
                     role: 'Project Coordinator',
                     status: 'idle',
                     prompt: 'You are a vision agent responsible for understanding project requirements and coordinating with other agents.',
-                    interactions: ['tool-search', 'tool-calendar', 'tool-budget'],
+                    interactions: ['tool-search', 'tool-documents', 'tool-budget'],
                     borderColor: '#3b82f6',
                     context: '2048 tokens'
                 },
@@ -308,7 +345,7 @@
                     role: 'Financial Analysis', 
                     status: 'idle',
                     prompt: 'You are a financial analysis agent focused on budget planning and cost optimization.',
-                    interactions: ['tool-budget', 'tool-calendar'],
+                    interactions: ['tool-budget', 'tool-documents'],
                     borderColor: '#f59e0b',
                     context: '2048 tokens'
                 },
@@ -318,7 +355,7 @@
                     role: 'Timeline Management',
                     status: 'idle', 
                     prompt: 'You are a scheduling agent responsible for timeline coordination and resource allocation.',
-                    interactions: ['tool-calendar', 'tool-sheets'],
+                    interactions: ['tool-documents', 'tool-sheets'],
                     borderColor: '#ef4444',
                     context: '2048 tokens'
                 }
@@ -342,12 +379,12 @@
                     outputs: ['confirmation', 'response']
                 },
                 {
-                    id: 'tool-calendar',
-                    name: 'Calendar Manager',
-                    description: 'Schedule events and manage timelines',
+                    id: 'tool-documents',
+                    name: 'Document Library',
+                    description: 'Search and retrieve documents from vector database for RAG',
                     status: 'available',
-                    inputs: ['date', 'time', 'duration'],
-                    outputs: ['event_id', 'availability']
+                    inputs: ['query', 'max_results', 'action'],
+                    outputs: ['documents', 'similarity_scores', 'metadata']
                 },
                 {
                     id: 'tool-budget',

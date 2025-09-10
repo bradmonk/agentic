@@ -466,70 +466,112 @@ class GoogleSheetsTool(MonitoredTool):
             }
 
 
-class CalendarManagerTool(MonitoredTool):
-    """Calendar management tool (placeholder implementation)"""
+class DocumentLibraryTool(MonitoredTool):
+    """Document Library tool for vector database RAG search"""
     
     def __init__(self):
         super().__init__(
-            "Calendar Manager",
-            "Schedule events and manage timelines"
+            "Document Library",
+            "Search and retrieve documents from vector database for RAG"
         )
     
-    async def _execute_impl(self, date: str, time: str, duration: int, 
-                          title: str, action: str = "schedule") -> Dict[str, Any]:
-        """Placeholder calendar functionality"""
+    async def _execute_impl(self, query: str, max_results: int = 5, 
+                          action: str = "search", document_id: str = None) -> Dict[str, Any]:
+        """Vector database search and document retrieval functionality"""
         try:
-            # Simulate calendar processing
+            # Simulate vector database processing
             await asyncio.sleep(0.1)
             
-            if action == "schedule":
-                # Parse and validate date/time
-                try:
-                    event_datetime = datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M")
-                    end_datetime = event_datetime + timedelta(minutes=duration)
-                except ValueError:
+            if action == "search":
+                # Simulate semantic search through vector database
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(2)
+                
+                # Mock document results based on query
+                mock_documents = [
+                    {
+                        "id": "doc_001",
+                        "title": "Wedding Planning Best Practices",
+                        "content_snippet": "Comprehensive guide to planning weddings including venue selection, budgeting, and timeline management...",
+                        "similarity_score": 0.89,
+                        "source": "wedding_guides.pdf",
+                        "metadata": {"category": "planning", "date_added": "2025-09-01"}
+                    },
+                    {
+                        "id": "doc_002", 
+                        "title": "San Diego Venue Directory",
+                        "content_snippet": "Complete listing of event venues in San Diego with capacity, pricing, and amenities information...",
+                        "similarity_score": 0.85,
+                        "source": "venue_directory.pdf",
+                        "metadata": {"category": "venues", "date_added": "2025-08-15"}
+                    },
+                    {
+                        "id": "doc_003",
+                        "title": "Event Budget Templates",
+                        "content_snippet": "Detailed budget breakdowns for various event types including weddings, corporate events...",
+                        "similarity_score": 0.78,
+                        "source": "budget_templates.pdf", 
+                        "metadata": {"category": "budgeting", "date_added": "2025-08-20"}
+                    }
+                ]
+                
+                # Filter to max_results
+                results = mock_documents[:max_results]
+                
+                return {
+                    "action": "search",
+                    "query": query,
+                    "documents": results,
+                    "total_found": len(results),
+                    "vector_db": "ChromaDB",
+                    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+                    "success": True,
+                    "note": "Documents retrieved from vector database (mock implementation)"
+                }
+                
+            elif action == "retrieve":
+                if not document_id:
                     return {
-                        "error": "Invalid date/time format. Use YYYY-MM-DD and HH:MM",
+                        "error": "Document ID required for retrieval",
                         "success": False
                     }
                 
                 # Add a pause to make the active tool highlighting visible
                 await asyncio.sleep(2)
                 
-                return {
-                    "action": "schedule",
-                    "title": title,
-                    "start_time": event_datetime.isoformat(),
-                    "end_time": end_datetime.isoformat(),
-                    "duration_minutes": duration,
-                    "event_id": f"evt_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-                    "status": "scheduled",
-                    "calendar": "default",
-                    "success": True,
-                    "note": "Event scheduled successfully (placeholder implementation)"
+                # Mock full document retrieval
+                mock_full_doc = {
+                    "id": document_id,
+                    "title": "Wedding Planning Best Practices - Full Document",
+                    "full_content": "This comprehensive guide covers all aspects of wedding planning including venue selection, vendor coordination, budget management, timeline creation, and day-of coordination. Key sections include...",
+                    "metadata": {
+                        "author": "Event Planning Experts",
+                        "publication_date": "2025-01-01",
+                        "document_type": "guide",
+                        "page_count": 25,
+                        "category": "planning"
+                    },
+                    "chunks": 15,
+                    "vector_embeddings": "384-dimensional",
+                    "last_updated": "2025-09-01"
                 }
-            elif action == "check_availability":
-                # Add a pause to make the active tool highlighting visible
-                await asyncio.sleep(2)
                 
                 return {
-                    "action": "check_availability",
-                    "date": date,
-                    "time": time,
-                    "available": True,
-                    "conflicts": [],
+                    "action": "retrieve",
+                    "document_id": document_id,
+                    "document": mock_full_doc,
                     "success": True,
-                    "note": "Availability checked (placeholder implementation)"
+                    "note": "Full document retrieved from vector database (mock implementation)"
                 }
             else:
                 return {
-                    "error": f"Unknown action: {action}",
+                    "error": f"Unknown action: {action}. Supported: 'search', 'retrieve'",
                     "success": False
                 }
                 
         except Exception as e:
             return {
-                "error": f"Calendar operation failed: {str(e)}",
+                "error": f"Document library operation failed: {str(e)}",
                 "success": False
             }
 
@@ -548,7 +590,7 @@ class ToolExecutor:
             WebSearchTool(),
             BudgetCalculatorTool(),
             GoogleSheetsTool(),
-            CalendarManagerTool()
+            DocumentLibraryTool()
         ]
         
         for tool in tools:
@@ -608,13 +650,12 @@ class ToolExecutor:
                     "title": {"type": "string", "required": False, "description": "Spreadsheet title for create operation"}
                 }
             },
-            "Calendar Manager": {
+            "Document Library": {
                 "parameters": {
-                    "date": {"type": "string", "required": True, "description": "Date in YYYY-MM-DD format"},
-                    "time": {"type": "string", "required": True, "description": "Time in HH:MM format"},
-                    "duration": {"type": "integer", "required": True, "description": "Duration in minutes"},
-                    "title": {"type": "string", "required": True, "description": "Event title"},
-                    "action": {"type": "string", "required": False, "default": "schedule", "options": ["schedule", "check_availability"]}
+                    "query": {"type": "string", "required": True, "description": "Search query for semantic document search"},
+                    "max_results": {"type": "integer", "required": False, "default": 5, "description": "Maximum number of documents to return"},
+                    "action": {"type": "string", "required": False, "default": "search", "options": ["search", "retrieve"]},
+                    "document_id": {"type": "string", "required": False, "description": "Document ID for retrieve action"}
                 }
             }
         }

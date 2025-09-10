@@ -125,26 +125,61 @@
         card.className = 'card tool-card';
         card.id = toolData.id;
         card.setAttribute('data-tool-id', toolData.id);
-        card.innerHTML = `
-            <h3>${toolData.name}</h3>
-            <div class="tool-description">${toolData.description}</div>
-            <div class="io-section">
-                <div class="io-label">Inputs:</div>
-                <div class="io-list">
-                    ${toolData.inputs.map(input => 
-                        `<span class="io-item">${input}</span>`
-                    ).join('')}
+        
+        // Special rendering for Document Library tool
+        if (toolData.id === 'tool-documents') {
+            card.innerHTML = `
+                <h3>Document Library</h3>
+                <div class="document-library">
+                    <div class="upload-area">
+                        <input type="file" id="doc-upload-${toolData.id}" multiple accept=".pdf,.doc,.docx,.txt,.md" style="display: none;">
+                        <button class="upload-button" onclick="document.getElementById('doc-upload-${toolData.id}').click();">
+                            + Upload Documents
+                        </button>
+                        <div class="upload-limit">0/4 documents</div>
+                    </div>
+                    <div class="document-list" id="document-list-${toolData.id}">
+                        <!-- Documents will be added here dynamically -->
+                    </div>
+                    <div class="vectorize-area" id="vectorize-area-${toolData.id}" style="display: none;">
+                        <button class="vectorize-button" onclick="vectorizeDocuments('${toolData.id}')">
+                            🔍 Vectorize for RAG Search
+                        </button>
+                        <div class="vectorize-status" id="vectorize-status-${toolData.id}"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="io-section">
-                <div class="io-label">Outputs:</div>
-                <div class="io-list">
-                    ${toolData.outputs.map(output => 
-                        `<span class="io-item output">${output}</span>`
-                    ).join('')}
+            `;
+            
+            // Set up the document library functionality after the card is created
+            setTimeout(() => {
+                if (window.setupDocumentLibraryForCard) {
+                    window.setupDocumentLibraryForCard(toolData.id);
+                }
+            }, 100);
+        } else {
+            // Standard tool card rendering
+            card.innerHTML = `
+                <h3>${toolData.name}</h3>
+                <div class="tool-description">${toolData.description}</div>
+                <div class="io-section">
+                    <div class="io-label">Inputs:</div>
+                    <div class="io-list">
+                        ${toolData.inputs.map(input => 
+                            `<span class="io-item">${input}</span>`
+                        ).join('')}
+                    </div>
                 </div>
-            </div>
-        `;
+                <div class="io-section">
+                    <div class="io-label">Outputs:</div>
+                    <div class="io-list">
+                        ${toolData.outputs.map(output => 
+                            `<span class="io-item output">${output}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
         return card;
     }
 

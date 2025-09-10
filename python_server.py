@@ -45,10 +45,10 @@ def parse_tool_requirements(response_text):
                 "tool": "Google Sheets",
                 "params": {"action": "read", "sheet_name": "Sheet1"}
             })
-        elif tool_name == "calendar":
+        elif tool_name == "document":
             tool_calls.append({
-                "tool": "Calendar Manager",
-                "params": {"action": "schedule", "title": instruction.strip(), "date": "2025-09-15", "time": "10:00", "duration": 60}
+                "tool": "Document Library",
+                "params": {"query": instruction.strip(), "max_results": 5, "action": "search"}
             })
     
     return tool_calls
@@ -373,6 +373,42 @@ async def handle_client_message(websocket, data):
                 }
             }))
         
+        elif message_type == "vectorize_documents":
+            tool_id = payload.get("tool_id")
+            documents = payload.get("documents", [])
+            
+            try:
+                # Process documents for vectorization
+                logger.info(f"Vectorizing {len(documents)} documents for tool {tool_id}")
+                
+                # Simulate vectorization process (in real implementation, this would:
+                # 1. Extract text from documents
+                # 2. Create embeddings
+                # 3. Store in vector database)
+                await asyncio.sleep(1)  # Simulate processing time
+                
+                # Send success response
+                await websocket.send(json.dumps({
+                    "type": "vectorize_documents_result",
+                    "payload": {
+                        "tool_id": tool_id,
+                        "success": True,
+                        "count": len(documents),
+                        "message": f"Successfully vectorized {len(documents)} documents"
+                    }
+                }))
+                
+            except Exception as e:
+                logger.error(f"Error vectorizing documents: {e}")
+                await websocket.send(json.dumps({
+                    "type": "vectorize_documents_result",
+                    "payload": {
+                        "tool_id": tool_id,
+                        "success": False,
+                        "error": str(e)
+                    }
+                }))
+        
         logger.info(f"Handled client message: {message_type}")
         
     except Exception as e:
@@ -429,7 +465,7 @@ async def run_real_task_execution(task_data):
                 "tool-search": "Web Search",
                 "tool-budget": "Budget Calculator", 
                 "tool-sheets": "Google Sheets",
-                "tool-calendar": "Calendar Manager"
+                "tool-documents": "Document Library"
             }
             for tool_id in agent_tools:
                 tool_name = tool_map.get(tool_id, tool_id)
@@ -490,7 +526,7 @@ async def execute_coordinator_workflow(coordinator, other_agents, agent_capabili
             f"- For web search: [@web_search: your search query]\n" +
             f"- For budget calculations: [@budget: calculation description]\n" +
             f"- For Google Sheets: [@sheets: action description]\n" +
-            f"- For calendar/scheduling: [@calendar: event description]\n\n" +
+            f"- For document search: [@document: search query]\n\n" +
             "You can also delegate tasks to these specialized agents:\n" +
             capabilities_summary + "\n\n" +
             "AGENT CALLING SYNTAX:\n" +
@@ -698,7 +734,7 @@ async def execute_delegated_agent(agent_data, delegated_task, original_task, exe
             f"- For web search: [@web_search: your search query]\n" +
             f"- For budget calculations: [@budget: calculation description]\n" +
             f"- For Google Sheets: [@sheets: action description]\n" +
-            f"- For calendar/scheduling: [@calendar: event description]\n\n" +
+            f"- For document search: [@document: search query]\n\n" +
             "IMPORTANT: First analyze the task and explain your reasoning. " +
             "Then use the [@tool: instruction] format if you need tools. " +
             "Do not hallucinate tool results - just specify what tools to call using the exact format above."
@@ -908,7 +944,7 @@ async def build_agent_tools(agent_tools):
         "tool-search": "Web Search",
         "tool-budget": "Budget Calculator", 
         "tool-sheets": "Google Sheets",
-        "tool-calendar": "Calendar Manager"
+        "tool-documents": "Document Library"
     }
     
     for tool_id in agent_tools:
@@ -953,7 +989,7 @@ async def setup_demo_agents():
     monitor.add_agent(
         "Vision Agent",
         "You are a vision agent responsible for understanding project requirements and coordinating with other agents.",
-        tools=["tool-search", "tool-calendar", "tool-budget"],
+        tools=["tool-search", "tool-documents", "tool-budget"],
         agents=["agent2", "agent3"],
         agent_id="agent1",
         role="Project Coordinator"
@@ -971,7 +1007,7 @@ async def setup_demo_agents():
     monitor.add_agent(
         "Budget Agent",
         "You are a financial analysis agent focused on budget planning and cost optimization.",
-        tools=["tool-budget", "tool-calendar"],
+        tools=["tool-budget", "tool-documents"],
         agents=["agent1", "agent4"],
         agent_id="agent3",
         role="Financial Analysis"
@@ -980,7 +1016,7 @@ async def setup_demo_agents():
     monitor.add_agent(
         "Schedule Agent",
         "You are a scheduling agent responsible for timeline coordination and resource allocation.",
-        tools=["tool-calendar", "tool-sheets"],
+        tools=["tool-documents", "tool-sheets"],
         agents=["agent1", "agent3"],
         agent_id="agent4",
         role="Timeline Management"
@@ -1004,11 +1040,11 @@ async def setup_demo_agents():
     )
     
     monitor.add_tool(
-        "Calendar Manager",
+        "Document Library",
         "Schedule events and manage timelines",
         inputs=["date", "time", "duration"],
         outputs=["event_id", "availability"],
-        tool_id="tool-calendar"
+        tool_id="tool-documents"
     )
     
     monitor.add_tool(

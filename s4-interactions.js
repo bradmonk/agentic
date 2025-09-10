@@ -349,10 +349,215 @@
             });
         }
 
+        // === DOCUMENT LIBRARY FUNCTIONALITY ===
+        
+        // Track uploaded documents per tool instance
+        let documentsByTool = {};
+        const MAX_DOCUMENTS = 4;
+
+        function setupDocumentLibrary() {
+            // This function is kept for backward compatibility
+            // The actual setup is now done per card via setupDocumentLibraryForCard
+        }
+
+        function setupDocumentLibraryForCard(toolId) {
+            console.log('Setting up document library for tool:', toolId);
+            
+            // Initialize document storage for this tool
+            if (!documentsByTool[toolId]) {
+                documentsByTool[toolId] = [];
+            }
+            
+            const fileInput = document.getElementById(`doc-upload-${toolId}`);
+            if (fileInput) {
+                console.log('Found file input, setting up event listener');
+                fileInput.removeEventListener('change', handleFileUpload); // Remove any existing listener
+                fileInput.addEventListener('change', (event) => handleFileUpload(event, toolId));
+            } else {
+                console.error('File input not found:', `doc-upload-${toolId}`);
+            }
+            
+            // Update initial state
+            updateUploadButtonState(toolId);
+        }
+
+        function handleFileUpload(event, toolId) {
+            console.log('File upload triggered for tool:', toolId);
+            const files = Array.from(event.target.files);
+            const currentDocs = documentsByTool[toolId] || [];
+            const remainingSlots = MAX_DOCUMENTS - currentDocs.length;
+            
+            console.log('Files selected:', files.length, 'Remaining slots:', remainingSlots);
+            
+            if (files.length > remainingSlots) {
+                alert(`You can only upload ${remainingSlots} more document(s). Maximum is ${MAX_DOCUMENTS} documents.`);
+                files.splice(remainingSlots);
+            }
+
+            files.forEach(file => {
+                if (currentDocs.length < MAX_DOCUMENTS) {
+                    const docInfo = {
+                        id: Date.now() + Math.random(),
+                        name: file.name,
+                        file: file
+                    };
+                    currentDocs.push(docInfo);
+                    addDocumentToList(docInfo, toolId);
+                    console.log('Added document:', docInfo.name);
+                }
+            });
+
+            // Update the storage
+            documentsByTool[toolId] = currentDocs;
+
+            // Clear the input
+            event.target.value = '';
+            
+            // Update upload button state
+            updateUploadButtonState(toolId);
+        }
+
+        function addDocumentToList(docInfo, toolId) {
+            const documentList = document.getElementById(`document-list-${toolId}`);
+            if (!documentList) {
+                console.error('Document list not found:', `document-list-${toolId}`);
+                return;
+            }
+
+            const docElement = document.createElement('div');
+            docElement.className = 'document-item';
+            docElement.setAttribute('data-doc-id', docInfo.id);
+            docElement.setAttribute('data-tool-id', toolId);
+            
+            docElement.innerHTML = `
+                <span class="document-name" title="${docInfo.name}">${docInfo.name}</span>
+                <button class="remove-doc" onclick="removeDocument('${docInfo.id}', '${toolId}')" title="Remove document">×</button>
+            `;
+            
+            documentList.appendChild(docElement);
+        }
+
+        function removeDocument(docId, toolId) {
+            console.log('Removing document:', docId, 'from tool:', toolId);
+            
+            // Remove from array
+            const currentDocs = documentsByTool[toolId] || [];
+            documentsByTool[toolId] = currentDocs.filter(doc => doc.id != docId);
+            
+            // Remove from DOM
+            const docElement = document.querySelector(`[data-doc-id="${docId}"][data-tool-id="${toolId}"]`);
+            if (docElement) {
+                docElement.remove();
+            }
+            
+            // Update upload button state
+            updateUploadButtonState(toolId);
+        }
+
+        function updateUploadButtonState(toolId) {
+            const uploadButton = document.querySelector(`#tool-documents .upload-button`);
+            const uploadLimit = document.querySelector(`#tool-documents .upload-limit`);
+            const vectorizeArea = document.getElementById(`vectorize-area-${toolId}`);
+            const currentDocs = documentsByTool[toolId] || [];
+            
+            if (uploadButton && uploadLimit) {
+                const remaining = MAX_DOCUMENTS - currentDocs.length;
+                
+                if (remaining === 0) {
+                    uploadButton.disabled = true;
+                    uploadButton.textContent = 'Maximum reached';
+                    uploadButton.style.backgroundColor = '#6c757d';
+                    uploadLimit.textContent = `${currentDocs.length}/${MAX_DOCUMENTS} documents`;
+                } else {
+                    uploadButton.disabled = false;
+                    uploadButton.textContent = '+ Upload Documents';
+                    uploadButton.style.backgroundColor = '#007bff';
+                    uploadLimit.textContent = `${currentDocs.length}/${MAX_DOCUMENTS} documents`;
+                }
+            }
+            
+            // Show/hide vectorize area based on whether documents are uploaded
+            if (vectorizeArea) {
+                if (currentDocs.length > 0) {
+                    vectorizeArea.style.display = 'block';
+                } else {
+                    vectorizeArea.style.display = 'none';
+                }
+            }
+        }
+
+        async function vectorizeDocuments(toolId) {
+            const currentDocs = documentsByTool[toolId] || [];
+            const vectorizeButton = document.querySelector(`#vectorize-area-${toolId} .vectorize-button`);
+            const statusDiv = document.getElementById(`vectorize-status-${toolId}`);
+            
+            if (currentDocs.length === 0) {
+                if (statusDiv) statusDiv.textContent = 'No documents to vectorize';
+                return;
+            }
+            
+            try {
+                // Update UI to show processing state
+                if (vectorizeButton) {
+                    vectorizeButton.disabled = true;
+                    vectorizeButton.textContent = '🔄 Vectorizing...';
+                }
+                if (statusDiv) {
+                    statusDiv.textContent = 'Processing documents for RAG search...';
+                    statusDiv.className = 'vectorize-status processing';
+                }
+                
+                // Prepare documents for vectorization
+                const documentsToVectorize = currentDocs.map(doc => ({
+                    id: doc.id,
+                    name: doc.name,
+                    content: `Document: ${doc.name}` // In real implementation, extract text content
+                }));
+                
+                // Send to backend for vectorization via WebSocket
+                console.log('Sending documents for vectorization:', documentsToVectorize);
+                
+                // Use WebSocket messaging instead of HTTP POST
+                if (window.sendMessage && window.isWebSocketConnected()) {
+                    window.sendMessage('vectorize_documents', {
+                        tool_id: toolId,
+                        documents: documentsToVectorize
+                    });
+                    
+                    // WebSocket response will be handled by handleVectorizeResult in s5-app.js
+                    // For now, we'll just show processing state and let the response handler update the UI
+                    console.log('Vectorization request sent via WebSocket');
+                    return; // Exit early, response will update UI
+                } else {
+                    throw new Error('WebSocket not connected');
+                }
+                
+            } catch (error) {
+                console.error('Vectorization error:', error);
+                
+                // Error state
+                if (statusDiv) {
+                    statusDiv.textContent = `❌ Error: ${error.message}`;
+                    statusDiv.className = 'vectorize-status error';
+                }
+                if (vectorizeButton) {
+                    vectorizeButton.disabled = false;
+                    vectorizeButton.textContent = '🔍 Vectorize for RAG Search';
+                    vectorizeButton.style.backgroundColor = '#28a745';
+                }
+            }
+        }
+
+        // Make functions available globally
+        window.setupDocumentLibraryForCard = setupDocumentLibraryForCard;
+        window.removeDocument = removeDocument;
+        window.vectorizeDocuments = vectorizeDocuments;
+
         // Initialize all interactions
         function initializeInteractions() {
             setupEventListeners();
             setupAgentInteractions();
+            setupDocumentLibrary();
             updateModelOptions(); // Set initial model options
             
             console.log('UI interactions and hamburger menu initialized');

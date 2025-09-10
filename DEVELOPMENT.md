@@ -1,6 +1,38 @@
 ## Recent Changes
 
-### Updated Tool Syntax to Single Square Brackets (Latest)
+### Document Library Vectorization Workflow (Latest)
+- **WebSocket-Based Vectorization**: Implemented complete RAG workflow using WebSocket messaging instead of HTTP POST
+- **Vectorize Button**: Added "Vectorize for RAG Search" button that appears after documents are uploaded
+- **Real-Time Status Updates**: Processing states with UI feedback (🔄 Vectorizing..., ✅ Vectorized, ❌ Error)
+- **Backend Vectorization Handler**: Added `vectorize_documents` WebSocket message type in python_server.py
+- **Simulated Vector Processing**: Backend simulates text extraction, embedding creation, and vector database storage
+- **Response Handling**: Complete WebSocket response system with success/error states and document count
+- **UI State Management**: Proper button states, status messages, and visual feedback throughout the process
+- **Error Handling**: Comprehensive error handling for WebSocket disconnection and processing failures
+- **RAG Integration**: Documents become searchable through DocumentLibraryTool after vectorization
+- **Production Ready Structure**: Framework in place for real PDF text extraction and vector database integration
+
+### Simplified Document Library Tool Design
+- **Removed Complex SVG Interface**: Eliminated complicated SVG buttons and detailed document list display
+- **Clean Upload Interface**: Simple blue "Upload Documents" button with file picker integration
+- **Document Management**: Users can upload up to 4 documents with easy removal via "×" button
+- **Empty State**: Card starts empty - no preset documents shown
+- **File Type Support**: Accepts .pdf, .doc, .docx, .txt, .md files
+- **Dynamic State Updates**: Upload button shows "0/4 documents" and becomes disabled at maximum
+- **Simplified CSS**: Replaced complex styles with clean, minimal document item styling
+- **Functional JavaScript**: Added complete upload/removal functionality in s4-interactions.js
+
+### Replaced Calendar Manager with Document Library Tool
+- **New Tool Implementation**: Created DocumentLibraryTool class in tools.py with vector database capabilities
+- **Search & Retrieve Actions**: Implemented semantic search and full document retrieval with similarity scores
+- **Mock Vector Database**: Added ChromaDB simulation for testing RAG functionality without external dependencies  
+- **Updated Tool Mappings**: Changed from "tool-calendar"→"Calendar Manager" to "tool-documents"→"Document Library"
+- **Modified System Prompts**: Updated syntax from `[@calendar: event description]` to `[@document: search query]`
+- **Agent Tool Assignments**: Updated all agents (Vision, Vendor, Budget, Schedule) to use document tool instead of calendar
+- **Frontend Card Update**: Modified s5-app.js tool definition and agent interactions for Document Library
+- **RAG Integration Ready**: Tool supports retrieval-augmented generation for enhanced agent responses
+
+### Updated Tool Syntax to Single Square Brackets
 - **Changed from double to single brackets**: Updated syntax from `[[@tool: instruction]]` to `[@tool: instruction]` to match LLM natural usage
 - **Updated all parsing functions**: Modified regex patterns in `parse_tool_requirements()` and agent parsing functions
 - **Updated system prompts**: Changed coordinator and delegated agent prompts to use new single bracket syntax

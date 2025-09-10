@@ -58,8 +58,8 @@ lsof -ti:8080 | xargs kill -9 2>/dev/null
 lsof -ti:8000 | xargs kill -9 2>/dev/null
 
 # Wait a moment for processes to die
-print_status "Waiting 3 seconds for processes to terminate..."
-sleep 3
+print_status "Waiting 1 second for processes to terminate..."
+sleep 1
 
 # Step 2: Verify virtual environment
 print_status "Step 2: Checking virtual environment..."

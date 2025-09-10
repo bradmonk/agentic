@@ -601,6 +601,126 @@ svg#connections-container {
     color: #b222bd;
 }
 
+/* Document Library Styles */
+.document-library {
+    margin-top: 10px;
+}
+
+.upload-area {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.upload-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.upload-limit {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.document-list {
+    min-height: 60px;
+}
+
+.document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.document-item:hover {
+    background-color: #e9ecef;
+}
+
+.document-name {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.remove-doc {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 5px;
+    margin-left: 10px;
+}
+
+.remove-doc:hover {
+    color: #a71e2a;
+}
+
+.vectorize-area {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.vectorize-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-bottom: 10px;
+}
+
+.vectorize-button:hover {
+    background-color: #218838;
+}
+
+.vectorize-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.vectorize-status {
+    font-size: 12px;
+    color: #666;
+    min-height: 16px;
+}
+
+.vectorize-status.processing {
+    color: #007bff;
+}
+
+.vectorize-status.success {
+    color: #28a745;
+}
+
+.vectorize-status.error {
+    color: #dc3545;
+}
+
 .card h3 {
     margin-top: 0;
     font-size: 1.2em;
