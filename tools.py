@@ -474,49 +474,70 @@ class DocumentLibraryTool(MonitoredTool):
             "Document Library",
             "Search and retrieve documents from vector database for RAG"
         )
+        self.vector_db = None
+    
+    def _get_vector_db(self):
+        """Get or initialize vector database"""
+        if self.vector_db is None:
+            try:
+                # Try the simple vector database first as it has fewer dependencies
+                from simple_vector_db import get_vector_db
+                self.vector_db = get_vector_db()
+                self.logger.info("Vector database initialized successfully")
+            except Exception as e:
+                self.logger.error(f"Failed to initialize vector database: {e}")
+                self.vector_db = None
+        return self.vector_db
     
     async def _execute_impl(self, query: str, max_results: int = 5, 
                           action: str = "search", document_id: str = None) -> Dict[str, Any]:
         """Vector database search and document retrieval functionality"""
         try:
-            # Simulate vector database processing
-            await asyncio.sleep(0.1)
+            # Get vector database instance
+            db = self._get_vector_db()
             
             if action == "search":
-                # Simulate semantic search through vector database
                 # Add a pause to make the active tool highlighting visible
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
                 
-                # Mock document results based on query
-                mock_documents = [
-                    {
-                        "id": "doc_001",
-                        "title": "Wedding Planning Best Practices",
-                        "content_snippet": "Comprehensive guide to planning weddings including venue selection, budgeting, and timeline management...",
-                        "similarity_score": 0.89,
-                        "source": "wedding_guides.pdf",
-                        "metadata": {"category": "planning", "date_added": "2025-09-01"}
-                    },
-                    {
-                        "id": "doc_002", 
-                        "title": "San Diego Venue Directory",
-                        "content_snippet": "Complete listing of event venues in San Diego with capacity, pricing, and amenities information...",
-                        "similarity_score": 0.85,
-                        "source": "venue_directory.pdf",
-                        "metadata": {"category": "venues", "date_added": "2025-08-15"}
-                    },
-                    {
-                        "id": "doc_003",
-                        "title": "Event Budget Templates",
-                        "content_snippet": "Detailed budget breakdowns for various event types including weddings, corporate events...",
-                        "similarity_score": 0.78,
-                        "source": "budget_templates.pdf", 
-                        "metadata": {"category": "budgeting", "date_added": "2025-08-20"}
+                if db is None:
+                    # Fallback to mock data if vector DB not available
+                    logger.warning("Vector database not available, using mock data")
+                    mock_documents = [
+                        {
+                            "id": "doc_001",
+                            "document_name": "Mock Document (Vector DB not available)",
+                            "content_snippet": "Vector database is not initialized. Please check dependencies and restart.",
+                            "similarity_score": 1.0,
+                            "source_file": "mock_data",
+                            "metadata": {"category": "system", "note": "mock_fallback"}
+                        }
+                    ]
+                    
+                    return {
+                        "action": "search",
+                        "query": query,
+                        "documents": mock_documents,
+                        "total_found": len(mock_documents),
+                        "vector_db": "Fallback (Mock)",
+                        "embedding_model": "Not available",
+                        "success": True,
+                        "note": "Using mock data - vector database not available"
                     }
-                ]
                 
-                # Filter to max_results
-                results = mock_documents[:max_results]
+                # Real vector database search
+                results = await db.search_documents(query, max_results)
+                
+                return {
+                    "action": "search",
+                    "query": query,
+                    "documents": results,
+                    "total_found": len(results),
+                    "vector_db": "ChromaDB",
+                    "embedding_model": "all-MiniLM-L6-v2",
+                    "success": True,
+                    "note": f"Retrieved from vector database with {len(results)} relevant chunks"
+                }
                 
                 return {
                     "action": "search",
@@ -537,35 +558,69 @@ class DocumentLibraryTool(MonitoredTool):
                     }
                 
                 # Add a pause to make the active tool highlighting visible
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
                 
-                # Mock full document retrieval
-                mock_full_doc = {
-                    "id": document_id,
-                    "title": "Wedding Planning Best Practices - Full Document",
-                    "full_content": "This comprehensive guide covers all aspects of wedding planning including venue selection, vendor coordination, budget management, timeline creation, and day-of coordination. Key sections include...",
-                    "metadata": {
-                        "author": "Event Planning Experts",
-                        "publication_date": "2025-01-01",
-                        "document_type": "guide",
-                        "page_count": 25,
-                        "category": "planning"
-                    },
-                    "chunks": 15,
-                    "vector_embeddings": "384-dimensional",
-                    "last_updated": "2025-09-01"
-                }
+                if db is None:
+                    # Fallback to mock data
+                    mock_full_doc = {
+                        "id": document_id,
+                        "document_name": "Mock Document (Vector DB not available)",
+                        "full_content": "Vector database is not initialized. Please check dependencies and restart.",
+                        "metadata": {"note": "mock_fallback"}
+                    }
+                    
+                    return {
+                        "action": "retrieve",
+                        "document_id": document_id,
+                        "document": mock_full_doc,
+                        "success": True,
+                        "note": "Using mock data - vector database not available"
+                    }
+                
+                # Get document info from vector database
+                doc_info = await db.get_document_info(document_id)
+                
+                if not doc_info:
+                    return {
+                        "error": f"Document {document_id} not found in vector database",
+                        "success": False
+                    }
                 
                 return {
                     "action": "retrieve",
                     "document_id": document_id,
-                    "document": mock_full_doc,
+                    "document": doc_info,
                     "success": True,
-                    "note": "Full document retrieved from vector database (mock implementation)"
+                    "note": "Document info retrieved from vector database"
                 }
+                
+            elif action == "list":
+                # Add a pause to make the active tool highlighting visible
+                await asyncio.sleep(1)
+                
+                if db is None:
+                    return {
+                        "action": "list",
+                        "documents": [],
+                        "total_count": 0,
+                        "success": True,
+                        "note": "Vector database not available"
+                    }
+                
+                # List all documents in vector database
+                documents = await db.list_documents()
+                
+                return {
+                    "action": "list",
+                    "documents": documents,
+                    "total_count": len(documents),
+                    "success": True,
+                    "note": f"Listed {len(documents)} documents from vector database"
+                }
+                
             else:
                 return {
-                    "error": f"Unknown action: {action}. Supported: 'search', 'retrieve'",
+                    "error": f"Unknown action: {action}. Supported: 'search', 'retrieve', 'list'",
                     "success": False
                 }
                 

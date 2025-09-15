@@ -8,3 +8,7 @@ beautifulsoup4
 google-api-python-client
 google-auth
 google-auth-oauthlib
+chromadb
+pypdf2
+sentence-transformers
+langchain-community

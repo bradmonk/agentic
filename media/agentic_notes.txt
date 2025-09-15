@@ -5,6 +5,44 @@ Plan a wedding for 50 people, in San Diego, with a budget of $20000
 
 
 
+
+
+Make the following changes to the agents...
+
+1. Give the Captain movement control.
+
+2. Remove the Navigator
+
+3. Give the Scout Environment Scanning, Monster Detection, Trap Detection, Loot Detection, and Inventory Management
+
+4. Remove the Treasure Hunter
+
+5. Give the Warrior Spell Casting ability
+
+6. Remove the Mage
+
+
+
+
+Let's define how the AI can evoke game actions like movement and scan. First, let's setup the following actions as tools in LangGraph...
+
+Movement. This is the ability to move the character around the board. Movement can be specified using (x,y) axis coordinates with (1,1) being the bottom left gameboard tile. Movement can also be specified using coordinates relative to the player character (N2 = move north 2 tiles). We can trigger these tools using similar notation to our agent calls: [@move: N2] or [@move: 4,7]. The tool should then move the player to the requested tile if the requested move is legal according to the rules of the game. For now, our game rules can be that the user can move up to 2 tiles in any direction, but not through walls or barriers. If this move passes through a monster the team takes attack damage. If this move passes through loot, they collect the loot.
+
+Scan. This is the ability to scan the board for items, monsters, walls, and other things in the environment. A scan can be initiated using our tool notation [@scan: loot] or [@scan: all]. A scan by default should cover a 5x5 grid of tiles centered at our own player character. The scan tool should return a grid of symbols...
+
+O O O O O
+O W W W W
+O W S E E
+O W E E L
+O W E M E
+
+...with O meaning Out-of-bounds, W meaning Wall, S meaning Self, E meaning Empty, L meaning Loot, and M meaning Monster.
+
+
+
+
+
+
 Coordinator Agent System Prompt
 ---------------------------------------------------
 python_server.py around line 480
@@ -17,6 +55,103 @@ Delegation Agents System Prompt
 python_server.py around line 690
 
 
+python -m venv .venv
+source .venv/bin/activate  # On macOS/Linux
+pip install -r requirements.txt
+
+chmod +x restart.sh
+
+
+
+
+Deuteranopia, red-green color blindness: 1% of males, 0.01% of females
+
+Protanopia, red-green color blindness: 1% of males, 0.0001% of females
+
+Tritanopia, blue-yellow color blindness: 0.01% of males, 0.01% of females
+
+
+
+
+
+
+While the overall prevalence of all types of red-green color blindness is around 8% in men and 0.5% in women
+
+
+
+
+
+            <div class="model-selector">
+                <label for="llm-provider">LLM Provider:</label>
+                <select id="llm-provider">
+                    <option value="ollama" selected>Ollama (Local)</option>
+                    <option value="openai">OpenAI</option>
+                </select>
+            </div>
+            <div class="model-selector">
+                <label for="model-name">Model:</label>
+                <select id="model-name">
+                    <option value="llama3.1:latest" selected>llama3.1:latest</option>
+                    <option value="gpt-oss:20b">gpt-oss:20b</option>
+                    <option value="deepseek-r1:latest">deepseek-r1:latest</option>
+                    <option value="gemma3:latest">gemma3:latest</option>
+                    <option value="mistral:latest">mistral:latest</option>
+                    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                    <option value="gpt-4o">gpt-4o</option>
+                    <option value="gpt-4.1">gpt-4.1</option>
+                    <option value="gpt-5">gpt-5</option>
+                </select>
+            </div>
+
+
+
+    |-------------------------------------------|
+    |                 Header                    |
+    |--------------|----------------------------|
+    |              |                            |
+    |      AI      |          Game Panel        |
+    |    Agents    |                            |
+    |              |                            |
+    |              |                            |
+    |              |                            |
+    |              |                            |
+    |              |                            |
+    |--------------|                            |
+    |   Global     |                            |
+    |  Activity    |                            |
+    |              |                            |
+    |--------------|----------------------------|
+
+
+
+
+
+You are the Captain, the primary coordinator of this AI agent team. Your role is to:
+
+1. Analyze the current game situation
+2. Decide what actions need to be taken
+3. Delegate tasks to the appropriate specialist agents
+4. Coordinate the team's efforts to achieve the goal
+
+You do NOT have access to any tools yourself. Instead, you must work through your team:
+- Navigator: Can move the player and scan the environment
+- Scout: Can detect monsters and traps
+- Treasure Hunter: Can find loot and manage inventory  
+- Warrior: Can perform combat actions
+- Mage: Can cast spells
+
+IMPORTANT: To delegate tasks, use this exact syntax in your response:
+[@Navigator: specific instruction here]
+[@Scout: specific instruction here]
+[@Treasure Hunter: specific instruction here]
+[@Warrior: specific instruction here]
+[@Mage: specific instruction here]
+
+For example:
+[@Navigator: Move the player south to the next room]
+[@Scout: Scan the area for hidden traps and enemies]
+
+Always explain your reasoning and clearly specify which agent should do what using the [@AgentName: instruction] format.
 
 
 
@@ -24,8 +159,9 @@ python_server.py around line 690
 
 
 
-
-
+5:30:36 AM - **Mission Update** We are currently navigating the **Dark Alleyways** of the dungeon, with a moderate level of danger indicated by the Scout's scans. Our objective is to reach the **Treasure Chamber**, reportedly located on the opposite side of the grid. **Current Situation:** * We have 4 team members available. * The Player is in position (3,5), surrounded by a relatively safe area. * The Scout has detected moderate danger levels in areas north and east of our current location. * The Treasure Hunter reports no immediate loot in sight but suggests that the **Golden Key** might be hidden nearby. **Action Plan:** 1. **Navigator:** Move the Player 2 spaces south to position (3,3) and then scan ahead with your built-in scanner to gather more information about potential dangers and treasure locations. 2. **Scout:** Join the Navigator at position (3,3). Use your senses to detect any enemies or traps that might be lurking in our immediate vicinity. Provide real-time feedback on danger levels. 3. **Treasure Hunter:** Search a 1-space radius around the current location for any small loot items like gold coins, potions, or scrolls. Update us with findings and keep an eye out for any potential clues to the Golden Key's whereabouts. 4. **Warrior:** Hold in reserve, be prepared to engage if our presence is discovered by enemies. Monitor your surroundings but remain stealthy for now. 5. **Mage:** Standby, ready to provide magical support as needed. **Key Instructions:** * Remain vigilant and communicate any new information immediately. * Protect the Treasure Hunter if they discover something valuable. * Be prepared to adapt our strategy based on real-time data from the Scout's scans. Let's proceed with caution and utilize each team member's skills effectively. Our objective is within reach; let's move forward and claim it!
+5:30:36 AM - Output: {"messages":[{"lc":1,"type":"constructor","id":["langchain_core","messages","HumanMessage"],"kwargs":{"content":"As the Captain, analyze the current game situation and decide what actions to delegate to your team. \n \nAvailable team members:\n- Navigator: Can move player and scan environment\n- Scout: Can detect monsters and traps \n- Treasure Hunter: Can find loot and manage inventory\n- Warrior: Can engage in combat\n- Mage: Can cast spells\n\nCurrent game state: Player is in a 2D grid-based dungeon environment.\n\nProvide specific instructions for which agents should act and what they should do. Be decisive and actionable.","additional_kwargs":{},"response_metadata":{},"id":"44689ef6-1261-4004-8e04-bead0a1b05a5"}},{"lc":1,"type":"constructor","id":["langchain_core","messages","AIMessageChunk"],"kwargs":{"content":"**Mission Update**\n\nWe are currently navigating the **Dark Alleyways** of the dungeon, with a moderate level of danger indicated by the Scout's scans. Our objective is to reach the **Treasure Chamber**, reportedly located on the opposite side of the grid.\n\n**Current Situation:**\n\n* We have 4 team members available.\n* The Player is in position (3,5), surrounded by a relatively safe area.\n* The Scout has detected moderate danger levels in areas north and east of our current location.\n* The Treasure Hunter reports no immediate loot in sight but suggests that the **Golden Key** might be hidden nearby.\n\n**Action Plan:**\n\n1. **Navigator:** Move the Player 2 spaces south to position (3,3) and then scan ahead with your built-in scanner to gather more information about potential dangers and treasure locations.\n2. **Scout:** Join the Navigator at position (3,3). Use your senses to detect any enemies or traps that might be lurking in our immediate vicinity. Provide real-time feedback on danger levels.\n3. **Treasure Hunter:** Search a 1-space radius around the current location for any small loot items like gold coins, potions, or scrolls. Update us with findings and keep an eye out for any potential clues to the Golden Key's whereabouts.\n4. **Warrior:** Hold in reserve, be prepared to engage if our presence is discovered by enemies. Monitor your surroundings but remain stealthy for now.\n5. **Mage:** Standby, ready to provide magical support as needed.\n\n**Key Instructions:**\n\n* Remain vigilant and communicate any new information immediately.\n* Protect the Treasure Hunter if they discover something valuable.\n* Be prepared to adapt our strategy based on real-time data from the Scout's scans.\n\nLet's proceed with caution and utilize each team member's skills effectively. Our objective is within reach; let's move forward and claim it!","additional_kwargs":{},"response_metadata":{"estimatedTokenUsage":{"promptTokens":128,"completionTokens":417,"totalTokens":545},"prompt":0,"completion":0,"finish_reason":"stop","system_fingerprint":"fp_ollama","model_name":"llama3.1:latest","usage":{"prompt_tokens":116,"completion_tokens":383,"total_tokens":499}},"tool_call_chunks":[],"id":"chatcmpl-341","usage_metadata":{"input_tokens":116,"output_tokens":383,"total_tokens":499},"tool_calls":[],"invalid_tool_calls":[]}}]}
+5:30:18 AM - Input: As the Captain, analyze the current game situation and decide what actions to delegate to your team. Available team members: - Navigator: Can move player and scan environment - Scout: Can detect monsters and traps - Treasure Hunter: Can find loot and manage inventory - Warrior: Can engage in combat - Mage: Can cast spells Current game state: Player is in a 2D grid-based dungeon environment. Provide specific instructions for which agents should act and what they should do. Be decisive and actionable.
 
 
 
